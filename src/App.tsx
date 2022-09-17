@@ -1,9 +1,9 @@
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+import LensButton from "./components/LensButton/LensButton";
 
 const App = () => {
   return (
     <div className="flex justify-center items-center h-screen">
-      <ConnectButton />
+      <LensButton />
     </div>
   );
 };
