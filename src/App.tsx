@@ -1,4 +1,4 @@
-import LensButton from "./components/LensButton/LensButton";
+import { LensButton } from "./components/LensButton/LensButton";
 
 const App = () => {
   return (
