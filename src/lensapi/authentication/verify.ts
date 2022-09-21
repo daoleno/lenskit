@@ -22,7 +22,7 @@ const verify = (accessToken: string) => {
 };
 
 export const verifyRequest = async () => {
-  const address = getAddressFromSigner();
+  const address = await getAddressFromSigner();
   console.log('verify: address', address);
 
   const accessTokens = await login(address);

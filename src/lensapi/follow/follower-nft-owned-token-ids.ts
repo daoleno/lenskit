@@ -1,7 +1,7 @@
-import { gql } from '@apollo/client/core';
-import { apolloClient } from '../apollo-client';
-import { getAddressFromSigner } from '../ethers.service';
-import { prettyJSON } from '../helpers';
+import { gql } from "@apollo/client/core";
+import { apolloClient } from "../apollo-client";
+import { getAddressFromSigner } from "../ethers.service";
+import { prettyJSON } from "../helpers";
 
 const GET_FOLLOWER_NFT_TOKEN_IDS = `
   query($request: FollowerNftOwnedTokenIdsRequest!) {
@@ -25,11 +25,11 @@ const getFollowerNFTTokenIds = (address: string, profileId: string) => {
 };
 
 export const followerNFTTokenIds = async () => {
-  const address = getAddressFromSigner();
-  console.log('followerNFTTokenIds: address', address);
+  const address = await getAddressFromSigner();
+  console.log("followerNFTTokenIds: address", address);
 
-  const result = await getFollowerNFTTokenIds(address, '0x0338a3');
-  prettyJSON('followerNFTTokenIds: result', result.data);
+  const result = await getFollowerNFTTokenIds(address, "0x0338a3");
+  prettyJSON("followerNFTTokenIds: result", result.data);
 
   return result.data;
 };

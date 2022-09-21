@@ -22,7 +22,7 @@ const getClaimedHandles = () => {
 };
 
 export const claimedHandles = async () => {
-  const address = getAddressFromSigner();
+  const address = await getAddressFromSigner();
   console.log('claimed handles: address', address);
 
   await login(address);

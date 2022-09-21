@@ -23,7 +23,7 @@ const enabledCurrenciesRequest = () => {
 };
 
 export const enabledCurrencies = async () => {
-  const address = getAddressFromSigner();
+  const address = await getAddressFromSigner();
   console.log('enabled currencies: address', address);
 
   await login(address);

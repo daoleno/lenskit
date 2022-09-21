@@ -25,7 +25,7 @@ const refreshAuth = (refreshToken: string) => {
 };
 
 export const refresh = async () => {
-  const address = getAddressFromSigner();
+  const address = await getAddressFromSigner();
   console.log('refresh: address', address);
 
   const accessTokens = await login(address);

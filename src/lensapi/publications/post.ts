@@ -1,14 +1,18 @@
-import { gql } from '@apollo/client/core';
-import { BigNumber, utils } from 'ethers';
-import { v4 as uuidv4 } from 'uuid';
-import { apolloClient } from '../apollo-client';
-import { login } from '../authentication/login';
-import { PROFILE_ID } from '../config';
-import { getAddressFromSigner, signedTypeData, splitSignature } from '../ethers.service';
-import { pollUntilIndexed } from '../indexer/has-transaction-been-indexed';
-import { Metadata } from '../interfaces/publication';
-import { uploadIpfs } from '../ipfs';
-import { lensHub } from '../lens-hub';
+import { gql } from "@apollo/client/core";
+import { BigNumber, utils } from "ethers";
+import { v4 as uuidv4 } from "uuid";
+import { apolloClient } from "../apollo-client";
+import { login } from "../authentication/login";
+import { PROFILE_ID } from "../config";
+import {
+  getAddressFromSigner,
+  signedTypeData,
+  splitSignature,
+} from "../ethers.service";
+import { pollUntilIndexed } from "../indexer/has-transaction-been-indexed";
+import { Metadata } from "../interfaces/publication";
+import { uploadIpfs } from "../ipfs";
+import { lensHub } from "../lens-hub";
 
 const CREATE_POST_TYPED_DATA = `
   mutation($request: CreatePublicPostRequest!) { 
@@ -56,23 +60,23 @@ const createPostTypedData = (createPostTypedDataRequest: any) => {
 export const createPost = async () => {
   const profileId = PROFILE_ID;
   if (!profileId) {
-    throw new Error('Must define PROFILE_ID in the .env to run this');
+    throw new Error("Must define PROFILE_ID in the .env to run this");
   }
 
-  const address = getAddressFromSigner();
-  console.log('create post: address', address);
+  const address = await getAddressFromSigner();
+  console.log("create post: address", address);
 
   await login(address);
 
   const ipfsResult = await uploadIpfs<Metadata>({
-    version: '1.0.0',
+    version: "1.0.0",
     metadata_id: uuidv4(),
-    description: 'Description',
-    content: 'Content',
+    description: "Description",
+    content: "Content",
     external_url: null,
     image: null,
     imageMimeType: null,
-    name: 'Name',
+    name: "Name",
     attributes: [],
     media: [
       // {
@@ -81,14 +85,14 @@ export const createPost = async () => {
       //   type: 'image/jpeg',
       // },
     ],
-    appId: 'testing123',
+    appId: "testing123",
   });
-  console.log('create post: ipfs result', ipfsResult);
+  console.log("create post: ipfs result", ipfsResult);
 
   // hard coded to make the code example clear
   const createPostRequest = {
     profileId,
-    contentURI: 'ipfs://' + ipfsResult.path,
+    contentURI: "ipfs://" + ipfsResult.path,
     collectModule: {
       // feeCollectModule: {
       //   amount: {
@@ -118,13 +122,17 @@ export const createPost = async () => {
   };
 
   const result = await createPostTypedData(createPostRequest);
-  console.log('create post: createPostTypedData', result);
+  console.log("create post: createPostTypedData", result);
 
   const typedData = result.data.createPostTypedData.typedData;
-  console.log('create post: typedData', typedData);
+  console.log("create post: typedData", typedData);
 
-  const signature = await signedTypeData(typedData.domain, typedData.types, typedData.value);
-  console.log('create post: signature', signature);
+  const signature = await signedTypeData(
+    typedData.domain,
+    typedData.types,
+    typedData.value
+  );
+  console.log("create post: signature", signature);
 
   const { v, r, s } = splitSignature(signature);
 
@@ -142,34 +150,40 @@ export const createPost = async () => {
       deadline: typedData.value.deadline,
     },
   });
-  console.log('create post: tx hash', tx.hash);
+  console.log("create post: tx hash", tx.hash);
 
-  console.log('create post: poll until indexed');
+  console.log("create post: poll until indexed");
   const indexedResult = await pollUntilIndexed(tx.hash);
 
-  console.log('create post: profile has been indexed', result);
+  console.log("create post: profile has been indexed", result);
 
   const logs = indexedResult.txReceipt.logs;
 
-  console.log('create post: logs', logs);
+  console.log("create post: logs", logs);
 
   const topicId = utils.id(
-    'PostCreated(uint256,uint256,string,address,bytes,address,bytes,uint256)'
+    "PostCreated(uint256,uint256,string,address,bytes,address,bytes,uint256)"
   );
-  console.log('topicid we care about', topicId);
+  console.log("topicid we care about", topicId);
 
   const profileCreatedLog = logs.find((l: any) => l.topics[0] === topicId);
-  console.log('create post: created log', profileCreatedLog);
+  console.log("create post: created log", profileCreatedLog);
 
   let profileCreatedEventLog = profileCreatedLog.topics;
-  console.log('create post: created event logs', profileCreatedEventLog);
+  console.log("create post: created event logs", profileCreatedEventLog);
 
-  const publicationId = utils.defaultAbiCoder.decode(['uint256'], profileCreatedEventLog[2])[0];
+  const publicationId = utils.defaultAbiCoder.decode(
+    ["uint256"],
+    profileCreatedEventLog[2]
+  )[0];
 
-  console.log('create post: contract publication id', BigNumber.from(publicationId).toHexString());
   console.log(
-    'create post: internal publication id',
-    profileId + '-' + BigNumber.from(publicationId).toHexString()
+    "create post: contract publication id",
+    BigNumber.from(publicationId).toHexString()
+  );
+  console.log(
+    "create post: internal publication id",
+    profileId + "-" + BigNumber.from(publicationId).toHexString()
   );
 
   return result.data;

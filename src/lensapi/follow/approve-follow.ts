@@ -22,7 +22,7 @@ const approveFollowRequest = (profileId: string) => {
 };
 
 export const approveFollow = async () => {
-  const address = getAddressFromSigner();
+  const address = await getAddressFromSigner();
   console.log('approve follow: address', address);
 
   const pending = await pendingApprovals();

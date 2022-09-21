@@ -5,7 +5,7 @@ import { PROFILE_ID } from '../config';
 import {
   getAddressFromSigner,
   signedTypeData,
-  splitSignature,
+  splitSignature
 } from '../ethers.service';
 import { lensHub } from '../lens-hub';
 
@@ -54,7 +54,7 @@ export const setProfileImageUriNormal = async () => {
     throw new Error('Must define PROFILE_ID in the .env to run this');
   }
 
-  const address = getAddressFromSigner();
+  const address = await getAddressFromSigner();
   console.log('set profile image uri normal: address', address);
 
   await login(address);

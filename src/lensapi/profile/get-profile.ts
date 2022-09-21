@@ -110,7 +110,7 @@ export const profile = async (request?: ProfileRequest) => {
     throw new Error('Must define PROFILE_ID in the .env to run this');
   }
 
-  const address = getAddressFromSigner();
+  const address = await getAddressFromSigner();
   console.log('profiles: address', address);
 
   await login(address);

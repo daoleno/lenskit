@@ -3,7 +3,6 @@ import { apolloClient } from '../apollo-client';
 import { login } from '../authentication/login';
 import { getAddressFromSigner } from '../ethers.service';
 import { prettyJSON } from '../helpers';
-import { enabledCurrencies } from './enabled-modules-currencies';
 
 const ALLOWANCE = `
   query($request: ApprovedModuleAllowanceAmountRequest!) {
@@ -31,7 +30,7 @@ const allowanceRequest = (allowanceRequest: {
 };
 
 export const allowance = async () => {
-  const address = getAddressFromSigner();
+  const address = await getAddressFromSigner();
   console.log('allowance: address', address);
 
   await login(address);

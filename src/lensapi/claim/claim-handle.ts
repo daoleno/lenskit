@@ -32,7 +32,7 @@ const claimHandle = (handleId: number) => {
 };
 
 export const claim = async () => {
-  const address = getAddressFromSigner();
+  const address = await getAddressFromSigner();
   console.log('claim: address', address);
 
   await login(address);

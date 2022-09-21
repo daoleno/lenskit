@@ -25,7 +25,7 @@ const getModuleApprovalData = (moduleApprovalRequest: any) => {
 };
 
 export const approveModule = async () => {
-  const address = getAddressFromSigner();
+  const address = await getAddressFromSigner();
   console.log('approve module: address', address);
 
   const currencies = await enabledCurrencies();

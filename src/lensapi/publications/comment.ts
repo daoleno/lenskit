@@ -9,7 +9,6 @@ import { pollUntilIndexed } from '../indexer/has-transaction-been-indexed';
 import { Metadata } from '../interfaces/publication';
 import { uploadIpfs } from '../ipfs';
 import { lensHub } from '../lens-hub';
-import { enabledCurrencies } from '../module/enabled-modules-currencies';
 
 const CREATE_COMMENT_TYPED_DATA = `
   mutation($request: CreatePublicCommentRequest!) { 
@@ -63,7 +62,7 @@ export const createComment = async () => {
     throw new Error('Must define PROFILE_ID in the .env to run this');
   }
 
-  const address = getAddressFromSigner();
+  const address = await getAddressFromSigner();
   console.log('create comment: address', address);
 
   await login(address);

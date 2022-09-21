@@ -55,7 +55,7 @@ const getUsersNfts = (
 };
 
 export const usersNfts = async () => {
-  const address = getAddressFromSigner();
+  const address = await getAddressFromSigner();
   console.log('users nfts: address', address);
 
   await login(address);

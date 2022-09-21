@@ -129,7 +129,7 @@ export const pollUntilIndexed = async (txHash: string) => {
 };
 
 const testTransaction = async () => {
-  const address = getAddressFromSigner();
+  const address = await getAddressFromSigner();
   console.log('testTransaction: address', address);
 
   await login(address);

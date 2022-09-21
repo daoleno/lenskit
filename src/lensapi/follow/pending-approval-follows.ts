@@ -1,9 +1,9 @@
-import { gql } from '@apollo/client/core';
-import { apolloClient } from '../apollo-client';
-import { login } from '../authentication/login';
-import { argsBespokeInit } from '../config';
-import { getAddressFromSigner } from '../ethers.service';
-import { prettyJSON } from '../helpers';
+import { gql } from "@apollo/client/core";
+import { apolloClient } from "../apollo-client";
+import { login } from "../authentication/login";
+import { argsBespokeInit } from "../config";
+import { getAddressFromSigner } from "../ethers.service";
+import { prettyJSON } from "../helpers";
 
 const GET_PENDING_APPROVAL_FOLLOWS = `
   query($request: PendingApprovalFollowsRequest!) {
@@ -135,13 +135,13 @@ const pendingApprovalFollows = () => {
 };
 
 export const pendingApprovals = async () => {
-  const address = getAddressFromSigner();
-  console.log('pending approvals: address', address);
+  const address = await getAddressFromSigner();
+  console.log("pending approvals: address", address);
 
   await login(address);
 
   const result = await pendingApprovalFollows();
-  prettyJSON('pending approvals: result', result.data);
+  prettyJSON("pending approvals: result", result.data);
 
   return result.data;
 };

@@ -1,9 +1,13 @@
-import { gql } from '@apollo/client/core';
-import { apolloClient } from '../apollo-client';
-import { login } from '../authentication/login';
-import { PROFILE_ID } from '../config';
-import { getAddressFromSigner, signedTypeData, splitSignature } from '../ethers.service';
-import { lensHub } from '../lens-hub';
+import { gql } from "@apollo/client/core";
+import { apolloClient } from "../apollo-client";
+import { login } from "../authentication/login";
+import { PROFILE_ID } from "../config";
+import {
+  getAddressFromSigner,
+  signedTypeData,
+  splitSignature,
+} from "../ethers.service";
+import { lensHub } from "../lens-hub";
 
 const CREATE_SET_FOLLOW_MODULE_TYPED_DATA = `
   mutation($request: CreateSetFollowModuleRequest!) { 
@@ -48,11 +52,11 @@ const createSetFollowModuleTypedData = (setFollowModuleRequest: any) => {
 export const setFollowModule = async () => {
   const profileId = PROFILE_ID;
   if (!profileId) {
-    throw new Error('Must define PROFILE_ID in the .env to run this');
+    throw new Error("Must define PROFILE_ID in the .env to run this");
   }
 
-  const address = getAddressFromSigner();
-  console.log('set follow module: address', address);
+  const address = await getAddressFromSigner();
+  console.log("set follow module: address", address);
 
   await login(address);
 
@@ -74,13 +78,17 @@ export const setFollowModule = async () => {
   };
 
   const result = await createSetFollowModuleTypedData(setFollowModuleRequest);
-  console.log('set follow module: result', result);
+  console.log("set follow module: result", result);
 
   const typedData = result.data.createSetFollowModuleTypedData.typedData;
-  console.log('set follow module: typedData', typedData);
+  console.log("set follow module: typedData", typedData);
 
-  const signature = await signedTypeData(typedData.domain, typedData.types, typedData.value);
-  console.log('set follow module: signature', signature);
+  const signature = await signedTypeData(
+    typedData.domain,
+    typedData.types,
+    typedData.value
+  );
+  console.log("set follow module: signature", signature);
 
   const { v, r, s } = splitSignature(signature);
 
@@ -95,7 +103,7 @@ export const setFollowModule = async () => {
       deadline: typedData.value.deadline,
     },
   });
-  console.log('follow: tx hash', tx.hash);
+  console.log("follow: tx hash", tx.hash);
 };
 
 (async () => {

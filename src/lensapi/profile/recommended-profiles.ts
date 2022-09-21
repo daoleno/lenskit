@@ -124,7 +124,7 @@ const getRecommendedProfilesRequest = () => {
 };
 
 export const recommendedProfiles = async () => {
-  const address = getAddressFromSigner();
+  const address = await getAddressFromSigner();
   console.log('recommended profiles: address', address);
 
   await login(address);

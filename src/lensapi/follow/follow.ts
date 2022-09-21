@@ -47,7 +47,7 @@ const createFollowTypedData = (followRequestInfo: any) => {
 };
 
 export const follow = async (profileId: string = '0x11') => {
-  const address = getAddressFromSigner();
+  const address = await getAddressFromSigner();
   console.log('follow: address', address);
 
   await login(address);

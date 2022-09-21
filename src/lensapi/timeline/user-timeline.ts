@@ -376,7 +376,7 @@ export const timeline = async () => {
     throw new Error('Must define PROFILE_ID in the .env to run this');
   }
 
-  const address = getAddressFromSigner();
+  const address = await getAddressFromSigner();
   console.log('timeline: address', address);
 
   await login(address);

@@ -1,9 +1,9 @@
-import { gql } from '@apollo/client/core';
-import { apolloClient } from '../apollo-client';
-import { login } from '../authentication/login';
-import { argsBespokeInit } from '../config';
-import { getAddressFromSigner } from '../ethers.service';
-import { prettyJSON } from '../helpers';
+import { gql } from "@apollo/client/core";
+import { apolloClient } from "../apollo-client";
+import { login } from "../authentication/login";
+import { argsBespokeInit } from "../config";
+import { getAddressFromSigner } from "../ethers.service";
+import { prettyJSON } from "../helpers";
 
 const GET_PROFILES = `
   query($request: ProfileQueryRequest!) {
@@ -114,8 +114,8 @@ const getProfilesRequest = (request: ProfilesRequest) => {
 };
 
 export const profiles = async (request?: ProfilesRequest) => {
-  const address = getAddressFromSigner();
-  console.log('profiles: address', address);
+  const address = await getAddressFromSigner();
+  console.log("profiles: address", address);
 
   await login(address);
 
@@ -127,7 +127,7 @@ export const profiles = async (request?: ProfilesRequest) => {
   // above you can query many
   const profilesFromProfileIds = await getProfilesRequest(request);
 
-  prettyJSON('profiles: result', profilesFromProfileIds.data);
+  prettyJSON("profiles: result", profilesFromProfileIds.data);
 
   return profilesFromProfileIds.data;
 };

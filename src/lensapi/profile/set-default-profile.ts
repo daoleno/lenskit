@@ -52,7 +52,7 @@ export const setDefaultProfile = async () => {
     throw new Error('Must define PROFILE_ID in the .env to run this');
   }
 
-  const address = getAddressFromSigner();
+  const address = await getAddressFromSigner();
   console.log('set default profile: address', address);
 
   await login(address);

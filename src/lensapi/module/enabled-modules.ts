@@ -1,9 +1,9 @@
-import { gql } from '@apollo/client/core';
-import { apolloClient } from '../apollo-client';
-import { login } from '../authentication/login';
-import { argsBespokeInit } from '../config';
-import { getAddressFromSigner } from '../ethers.service';
-import { prettyJSON } from '../helpers';
+import { gql } from "@apollo/client/core";
+import { apolloClient } from "../apollo-client";
+import { login } from "../authentication/login";
+import { argsBespokeInit } from "../config";
+import { getAddressFromSigner } from "../ethers.service";
+import { prettyJSON } from "../helpers";
 
 const ENABLED_MODULES = `
   query {
@@ -67,14 +67,14 @@ const enabledModulesRequest = () => {
 };
 
 export const enabledModules = async () => {
-  const address = getAddressFromSigner();
-  console.log('enabled modules: address', address);
+  const address = await getAddressFromSigner();
+  console.log("enabled modules: address", address);
 
   await login(address);
 
   const result = await enabledModulesRequest();
 
-  prettyJSON('enabled modules: result', result.data);
+  prettyJSON("enabled modules: result", result.data);
 
   return result.data;
 };

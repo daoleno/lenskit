@@ -1,7 +1,7 @@
-import { gql } from '@apollo/client/core';
-import { apolloClient } from '../apollo-client';
-import { login } from '../authentication/login';
-import { getAddressFromSigner } from '../ethers.service';
+import { gql } from "@apollo/client/core";
+import { apolloClient } from "../apollo-client";
+import { login } from "../authentication/login";
+import { getAddressFromSigner } from "../ethers.service";
 
 const HIDE_PUBLICATION = `
   mutation($request: HidePublicationRequest!) { 
@@ -21,14 +21,14 @@ export const deletePublicationRequest = (publicationId: string) => {
 };
 
 export const deletePublication = async () => {
-  const address = getAddressFromSigner();
-  console.log('delete publication: address', address);
+  const address = await getAddressFromSigner();
+  console.log("delete publication: address", address);
 
   await login(address);
 
-  await deletePublicationRequest('YOUR_PUBLICATION_ID');
+  await deletePublicationRequest("YOUR_PUBLICATION_ID");
 
-  console.log('delete publication: success');
+  console.log("delete publication: success");
 };
 
 (async () => {

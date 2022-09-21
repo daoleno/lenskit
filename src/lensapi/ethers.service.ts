@@ -1,16 +1,30 @@
-import { TypedDataDomain, TypedDataField } from '@ethersproject/abstract-signer';
-import { ethers, utils, Wallet } from 'ethers';
-import { MUMBAI_RPC_URL, PK } from './config';
-import { omit } from './helpers';
+import {
+  TypedDataDomain,
+  TypedDataField,
+} from "@ethersproject/abstract-signer";
+import { ethers, utils } from "ethers";
+import { omit } from "./helpers";
 
-export const ethersProvider = new ethers.providers.JsonRpcProvider(MUMBAI_RPC_URL);
-
+// getSigner function from injected web3 provider
 export const getSigner = () => {
-  return new Wallet(PK, ethersProvider);
+  if (typeof window === "undefined") {
+    // server side
+    const privateKey: any = process.env.PRIVATE_KEY;
+    const provider = new ethers.providers.JsonRpcProvider(
+      process.env.POLYGON_RPC
+    );
+    const singer = new ethers.Wallet(privateKey, provider);
+    return singer;
+  } else {
+    // client side
+    const p: any = window.ethereum;
+    const provider = new ethers.providers.Web3Provider(p);
+    return provider.getSigner();
+  }
 };
 
-export const getAddressFromSigner = () => {
-  return getSigner().address;
+export const getAddressFromSigner = async () => {
+  return await getSigner().getAddress();
 };
 
 export const signedTypeData = (
@@ -21,9 +35,9 @@ export const signedTypeData = (
   const signer = getSigner();
   // remove the __typedname from the signature!
   return signer._signTypedData(
-    omit(domain, '__typename'),
-    omit(types, '__typename'),
-    omit(value, '__typename')
+    omit(domain, "__typename"),
+    omit(types, "__typename"),
+    omit(value, "__typename")
   );
 };
 

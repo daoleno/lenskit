@@ -1,7 +1,7 @@
-import { gql } from '@apollo/client/core';
-import { apolloClient } from '../apollo-client';
-import { getAddressFromSigner } from '../ethers.service';
-import { prettyJSON } from '../helpers';
+import { gql } from "@apollo/client/core";
+import { apolloClient } from "../apollo-client";
+import { getAddressFromSigner } from "../ethers.service";
+import { prettyJSON } from "../helpers";
 
 const GET_FOLLOWING = `
   query($request: FollowingRequest!) {
@@ -137,11 +137,11 @@ const followingRequest = (walletAddress: string) => {
 };
 
 export const following = async () => {
-  const address = getAddressFromSigner();
-  console.log('following: address', address);
+  const address = await getAddressFromSigner();
+  console.log("following: address", address);
 
   const result = await followingRequest(address);
-  prettyJSON('following: result', result.data);
+  prettyJSON("following: result", result.data);
 
   return result.data;
 };

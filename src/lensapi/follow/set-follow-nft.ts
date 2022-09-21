@@ -5,7 +5,7 @@ import { PROFILE_ID } from '../config';
 import {
   getAddressFromSigner,
   signedTypeData,
-  splitSignature,
+  splitSignature
 } from '../ethers.service';
 import { lensHub } from '../lens-hub';
 
@@ -56,7 +56,7 @@ export const setFollowNftUri = async () => {
     throw new Error('Must define PROFILE_ID in the .env to run this');
   }
 
-  const address = getAddressFromSigner();
+  const address = await getAddressFromSigner();
   console.log('set follow nft uri: address', address);
 
   await login(address);

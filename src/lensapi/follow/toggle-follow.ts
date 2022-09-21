@@ -48,7 +48,7 @@ const createToggleFollowTypedData = (profileIds: string[], enables: boolean[]) =
 };
 
 export const toggleFollow = async (profileId: string = '0x032f1a') => {
-  const address = getAddressFromSigner();
+  const address = await getAddressFromSigner();
   console.log('follow: address', address);
 
   await login(address);

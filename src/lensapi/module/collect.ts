@@ -1,9 +1,13 @@
-import { gql } from '@apollo/client/core';
-import { apolloClient } from '../apollo-client';
-import { login } from '../authentication/login';
-import { getAddressFromSigner, signedTypeData, splitSignature } from '../ethers.service';
-import { prettyJSON } from '../helpers';
-import { lensHub } from '../lens-hub';
+import { gql } from "@apollo/client/core";
+import { apolloClient } from "../apollo-client";
+import { login } from "../authentication/login";
+import {
+  getAddressFromSigner,
+  signedTypeData,
+  splitSignature,
+} from "../ethers.service";
+import { prettyJSON } from "../helpers";
+import { lensHub } from "../lens-hub";
 
 const CREATE_COLLECT_TYPED_DATA = `
   mutation($request: CreateCollectRequest!) { 
@@ -46,8 +50,8 @@ const createCollectTypedData = (createCollectTypedDataRequest: any) => {
 };
 
 export const collect = async () => {
-  const address = getAddressFromSigner();
-  console.log('collect: address', address);
+  const address = await getAddressFromSigner();
+  console.log("collect: address", address);
 
   await login(address);
 
@@ -58,17 +62,21 @@ export const collect = async () => {
   // remember you must make sure you approved allowance of
   // this currency on the module
   const collectRequest = {
-    publicationId: '0x0f-0x01',
+    publicationId: "0x0f-0x01",
   };
 
   const result = await createCollectTypedData(collectRequest);
-  console.log('collect: createCollectTypedData', result);
+  console.log("collect: createCollectTypedData", result);
 
   const typedData = result.data.createCollectTypedData.typedData;
-  prettyJSON('collect: typedData', typedData);
+  prettyJSON("collect: typedData", typedData);
 
-  const signature = await signedTypeData(typedData.domain, typedData.types, typedData.value);
-  console.log('collect: signature', signature);
+  const signature = await signedTypeData(
+    typedData.domain,
+    typedData.types,
+    typedData.value
+  );
+  console.log("collect: signature", signature);
 
   const { v, r, s } = splitSignature(signature);
 
@@ -87,7 +95,7 @@ export const collect = async () => {
     },
     { gasLimit: 1000000 }
   );
-  console.log('collect: tx hash', tx.hash);
+  console.log("collect: tx hash", tx.hash);
 };
 
 (async () => {

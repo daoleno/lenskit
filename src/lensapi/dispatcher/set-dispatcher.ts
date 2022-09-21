@@ -5,7 +5,7 @@ import { PROFILE_ID } from '../config';
 import {
   getAddressFromSigner,
   signedTypeData,
-  splitSignature,
+  splitSignature
 } from '../ethers.service';
 import { lensHub } from '../lens-hub';
 
@@ -71,7 +71,7 @@ export const setDispatcher = async () => {
     throw new Error('Must define PROFILE_ID in the .env to run this');
   }
 
-  const address = getAddressFromSigner();
+  const address = await getAddressFromSigner();
   console.log('set dispatcher: address', address);
 
   await login(address);
