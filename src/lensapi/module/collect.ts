@@ -49,7 +49,7 @@ const createCollectTypedData = (createCollectTypedDataRequest: any) => {
   });
 };
 
-export const collect = async () => {
+export const collect = async (publicationId: string) => {
   const address = await getAddressFromSigner();
   console.log("collect: address", address);
 
@@ -62,7 +62,7 @@ export const collect = async () => {
   // remember you must make sure you approved allowance of
   // this currency on the module
   const collectRequest = {
-    publicationId: "0x0f-0x01",
+    publicationId,
   };
 
   const result = await createCollectTypedData(collectRequest);
@@ -97,7 +97,3 @@ export const collect = async () => {
   );
   console.log("collect: tx hash", tx.hash);
 };
-
-(async () => {
-  await collect();
-})();

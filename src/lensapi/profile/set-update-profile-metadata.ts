@@ -1,13 +1,16 @@
-import { gql } from '@apollo/client/core';
-import { v4 as uuidv4 } from 'uuid';
-import { apolloClient } from '../apollo-client';
-import { login } from '../authentication/login';
-import { PROFILE_ID } from '../config';
-import { getAddressFromSigner, signedTypeData, splitSignature } from '../ethers.service';
-import { pollUntilIndexed } from '../indexer/has-transaction-been-indexed';
-import { ProfileMetadata } from '../interfaces/profile-metadata';
-import { uploadIpfs } from '../ipfs';
-import { lensPeriphery } from '../lens-hub';
+import { gql } from "@apollo/client/core";
+import { apolloClient } from "../apollo-client";
+import { login } from "../authentication/login";
+
+import {
+  getAddressFromSigner,
+  signedTypeData,
+  splitSignature,
+} from "../ethers.service";
+import { pollUntilIndexed } from "../indexer/has-transaction-been-indexed";
+import { ProfileMetadata } from "../interfaces/profile-metadata";
+import { uploadIpfs } from "../ipfs";
+import { lensPeriphery } from "../lens-hub";
 
 const CREATE_SET_PROFILE_METADATA_TYPED_DATA = `
   mutation($request: CreatePublicSetProfileMetadataURIRequest!) { 
@@ -38,7 +41,10 @@ const CREATE_SET_PROFILE_METADATA_TYPED_DATA = `
   }
 `;
 
-const createSetProfileMetadataTypedData = (profileId: string, metadata: string) => {
+const createSetProfileMetadataTypedData = (
+  profileId: string,
+  metadata: string
+) => {
   return apolloClient.mutate({
     mutation: gql(CREATE_SET_PROFILE_METADATA_TYPED_DATA),
     variables: {
@@ -50,50 +56,53 @@ const createSetProfileMetadataTypedData = (profileId: string, metadata: string) 
   });
 };
 
-export const setProfileMetadata = async () => {
-  const profileId = PROFILE_ID;
-  if (!profileId) {
-    throw new Error('Must define PROFILE_ID in the .env to run this');
-  }
-
+export const setProfileMetadata = async (
+  profileId: string,
+  metadata: ProfileMetadata
+) => {
   const address = await getAddressFromSigner();
-  console.log('create profile: address', address);
+  console.log("create profile: address", address);
 
   await login(address);
 
   const ipfsResult = await uploadIpfs<ProfileMetadata>({
-    name: 'LensProtocol.eth',
-    bio: 'A permissionless, composable, & decentralized social graph that makes building a Web3 social platform easy.',
-    cover_picture: 'https://pbs.twimg.com/profile_banners/1478109975406858245/1645016027/1500x500',
-    attributes: [
-      {
-        traitType: 'string',
-        value: 'yes this is custom',
-        key: 'custom_field',
-      },
-    ],
-    version: '1.0.0',
-    metadata_id: uuidv4(),
+    // name: "LensProtocol.eth",
+    // bio: "A permissionless, composable, & decentralized social graph that makes building a Web3 social platform easy.",
+    // cover_picture:
+    //   "https://pbs.twimg.com/profile_banners/1478109975406858245/1645016027/1500x500",
+    // attributes: [
+    //   {
+    //     traitType: "string",
+    //     value: "yes this is custom",
+    //     key: "custom_field",
+    //   },
+    // ],
+    // version: "1.0.0",
+    ...metadata,
   });
-  console.log('create profile: ipfs result', ipfsResult);
+  console.log("create profile: ipfs result", ipfsResult);
 
   // hard coded to make the code example clear
   const createProfileMetadataRequest = {
     profileId,
-    metadata: 'ipfs://' + ipfsResult.path,
+    metadata: "ipfs://" + ipfsResult.path,
   };
 
   const result = await createSetProfileMetadataTypedData(
     createProfileMetadataRequest.profileId,
     createProfileMetadataRequest.metadata
   );
-  console.log('create profile: createSetProfileMetadataTypedData', result);
+  console.log("create profile: createSetProfileMetadataTypedData", result);
 
   const typedData = result.data.createSetProfileMetadataTypedData.typedData;
-  console.log('create profile: typedData', typedData);
+  console.log("create profile: typedData", typedData);
 
-  const signature = await signedTypeData(typedData.domain, typedData.types, typedData.value);
-  console.log('create profile: signature', signature);
+  const signature = await signedTypeData(
+    typedData.domain,
+    typedData.types,
+    typedData.value
+  );
+  console.log("create profile: signature", signature);
 
   const { v, r, s } = splitSignature(signature);
 
@@ -107,20 +116,16 @@ export const setProfileMetadata = async () => {
       deadline: typedData.value.deadline,
     },
   });
-  console.log('create profile metadata: tx hash', tx.hash);
+  console.log("create profile metadata: tx hash", tx.hash);
 
-  console.log('create profile metadata: poll until indexed');
+  console.log("create profile metadata: poll until indexed");
   const indexedResult = await pollUntilIndexed(tx.hash);
 
-  console.log('create profile metadata: profile has been indexed', result);
+  console.log("create profile metadata: profile has been indexed", result);
 
   const logs = indexedResult.txReceipt.logs;
 
-  console.log('create profile metadata: logs', logs);
+  console.log("create profile metadata: logs", logs);
 
   return result.data;
 };
-
-(async () => {
-  await setProfileMetadata();
-})();

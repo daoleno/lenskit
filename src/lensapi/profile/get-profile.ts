@@ -1,9 +1,7 @@
-import { gql } from '@apollo/client/core';
-import { apolloClient } from '../apollo-client';
-import { login } from '../authentication/login';
-import { PROFILE_ID } from '../config';
-import { getAddressFromSigner } from '../ethers.service';
-import { prettyJSON } from '../helpers';
+import { gql } from "@apollo/client/core";
+import { apolloClient } from "../apollo-client";
+import { PROFILE_ID } from "../config";
+import { prettyJSON } from "../helpers";
 
 const GET_PROFILE = `
   query($request: SingleProfileQueryRequest!) {
@@ -107,13 +105,13 @@ const getProfileRequest = (request: ProfileRequest) => {
 export const profile = async (request?: ProfileRequest) => {
   const profileId = PROFILE_ID;
   if (!profileId) {
-    throw new Error('Must define PROFILE_ID in the .env to run this');
+    throw new Error("Must define PROFILE_ID in the .env to run this");
   }
 
-  const address = await getAddressFromSigner();
-  console.log('profiles: address', address);
+  // const address = await getAddressFromSigner();
+  // console.log("profiles: address", address);
 
-  await login(address);
+  // await login(address);
 
   if (!request) {
     request = { profileId: PROFILE_ID! };
@@ -121,11 +119,7 @@ export const profile = async (request?: ProfileRequest) => {
 
   const profile = await getProfileRequest(request);
 
-  prettyJSON('profile: result', profile.data);
+  prettyJSON("profile: result", profile.data);
 
   return profile.data;
 };
-
-(async () => {
-  await profile();
-})();

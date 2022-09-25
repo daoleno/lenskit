@@ -186,9 +186,5 @@ export const createPost = async () => {
     profileId + "-" + BigNumber.from(publicationId).toHexString()
   );
 
-  return result.data;
+  return profileId + "-" + BigNumber.from(publicationId).toHexString();
 };
-
-(async () => {
-  await createPost();
-})();

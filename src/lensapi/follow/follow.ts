@@ -1,9 +1,13 @@
-import { gql } from '@apollo/client/core';
-import { apolloClient } from '../apollo-client';
-import { login } from '../authentication/login';
-import { argsBespokeInit } from '../config';
-import { getAddressFromSigner, signedTypeData, splitSignature } from '../ethers.service';
-import { lensHub } from '../lens-hub';
+import { gql } from "@apollo/client/core";
+import { apolloClient } from "../apollo-client";
+import { login } from "../authentication/login";
+import {
+  getAddressFromSigner,
+  signedTypeData,
+  splitSignature,
+} from "../ethers.service";
+import { pollUntilIndexed } from "../indexer/has-transaction-been-indexed";
+import { lensHub } from "../lens-hub";
 
 const CREATE_FOLLOW_TYPED_DATA = `
   mutation($request: FollowRequest!) { 
@@ -46,9 +50,9 @@ const createFollowTypedData = (followRequestInfo: any) => {
   });
 };
 
-export const follow = async (profileId: string = '0x11') => {
+export const follow = async (profileId: string = "0x11") => {
   const address = await getAddressFromSigner();
-  console.log('follow: address', address);
+  console.log("follow: address", address);
 
   await login(address);
 
@@ -60,13 +64,17 @@ export const follow = async (profileId: string = '0x11') => {
   ];
 
   const result = await createFollowTypedData(followRequest);
-  console.log('follow: result', result);
+  console.log("follow: result", result);
 
   const typedData = result.data.createFollowTypedData.typedData;
-  console.log('follow: typedData', typedData);
+  console.log("follow: typedData", typedData);
 
-  const signature = await signedTypeData(typedData.domain, typedData.types, typedData.value);
-  console.log('follow: signature', signature);
+  const signature = await signedTypeData(
+    typedData.domain,
+    typedData.types,
+    typedData.value
+  );
+  console.log("follow: signature", signature);
 
   const { v, r, s } = splitSignature(signature);
 
@@ -81,12 +89,10 @@ export const follow = async (profileId: string = '0x11') => {
       deadline: typedData.value.deadline,
     },
   });
-  console.log('follow: tx hash', tx.hash);
+  console.log("follow: tx hash", tx.hash);
+
+  const indexedResult = await pollUntilIndexed(tx.hash);
+  console.log("follow: result", indexedResult);
+
   return tx.hash;
 };
-
-(async () => {
-  if (argsBespokeInit()) {
-    await follow();
-  }
-})();

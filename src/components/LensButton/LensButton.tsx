@@ -1,11 +1,12 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import LensMenu from "./LensMenu";
+import { useAccount } from "wagmi";
+import LensPopover from "./LensPopover";
 
 export function LensButton() {
+  const { address, isConnecting, isDisconnected } = useAccount();
   return (
-    <div className="flex space-y-3">
-      <ConnectButton />
-      <LensMenu />
+    <div className="fixed top-16">
+      {address ? <LensPopover /> : <ConnectButton />}
     </div>
   );
 }

@@ -15,7 +15,7 @@ export const LENS_PERIPHERY_CONTRACT =
 
 export const LENS_PERIPHERY_NAME = "LensPeriphery";
 
-export const PROFILE_ID = "YOUR_PROFILE_ID";
+export const PROFILE_ID = "0x4875";
 
 export const INFURA_PROJECT_ID = "2F5f4anwBoOWaJLSZqzIMtpUjZm";
 
