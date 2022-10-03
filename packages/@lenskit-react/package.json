@@ -1,0 +1,48 @@
+{
+    "name": "@lenskit/react",
+    "version": "0.1.0",
+    "description": "A set of completely unstyled, fully accessible React components for LensKit",
+    "main": "dist/index.cjs",
+    "typings": "dist/index.d.ts",
+    "module": "dist/lenskit.esm.js",
+    "license": "MIT",
+    "files": [
+        "README.md",
+        "dist"
+    ],
+    "exports": {
+        "import": "./dist/lenskit.esm.js",
+        "require": "./dist/index.cjs",
+        "default": "./dist/index.cjs"
+    },
+    "type": "module",
+    "sideEffects": false,
+    "engines": {
+        "node": ">=10"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/daoleno/lenskit.git",
+        "directory": "packages/@lenskit-react"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "scripts": {
+        "prepublishOnly": "npm run build",
+        "build": "../../scripts/build.sh --external:react --external:react-dom",
+        "watch": "../../scripts/watch.sh --external:react --external:react-dom",
+        "clean": "rimraf ./dist"
+    },
+    "peerDependencies": {
+        "react": "^16 || ^17 || ^18",
+        "react-dom": "^16 || ^17 || ^18"
+    },
+    "devDependencies": {
+        "@types/react": "^18.0.21",
+        "@types/react-dom": "^18.0.6",
+        "esbuild": "^0.15.10",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+    }
+}
