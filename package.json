@@ -12,7 +12,8 @@
   "scripts": {
     "react": "yarn workspace @lenskit/react",
     "clean": "yarn workspace run clean",
-    "build": "npm-run-all -p 'react build'"
+    "build": "npm-run-all -p 'react build'",
+    "codegen": "graphql-codegen --config codegen.ts"
   },
   "prettier": {
     "printWidth": 100,
@@ -21,6 +22,13 @@
     "trailingComma": "es5"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "2.13.5",
+    "@graphql-codegen/client-preset": "1.0.5",
+    "@graphql-codegen/fragment-matcher": "^3.3.1",
+    "@graphql-codegen/introspection": "2.2.1",
+    "@graphql-codegen/typescript": "^2.7.3",
+    "@graphql-codegen/typescript-operations": "^2.5.3",
+    "@graphql-codegen/typescript-react-apollo": "^3.3.3",
     "esbuild": "^0.15.10",
     "fast-glob": "^3.2.12",
     "npm-run-all": "^4.1.5",
@@ -29,5 +37,8 @@
     "rimraf": "^3.0.2",
     "tslib": "^2.4.0",
     "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "graphql": "^16.6.0"
   }
 }
