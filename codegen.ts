@@ -11,7 +11,7 @@ const config: CodegenConfig = {
         'typescript',
         'typescript-operations',
         'typescript-react-apollo',
-        'typed-document-node',
+        // 'typed-document-node',
         'fragment-matcher',
       ],
       config: {
