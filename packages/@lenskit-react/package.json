@@ -46,6 +46,7 @@
         "react-dom": "^18.2.0"
     },
     "dependencies": {
-        "@apollo/client": "^3.7.0"
+        "@apollo/client": "^3.7.0",
+        "ethers": "^5.7.1"
     }
 }
