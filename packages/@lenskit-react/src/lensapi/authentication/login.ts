@@ -1,14 +1,14 @@
-import { gql } from "@apollo/client/core";
-import { apolloClient } from "../apollo-client";
-import { signText } from "../ethers.service";
-import { prettyJSON } from "../helpers";
-import { getAuthenticationToken, setAuthenticationToken } from "../state";
+import { gql } from '@apollo/client/core'
+import { apolloClient } from '../apollo-client'
+import { signText } from '../ethers.service'
+import { prettyJSON } from '../helpers'
+import { getAuthenticationToken, setAuthenticationToken } from '../state'
 
 const GET_CHALLENGE = `
   query($request: ChallengeRequest!) {
     challenge(request: $request) { text }
   }
-`;
+`
 
 export const generateChallenge = (address: string) => {
   return apolloClient.query({
@@ -18,8 +18,8 @@ export const generateChallenge = (address: string) => {
         address,
       },
     },
-  });
-};
+  })
+}
 
 const AUTHENTICATION = `
   mutation($request: SignedAuthChallenge!) { 
@@ -28,7 +28,7 @@ const AUTHENTICATION = `
       refreshToken
     }
  }
-`;
+`
 
 const authenticate = (address: string, signature: string) => {
   return apolloClient.mutate({
@@ -39,27 +39,27 @@ const authenticate = (address: string, signature: string) => {
         signature,
       },
     },
-  });
-};
+  })
+}
 
 export const login = async (address: string) => {
   if (getAuthenticationToken()) {
-    console.log("login: already logged in");
-    return;
+    console.log('login: already logged in')
+    return
   }
 
-  console.log("login: address", address);
+  console.log('login: address', address)
 
   // we request a challenge from the server
-  const challengeResponse = await generateChallenge(address);
+  const challengeResponse = await generateChallenge(address)
 
   // sign the text with the wallet
-  const signature = await signText(challengeResponse.data.challenge.text);
+  const signature = await signText(challengeResponse.data.challenge.text)
 
-  const accessTokens = await authenticate(address, signature);
-  prettyJSON("login: result", accessTokens.data);
+  const accessTokens = await authenticate(address, signature)
+  prettyJSON('login: result', accessTokens.data)
 
-  setAuthenticationToken(accessTokens.data.authenticate.accessToken);
+  setAuthenticationToken(accessTokens.data.authenticate.accessToken)
 
-  return accessTokens.data;
-};
+  return accessTokens.data
+}
