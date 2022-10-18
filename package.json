@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "react": "yarn workspace @lenskit/react",
-    "playground-react": "yarn workspace playground-react",
+    "playground-react": "yarn workspace playground-react storybook",
     "clean": "yarn workspace run clean",
     "build": "npm-run-all -p 'react build'",
     "codegen": "graphql-codegen --config codegen.ts"
