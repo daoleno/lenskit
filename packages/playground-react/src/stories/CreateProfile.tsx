@@ -1,3 +1,4 @@
+import { useCreateProfile } from '@lenskit/react'
 import './button.css'
 
 interface ButtonProps {
@@ -33,7 +34,8 @@ export const CreateProfile = ({
   label,
   ...props
 }: ButtonProps) => {
-  const [profileId, error, isLoading, createProfile] = useCreateProfile()
+  const { profileId, error, isLoading, createProfile } = useCreateProfile()
+  console.log('profileId', profileId)
   const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary'
   return (
     <button
