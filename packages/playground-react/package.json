@@ -1,86 +1,28 @@
 {
   "name": "playground-react",
-  "version": "0.0.0",
   "private": true,
-  "dependencies": {
-    "@apollo/client": "^3.7.0",
-    "@headlessui/react": "^1.7.2",
-    "@heroicons/react": "^2.0.11",
-    "@lenskit/react": "0.1.0",
-    "@rainbow-me/rainbowkit": "^0.6.0",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.11.59",
-    "@types/react": "^18.0.20",
-    "@types/react-dom": "^18.0.6",
-    "buffer": "^6.0.3",
-    "ethers": "^5.7.1",
-    "graphql": "^16.6.0",
-    "ipfs-http-client": "^58.0.0",
-    "omit-deep": "^0.3.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
-    "typescript": "^4.8.3",
-    "uuid": "^9.0.0",
-    "wagmi": "^0.6.6",
-    "web-vitals": "^2.1.4"
-  },
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "prebuild": "yarn workspace @lenskit/react build",
+    "predev": "yarn workspace @lenskit/react build",
+    "dev:lenskit": "yarn workspace @lenskit/react watch",
+    "dev:vite": "vite",
+    "dev": "npm-run-all -p dev:*",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ],
-    "overrides": [
-      {
-        "files": [
-          "**/*.stories.*"
-        ],
-        "rules": {
-          "import/no-anonymous-default-export": "off"
-        }
-      }
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "@lenskit/react": "0.1.0",
+    "fs": "^0.0.1-security",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^6.5.12",
-    "@storybook/addon-essentials": "^6.5.12",
-    "@storybook/addon-interactions": "^6.5.12",
-    "@storybook/addon-links": "^6.5.12",
-    "@storybook/builder-webpack5": "^6.5.12",
-    "@storybook/manager-webpack5": "^6.5.12",
-    "@storybook/node-logger": "^6.5.12",
-    "@storybook/preset-create-react-app": "^4.1.2",
-    "@storybook/react": "^6.5.12",
-    "@storybook/testing-library": "^0.0.13",
-    "@types/uuid": "^8.3.4",
-    "autoprefixer": "^10.4.11",
-    "babel-plugin-named-exports-order": "^0.0.2",
-    "postcss": "^8.4.16",
-    "prop-types": "^15.8.1",
-    "tailwindcss": "^3.1.8",
-    "webpack": "^5.74.0"
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
+    "@vitejs/plugin-react": "^2.1.0",
+    "typescript": "^4.6.4",
+    "vite": "^3.1.0"
   }
 }
