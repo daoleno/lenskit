@@ -1,9 +1,3 @@
-export function LensKitProvider() {
-  // return <ApolloProvider client={apolloClientNew}>{children}</ApolloProvider>
-  return (
-    <div>
-      {/* {children} */}
-      <p>gogogogo</p>
-    </div>
-  )
+export function LensKitProvider({ children }: { children: React.ReactNode }) {
+  return <div>{children}</div>
 }
