@@ -6,13 +6,17 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "clean": "rm -rf .next && rm -rf node_modules"
   },
   "dependencies": {
     "@lenskit/react": "0.1.0",
+    "@rainbow-me/rainbowkit": "^0.7.4",
+    "ethers": "^5.7.2",
     "next": "13.0.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "wagmi": "^0.7.8"
   },
   "devDependencies": {
     "@types/node": "18.11.7",
