@@ -18,7 +18,7 @@
     "paths": {
       "*": ["src/*", "node_modules/*"]
     },
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "esModuleInterop": true,
     "target": "ESNext",
     "allowJs": true,

@@ -2,49 +2,35 @@
 
 # dependencies
 /node_modules
-/packages/**/node_modules
+/.pnp
+.pnp.js
 
 # testing
 /coverage
-/packages/**/coverage
-
-# logs
-*.log
-/packages/**/*.log
 
 # next.js
 /.next/
-/packages/**/.next/
 /out/
-/packages/**/out/
 
 # production
 /build
-/packages/**/dist
-/dist
-/packages/**/dist
 
 # misc
 .DS_Store
 *.pem
-.cache
 
 # debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.pnpm-debug.log*
 
 # local env files
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env*.local
 
 # vercel
 .vercel
 
-# turbo
-.turbo
-build/**
-dist/**
-.next/**
+# typescript
+*.tsbuildinfo
+next-env.d.ts
