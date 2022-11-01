@@ -6,17 +6,7 @@ const config: CodegenConfig = {
   documents: 'graphql',
   generates: {
     'packages/@lenskit-react/src/generated-gql.ts': {
-      // preset: 'client',
-      plugins: [
-        'typescript',
-        'typescript-operations',
-        'typescript-react-apollo',
-        // 'typed-document-node',
-        'fragment-matcher',
-      ],
-      config: {
-        dedupeFragments: true,
-      },
+      plugins: ['typescript', 'typescript-operations', 'typescript-react-apollo'],
     },
   },
 }
