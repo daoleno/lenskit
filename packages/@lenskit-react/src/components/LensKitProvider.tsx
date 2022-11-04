@@ -11,7 +11,6 @@ import { onError } from '@apollo/client/link/error'
 import { getAuthenticationToken } from 'lensapi/state'
 
 export interface LensKitProviderProps {
-  apolloClient: ApolloClient<any>
   children: React.ReactNode
 }
 

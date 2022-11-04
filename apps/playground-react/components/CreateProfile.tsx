@@ -2,7 +2,7 @@ import { useCreateProfile } from '@lenskit/react'
 import { useState } from 'react'
 
 export default function CreateProfile() {
-  const { profileId, error, isLoading, createProfile } = useCreateProfile()
+  const { createProfile, profileId, error } = useCreateProfile()
   const [handle, setHandle] = useState('')
 
   return (
@@ -21,7 +21,7 @@ export default function CreateProfile() {
         className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
         onClick={() => createProfile(handle)}
       >
-        {isLoading ? 'Creating...' : 'Create'}
+        {profileId ? 'Creating...' : 'Create'}
       </button>
     </div>
   )
