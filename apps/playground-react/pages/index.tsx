@@ -1,5 +1,6 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import CreateProfile from '../components/CreateProfile'
+import EditProfile from '../components/EditProfile'
 
 export default function Home() {
   // grid card layout has split lines
@@ -12,6 +13,8 @@ export default function Home() {
       <div className="grid max-w-4xl grid-cols-1 gap-3 p-4 md:grid-cols-2 lg:grid-cols-3">
         {/* <FeatureCard> */}
         <CreateProfile />
+        <EditProfile />
+        {/* <FeatureCard>
         {/* </FeatureCard> */}
         {/* <FeatureCard>
           <EditProfile />

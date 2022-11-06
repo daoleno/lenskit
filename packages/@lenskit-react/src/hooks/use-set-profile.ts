@@ -5,7 +5,7 @@ import {
 import { useState } from 'react'
 import { getAddressFromSigner, signedTypeData, splitSignature } from 'utils/ethers.service'
 import { uploadIpfs } from 'utils/ipfs'
-import { lensPeriphery } from 'utils/lens-hub'
+import { getLensPeriphery } from 'utils/lens-hub'
 import { useIndexedTx } from './use-indexed-tx'
 import { useLogin } from './use-login'
 
@@ -95,7 +95,7 @@ export const useSetProfileMetadata = () => {
       const typedData = signedResult.typedData
 
       const { v, r, s } = splitSignature(signedResult.signature)
-      const tx = await lensPeriphery.setProfileMetadataURIWithSig({
+      const tx = await getLensPeriphery().setProfileMetadataURIWithSig({
         profileId: createProfileMetadataRequest.profileId,
         metadata: createProfileMetadataRequest.metadata,
         sig: {
