@@ -1,7 +1,7 @@
 import { useAuthenticateMutation, useChallengeLazyQuery } from 'generated-gql'
-import { signText } from 'lensapi/ethers.service'
-import { getAuthenticationToken, setAuthenticationToken } from 'lensapi/state'
 import { useState } from 'react'
+import { signText } from 'utils/ethers.service'
+import { getAuthenticationToken, setAuthenticationToken } from 'utils/state'
 
 export const useLogin = () => {
   const [authToken, setAuthToken] = useState<string>(getAuthenticationToken() || '')

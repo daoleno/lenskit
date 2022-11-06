@@ -1,7 +1,7 @@
 import { BigNumber, utils } from 'ethers'
 import { useCreateProfileMutation } from 'generated-gql'
-import { getAddressFromSigner } from 'lensapi/ethers.service'
 import { useCallback, useEffect, useState } from 'react'
+import { getAddressFromSigner } from 'utils/ethers.service'
 import { useIndexedTx } from './use-indexed-tx'
 import { useLogin } from './use-login'
 

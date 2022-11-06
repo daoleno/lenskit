@@ -8,7 +8,7 @@ import {
   InMemoryCache,
 } from '@apollo/client'
 import { onError } from '@apollo/client/link/error'
-import { getAuthenticationToken } from 'lensapi/state'
+import { getAuthenticationToken } from 'utils/state'
 
 export interface LensKitProviderProps {
   children: React.ReactNode

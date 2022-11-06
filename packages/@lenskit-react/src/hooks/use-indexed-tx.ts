@@ -1,6 +1,6 @@
 import { useHasTxHashBeenIndexedLazyQuery } from 'generated-gql'
-import { sleep } from 'lensapi/helpers'
 import { useCallback, useEffect, useState } from 'react'
+import { sleep } from 'utils/helpers'
 
 export function useIndexedTx(txHash: string | null) {
   const [tx, setTx] = useState<any>(null)
@@ -21,7 +21,7 @@ export function useIndexedTx(txHash: string | null) {
           },
           fetchPolicy: 'network-only',
         })
-        console.log('polling for tx', txHash, result)
+        console.log('polling for tx', txHash, result.data?.hasTxHashBeenIndexed)
         const response = result.data?.hasTxHashBeenIndexed
         if (response?.__typename === 'TransactionIndexedResult') {
           if (response.metadataStatus) {
