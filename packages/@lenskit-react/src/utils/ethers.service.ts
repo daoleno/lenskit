@@ -1,4 +1,4 @@
-import { TypedDataDomain, TypedDataField } from '@ethersproject/abstract-signer'
+import { TypedDataDomain } from '@ethersproject/abstract-signer'
 import { ExternalProvider, JsonRpcFetchFunc } from '@ethersproject/providers'
 import { ethers, utils } from 'ethers'
 import { omit } from './helpers'
@@ -31,7 +31,7 @@ export const getAddressFromSigner = async () => {
 
 export const signedTypeData = (
   domain: TypedDataDomain,
-  types: Record<string, TypedDataField[]>,
+  types: Record<string, any>,
   value: Record<string, any>
 ) => {
   const signer = getSigner()
