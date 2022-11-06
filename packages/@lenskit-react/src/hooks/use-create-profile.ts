@@ -12,8 +12,10 @@ export function useCreateProfile() {
   const { login } = useLogin()
   const [txHash, setTxhash] = useState<string | null>(null)
   const { tx, error: indexError } = useIndexedTx(txHash)
+  const [loading, setLoading] = useState(false)
 
   const createProfile = useCallback(async (handle: string) => {
+    setLoading(true)
     try {
       const address = await getAddressFromSigner()
       await login(address)
@@ -32,6 +34,7 @@ export function useCreateProfile() {
         throw new Error(createProfileResult.data?.createProfile.reason)
       }
     } catch (e: any) {
+      setLoading(false)
       setError(e)
     }
   }, [])
@@ -46,8 +49,9 @@ export function useCreateProfile() {
       let profileCreatedEventLog = profileCreatedLog.topics
       const profileId = utils.defaultAbiCoder.decode(['uint256'], profileCreatedEventLog[1])[0]
       setProfileId(BigNumber.from(profileId).toHexString())
+      setLoading(false)
     }
   }, [tx])
 
-  return { profileId, error: error || indexError, createProfile }
+  return { createProfile, profileId, loading, error: error || indexError }
 }

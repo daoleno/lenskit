@@ -1,28 +1,30 @@
+import { Alert, Button } from '@chakra-ui/react'
 import { useCreateProfile } from '@lenskit/react'
 import { useState } from 'react'
 
-export default function CreateProfile() {
-  const { createProfile, profileId, error } = useCreateProfile()
+import { Center, Heading, Input, Stack } from '@chakra-ui/react'
+
+export default function CreateProfile(): JSX.Element {
+  const { createProfile, profileId, loading, error } = useCreateProfile()
   const [handle, setHandle] = useState('')
 
   return (
-    <div className="flex flex-col justify-center gap-3">
-      <div className="text-2xl font-bold">Create a Profile</div>
-      {error && <div className="text-red-500">error: {error.message}</div>}
-      {profileId && <div className="text-green-500">profileId: {profileId}</div>}
-      <span className="text-gray-600">Enter a handle to create a profile</span>
-      <input
-        className="rounded border p-2"
-        type="text"
+    <Stack spacing={4} bg="white" rounded={'xl'} boxShadow={'lg'} p={6} my={10}>
+      <Center>
+        <Heading lineHeight={1.1} fontSize={{ base: '2xl', md: '3xl' }}>
+          Create a Profile
+        </Heading>
+      </Center>
+      <Input
+        placeholder={'Enter a handle'}
         value={handle}
         onChange={(e) => setHandle(e.target.value)}
       />
-      <button
-        className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
-        onClick={() => createProfile(handle)}
-      >
-        {profileId ? 'Creating...' : 'Create'}
-      </button>
-    </div>
+      <Button colorScheme={'blue'} isLoading={loading} onClick={() => createProfile(handle)}>
+        Create
+      </Button>
+      {profileId && <Alert status="success">Profile created: {profileId}</Alert>}
+      {error && <Alert status="error">{error.message}</Alert>}
+    </Stack>
   )
 }

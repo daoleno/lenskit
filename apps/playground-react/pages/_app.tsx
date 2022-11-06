@@ -1,3 +1,4 @@
+import { ChakraProvider } from '@chakra-ui/react'
 import { LensKitProvider } from '@lenskit/react'
 import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit'
 import '@rainbow-me/rainbowkit/styles.css'
@@ -25,12 +26,14 @@ const wagmiClient = createClient({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <WagmiConfig client={wagmiClient}>
-      <RainbowKitProvider chains={chains}>
-        <LensKitProvider>
-          <Component {...pageProps} />
-        </LensKitProvider>
-      </RainbowKitProvider>
-    </WagmiConfig>
+    <ChakraProvider>
+      <WagmiConfig client={wagmiClient}>
+        <RainbowKitProvider chains={chains}>
+          <LensKitProvider>
+            <Component {...pageProps} />
+          </LensKitProvider>
+        </RainbowKitProvider>
+      </WagmiConfig>
+    </ChakraProvider>
   )
 }

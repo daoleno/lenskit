@@ -10,9 +10,14 @@
     "clean": "rm -rf .next && rm -rf node_modules"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.3.7",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@heroicons/react": "^2.0.13",
     "@lenskit/react": "0.1.0",
     "@rainbow-me/rainbowkit": "^0.7.4",
     "ethers": "^5.7.2",
+    "framer-motion": "^7.6.4",
     "next": "13.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",

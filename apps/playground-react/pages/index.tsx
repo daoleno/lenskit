@@ -1,6 +1,5 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import CreateProfile from '../components/CreateProfile'
-import FeatureCard from '../components/FeatureCard'
 
 export default function Home() {
   // grid card layout has split lines
@@ -10,10 +9,13 @@ export default function Home() {
       <span className="my-10 text-6xl font-bold">LensKit Playground</span>
       <ConnectButton />
 
-      <div className="grid max-w-4xl grid-cols-1 p-4 md:grid-cols-2 lg:grid-cols-3">
-        <FeatureCard>
-          <CreateProfile />
-        </FeatureCard>
+      <div className="grid max-w-4xl grid-cols-1 gap-3 p-4 md:grid-cols-2 lg:grid-cols-3">
+        {/* <FeatureCard> */}
+        <CreateProfile />
+        {/* </FeatureCard> */}
+        {/* <FeatureCard>
+          <EditProfile />
+        </FeatureCard> */}
       </div>
     </div>
   )
