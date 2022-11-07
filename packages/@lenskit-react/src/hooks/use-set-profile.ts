@@ -1,7 +1,4 @@
-import {
-  CreatePublicSetProfileMetadataUriRequest,
-  useCreateSetProfileMetadataTypedDataMutation,
-} from 'generated-gql'
+import { useCreateSetProfileMetadataTypedDataMutation } from 'generated-gql'
 import { useState } from 'react'
 import { getAddressFromSigner, signedTypeData, splitSignature } from 'utils/ethers.service'
 import { uploadIpfs } from 'utils/ipfs'
@@ -54,33 +51,12 @@ export interface ProfileMetadata extends GenericMetadata {
   attributes: AttributeData[]
 }
 
-export const signCreateSetProfileMetadataTypedData = async (
-  request: CreatePublicSetProfileMetadataUriRequest
-) => {
-  const [createSetProfileMetadataTypedDataMutation] = useCreateSetProfileMetadataTypedDataMutation()
-
-  const result = await createSetProfileMetadataTypedDataMutation({
-    variables: {
-      request,
-    },
-  })
-
-  console.log('create profile metadata: createCommentTypedData', result)
-
-  const typedData = result.data!.createSetProfileMetadataTypedData.typedData
-  console.log('create profile metadata: typedData', typedData)
-
-  const signature = await signedTypeData(typedData.domain, typedData.types, typedData.value)
-  console.log('create profile metadata: signature', signature)
-
-  return { typedData, signature }
-}
-
 export const useSetProfileMetadata = () => {
   const [error, setError] = useState(null)
   const { login } = useLogin()
   const [txHash, setTxHash] = useState(null)
   const { tx, error: indexError } = useIndexedTx(txHash)
+  const [createSetProfileMetadataTypedDataMutation] = useCreateSetProfileMetadataTypedDataMutation()
 
   const setProfileMetadata = async (profileId: string, metadata: ProfileMetadata) => {
     try {
@@ -91,10 +67,21 @@ export const useSetProfileMetadata = () => {
         profileId,
         metadata: 'ipfs://' + ipfsResult.path,
       }
-      const signedResult = await signCreateSetProfileMetadataTypedData(createProfileMetadataRequest)
-      const typedData = signedResult.typedData
+      const result = await createSetProfileMetadataTypedDataMutation({
+        variables: {
+          request: createProfileMetadataRequest,
+        },
+      })
 
-      const { v, r, s } = splitSignature(signedResult.signature)
+      console.log('create profile metadata: createCommentTypedData', result)
+
+      const typedData = result.data!.createSetProfileMetadataTypedData.typedData
+      console.log('create profile metadata: typedData', typedData)
+
+      const signature = await signedTypeData(typedData.domain, typedData.types, typedData.value)
+      console.log('create profile metadata: signature', signature)
+
+      const { v, r, s } = splitSignature(signature)
       const tx = await getLensPeriphery().setProfileMetadataURIWithSig({
         profileId: createProfileMetadataRequest.profileId,
         metadata: createProfileMetadataRequest.metadata,

@@ -41,7 +41,7 @@ export function useCreateProfile() {
 
   useEffect(() => {
     if (tx) {
-      const logs = tx.txReceipt.logs
+      const logs = tx.logs
       const topicId = utils.id(
         'ProfileCreated(uint256,address,address,string,string,address,bytes,string,uint256)'
       )

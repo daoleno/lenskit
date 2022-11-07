@@ -26,7 +26,7 @@ export function useIndexedTx(txHash: string | null) {
         if (response?.__typename === 'TransactionIndexedResult') {
           if (response.metadataStatus) {
             if (response.metadataStatus.status === 'SUCCESS') {
-              setTx(response)
+              setTx(response.txReceipt)
               return response
             }
             if (response.metadataStatus.status === 'METADATA_VALIDATION_FAILED') {
