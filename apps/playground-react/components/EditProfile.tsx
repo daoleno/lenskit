@@ -109,7 +109,7 @@ export default function EditProfile() {
               bg: 'blue.500',
             }}
             type="submit"
-            isLoading={loading}
+            isLoading={loading && !error}
           >
             Submit
           </Button>
