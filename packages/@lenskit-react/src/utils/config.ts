@@ -8,8 +8,6 @@ export const LENS_PERIPHERY_CONTRACT = '0xD5037d72877808cdE7F669563e9389930AF404
 
 export const LENS_PERIPHERY_NAME = 'LensPeriphery'
 
-export const PROFILE_ID = '0x4875'
-
 export const INFURA_PROJECT_ID = '2F5f4anwBoOWaJLSZqzIMtpUjZm'
 
 export const INFURA_SECRET = 'caeef00dfc258ead87d3ec993c6136f9'
