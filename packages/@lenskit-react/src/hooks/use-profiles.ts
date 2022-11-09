@@ -1,11 +1,7 @@
 import { useProfilesQuery } from 'generated-gql'
 
 export function useProfiles(profileIds: string[]) {
-  const {
-    data: profiles,
-    loading,
-    error,
-  } = useProfilesQuery({
+  const { data, loading, error } = useProfilesQuery({
     variables: {
       request: {
         profileIds,
@@ -14,7 +10,7 @@ export function useProfiles(profileIds: string[]) {
   })
 
   return {
-    profiles: profiles?.profiles,
+    profiles: data?.profiles.items,
     loading,
     error,
   }
