@@ -1,5 +1,5 @@
-import { ChakraProvider } from '@chakra-ui/react'
 import { LensKitProvider } from '@lenskit/react'
+import { MantineProvider } from '@mantine/core'
 import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit'
 import '@rainbow-me/rainbowkit/styles.css'
 import type { AppProps } from 'next/app'
@@ -26,7 +26,14 @@ const wagmiClient = createClient({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ChakraProvider>
+    <MantineProvider
+      withGlobalStyles
+      withNormalizeCSS
+      // theme={{
+      //   /** Put your mantine theme override here */
+      //   colorScheme: 'light',
+      // }}
+    >
       <WagmiConfig client={wagmiClient}>
         <RainbowKitProvider chains={chains}>
           <LensKitProvider>
@@ -34,6 +41,6 @@ export default function App({ Component, pageProps }: AppProps) {
           </LensKitProvider>
         </RainbowKitProvider>
       </WagmiConfig>
-    </ChakraProvider>
+    </MantineProvider>
   )
 }
