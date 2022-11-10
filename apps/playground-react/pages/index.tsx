@@ -1,5 +1,6 @@
 import { Flex, SimpleGrid } from '@mantine/core'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
+import CreatePost from '../components/CreatePost'
 import CreateProfile from '../components/CreateProfile'
 import EditProfile from '../components/EditProfile'
 import ProfileCard from '../components/ProfileCard'
@@ -16,6 +17,7 @@ export default function Home() {
         <CreateProfile />
         <EditProfile />
         <ProfileCard />
+        <CreatePost />
       </SimpleGrid>
     </Flex>
   )

@@ -10,7 +10,7 @@ export function useCreateProfile() {
   const [error, setError] = useState<Error | null>(null)
   const [createProfileMutation] = useCreateProfileMutation()
   const { login } = useLogin()
-  const [txHash, setTxhash] = useState<string | null>(null)
+  const [txHash, setTxHash] = useState<string | null>(null)
   const { tx, error: indexError } = useIndexedTx(txHash)
   const [loading, setLoading] = useState(false)
 
@@ -29,7 +29,7 @@ export function useCreateProfile() {
 
       if (createProfileResult.data?.createProfile.__typename === 'RelayerResult') {
         const { txHash } = createProfileResult.data.createProfile
-        setTxhash(txHash)
+        setTxHash(txHash)
       } else {
         throw new Error(createProfileResult.data?.createProfile.reason)
       }

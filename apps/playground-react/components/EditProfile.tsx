@@ -32,6 +32,7 @@ export default function EditProfile() {
       ],
     }
     await setProfileMetadata(values.profileId.value, profileMetadata)
+    setLoading(false)
   }
 
   return (
