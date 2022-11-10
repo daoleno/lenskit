@@ -1,14 +1,14 @@
-import { useProfiles } from '@lenskit/react'
+import { useProfile } from '@lenskit/react'
 import { Alert, Avatar, Card, Group, Loader, Stack, Text, TextInput, Title } from '@mantine/core'
 import { useEffect, useState } from 'react'
 
 export default function ProfileCard() {
   const [profileId, setProfileId] = useState('')
-  const { profiles, loading, error } = useProfiles([profileId])
+  const { profile, loading, error } = useProfile(profileId)
 
   useEffect(() => {
-    console.log('profiles', profiles)
-  }, [profiles])
+    console.log('profile', profile)
+  }, [profile])
 
   return (
     <Card p="lg" radius="md" withBorder>
@@ -20,16 +20,16 @@ export default function ProfileCard() {
           onChange={(e) => setProfileId(e.currentTarget.value)}
         />
 
-        {profiles && (
+        {profile && (
           <Group>
             <Avatar src={'/lens/lens-logo.svg'} size="xl" />
             <div style={{ flex: 1 }}>
               <Text size="sm" weight={500}>
-                {profiles[0].name}
+                {profile.name}
               </Text>
 
               <Text color="dimmed" size="xs">
-                {profiles[0].bio}
+                {profile.bio}
               </Text>
             </div>
           </Group>
