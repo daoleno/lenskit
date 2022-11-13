@@ -20,8 +20,8 @@ export default function EditProfile() {
     const profileMetadata = {
       version: '1.0.0',
       metadata_id: uuidv4(),
-      name: values.name.value,
-      bio: values.bio.value,
+      name: values.name,
+      bio: values.bio,
       cover_picture: 'https://picsum.photos/200/300',
       attributes: [
         {
@@ -31,7 +31,7 @@ export default function EditProfile() {
         },
       ],
     }
-    await setProfileMetadata(values.profileId.value, profileMetadata)
+    await setProfileMetadata(values.profileId, profileMetadata)
     setLoading(false)
   }
 
@@ -42,7 +42,7 @@ export default function EditProfile() {
           <Title order={2}>Edit Lens Profile</Title>
           <TextInput
             label="Profile ID"
-            placeholder="0xfff"
+            placeholder="0x530a"
             required
             {...form.getInputProps('profileId')}
           />

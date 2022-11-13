@@ -12,17 +12,17 @@ export default function CreatePost() {
       version: '2.0.0',
       mainContentFocus: PublicationMainFocus.TEXT_ONLY,
       metadata_id: uuidv4(),
-      description: 'Description',
+      description: 'create post demo',
       locale: 'en-US',
-      content: 'Content',
-      external_url: null,
+      content: 'This is a demo post',
+      external_url: 'https://github.com/daoleno/lenskit',
       image: null,
       imageMimeType: null,
-      name: 'Name',
+      name: 'lenskit',
       attributes: [],
       tags: ['using_api_examples'],
       appId: 'api_examples_github',
-      profileId: '0xabc',
+      profileId: '0x530a',
     },
   })
 
@@ -32,13 +32,13 @@ export default function CreatePost() {
       version: '2.0.0',
       mainContentFocus: PublicationMainFocus.TEXT_ONLY,
       metadata_id: uuidv4(),
-      name: values.name.value,
-      description: values.description.value,
-      content: values.content.value,
+      name: values.name,
+      description: values.description,
+      content: values.content,
       locale: 'en-US',
-      external_url: values.external_url.value,
-      image: values.image.value,
-      imageMimeType: values.imageMimeType.value,
+      external_url: values.external_url,
+      image: values.image,
+      imageMimeType: values.imageMimeType,
       attributes: [
         {
           traitType: 'string',
@@ -49,7 +49,7 @@ export default function CreatePost() {
       tags: ['using_api_examples'],
       appId: 'api_examples_github',
     }
-    await createPost(values.profileId.value, post)
+    await createPost(values.profileId, post)
     setLoading(false)
   }
 
@@ -60,7 +60,7 @@ export default function CreatePost() {
           <Title order={2}>Create Post</Title>
           <TextInput
             label="ProfileID"
-            placeholder="0xfff"
+            placeholder="0x530a"
             required
             {...form.getInputProps('profileId')}
           />

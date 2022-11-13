@@ -31,7 +31,8 @@ export function useIndexedTx(txHash: string | null) {
             }
             if (response.metadataStatus.status === 'METADATA_VALIDATION_FAILED') {
               setError(new Error(response.metadataStatus.reason || 'Metadata validation failed'))
-              throw new Error(response.metadataStatus.reason || 'Metadata validation failed')
+              setTx(response?.txReceipt)
+              return response.txReceipt
             }
           } else {
             if (response.indexed) {
@@ -42,7 +43,6 @@ export function useIndexedTx(txHash: string | null) {
           await sleep(1500)
         } else {
           setError(new Error(response?.reason))
-          throw new Error(response?.reason)
         }
       }
     },

@@ -3,7 +3,7 @@ import { Alert, Avatar, Card, Group, Loader, Stack, Text, TextInput, Title } fro
 import { useEffect, useState } from 'react'
 
 export default function ProfileCard() {
-  const [profileId, setProfileId] = useState('')
+  const [profileId, setProfileId] = useState('0x530a')
   const { profile, loading, error } = useProfile(profileId)
 
   useEffect(() => {
@@ -13,7 +13,7 @@ export default function ProfileCard() {
   return (
     <Card p="lg" radius="md" withBorder>
       <Stack>
-        <Title order={3}>Profile</Title>
+        <Title order={3}>Query Profile</Title>
         <TextInput
           value={profileId}
           placeholder="Profile ID"
@@ -22,15 +22,27 @@ export default function ProfileCard() {
 
         {profile && (
           <Group>
-            <Avatar src={'/lens/lens-logo.svg'} size="xl" />
-            <div style={{ flex: 1 }}>
-              <Text size="sm" weight={500}>
+            <Avatar src={'/lens/lens-logo.svg'} size={94} radius="md" />
+            <div>
+              <Text size="xs" sx={{ textTransform: 'uppercase' }} weight={700} color="dimmed">
                 {profile.name}
               </Text>
 
-              <Text color="dimmed" size="xs">
+              <Text size="lg" weight={500}>
                 {profile.bio}
               </Text>
+
+              <Group noWrap spacing={10} mt={3}>
+                <Text size="xs" color="dimmed">
+                  {profile.handle}
+                </Text>
+              </Group>
+
+              <Group noWrap spacing={10} mt={5}>
+                <Text size="xs" color="dimmed">
+                  {shortAddress(profile.ownedBy)}
+                </Text>
+              </Group>
             </div>
           </Group>
         )}
@@ -39,4 +51,8 @@ export default function ProfileCard() {
       </Stack>
     </Card>
   )
+}
+
+function shortAddress(address: string) {
+  return `${address.slice(0, 6)}...${address.slice(-4)}`
 }

@@ -29,10 +29,10 @@ export default function App({ Component, pageProps }: AppProps) {
     <MantineProvider
       withGlobalStyles
       withNormalizeCSS
-      // theme={{
-      //   /** Put your mantine theme override here */
-      //   colorScheme: 'light',
-      // }}
+      theme={{
+        /** Put your mantine theme override here */
+        colorScheme: 'light',
+      }}
     >
       <WagmiConfig client={wagmiClient}>
         <RainbowKitProvider chains={chains}>
