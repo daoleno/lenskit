@@ -11,7 +11,7 @@ export default function CreateProfile(): JSX.Element {
   return (
     <Card p="lg" radius="md" withBorder>
       <Stack spacing="md">
-        <Title order={2}>Create a Profile</Title>
+        <Title order={2}>Create Profile</Title>
         <Input
           placeholder={'Enter a handle'}
           value={handle}
