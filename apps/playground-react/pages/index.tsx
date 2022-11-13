@@ -4,6 +4,8 @@ import CreatePost from '../components/CreatePost'
 import CreateProfile from '../components/CreateProfile'
 import EditProfile from '../components/EditProfile'
 import ProfileCard from '../components/ProfileCard'
+import { PublicationCard } from '../components/PublicationCard'
+import { PublicationsCard } from '../components/PublicationsCard'
 
 export default function Home() {
   // grid card layout has split lines
@@ -18,6 +20,8 @@ export default function Home() {
         <EditProfile />
         <ProfileCard />
         <CreatePost />
+        <PublicationCard />
+        <PublicationsCard />
       </SimpleGrid>
     </Flex>
   )

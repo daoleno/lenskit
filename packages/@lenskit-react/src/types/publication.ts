@@ -45,3 +45,5 @@ export enum PublicationMainFocus {
   LINK = 'LINK',
   EMBED = 'EMBED',
 }
+
+export { PublicationTypes } from 'generated-gql'
