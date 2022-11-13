@@ -28,7 +28,7 @@ export default function CreatePost() {
   })
 
   const handleCreatePost = async (values: any) => {
-    setLoading(true)
+  setLoading(true)
     const post = {
       version: '2.0.0',
       mainContentFocus: PublicationMainFocus.TEXT_ONLY,
@@ -47,8 +47,8 @@ export default function CreatePost() {
           key: 'custom_field',
         },
       ],
-      tags: ['using_api_examples'],
-      appId: 'api_examples_github',
+      tags: ['lenskit'],
+      appId: 'lenskit-github',
     }
     await createPost(values.profileId, post)
     setLoading(false)
