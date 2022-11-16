@@ -9,6 +9,7 @@ import Follow from '../components/Follow'
 import ProfileCard from '../components/ProfileCard'
 import { PublicationCard } from '../components/PublicationCard'
 import { PublicationsCard } from '../components/PublicationsCard'
+import Unfollow from '../components/Unfollow'
 
 export default function Home() {
   // grid card layout has split lines
@@ -28,6 +29,7 @@ export default function Home() {
         <CollectPublication />
         <CreateMirror />
         <Follow />
+        <Unfollow />
       </SimpleGrid>
     </Flex>
   )

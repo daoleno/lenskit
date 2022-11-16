@@ -1,0 +1,22 @@
+import { useUnfollow } from '@lenskit/react'
+import { Alert, Button, Card, Input, Stack, Title } from '@mantine/core'
+import { useState } from 'react'
+
+export default function Unfollow(): JSX.Element {
+  const { unfollow, tx, loading, error } = useUnfollow()
+  const [handle, setHandle] = useState('')
+
+  return (
+    <Card p="lg" radius="md" withBorder>
+      <Stack spacing="md">
+        <Title order={2}>Unfollow Profile</Title>
+        <Input placeholder={'0x530a'} value={handle} onChange={(e) => setHandle(e.target.value)} />
+        <Button color="blue" loading={loading} onClick={() => unfollow(handle)}>
+          {tx && tx.transactionHash ? 'Unfollowed' : 'Unfollow'}
+        </Button>
+        {error && <Alert color="red">{error.message}</Alert>}
+        {tx && <Alert color="green">Follow Success! Tx: {tx.transactionHash}</Alert>}
+      </Stack>
+    </Card>
+  )
+}
