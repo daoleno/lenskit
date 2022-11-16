@@ -1,6 +1,7 @@
 import { Flex, SimpleGrid } from '@mantine/core'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import CollectPublication from '../components/CollectPublication'
+import CreateMirror from '../components/CreateMirror'
 import CreatePost from '../components/CreatePost'
 import CreateProfile from '../components/CreateProfile'
 import EditProfile from '../components/EditProfile'
@@ -24,6 +25,7 @@ export default function Home() {
         <PublicationCard />
         <PublicationsCard />
         <CollectPublication />
+        <CreateMirror />
       </SimpleGrid>
     </Flex>
   )
