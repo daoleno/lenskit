@@ -5,6 +5,7 @@ import CreateMirror from '../components/CreateMirror'
 import CreatePost from '../components/CreatePost'
 import CreateProfile from '../components/CreateProfile'
 import EditProfile from '../components/EditProfile'
+import Follow from '../components/Follow'
 import ProfileCard from '../components/ProfileCard'
 import { PublicationCard } from '../components/PublicationCard'
 import { PublicationsCard } from '../components/PublicationsCard'
@@ -26,6 +27,7 @@ export default function Home() {
         <PublicationsCard />
         <CollectPublication />
         <CreateMirror />
+        <Follow />
       </SimpleGrid>
     </Flex>
   )
