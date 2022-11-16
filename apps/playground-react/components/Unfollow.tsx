@@ -15,7 +15,7 @@ export default function Unfollow(): JSX.Element {
           {tx && tx.transactionHash ? 'Unfollowed' : 'Unfollow'}
         </Button>
         {error && <Alert color="red">{error.message}</Alert>}
-        {tx && <Alert color="green">Follow Success! Tx: {tx.transactionHash}</Alert>}
+        {tx && <Alert color="green">Unfollow Success! Tx: {tx.transactionHash}</Alert>}
       </Stack>
     </Card>
   )
