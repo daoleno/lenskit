@@ -1,5 +1,6 @@
 export * from './components/LensKitProvider'
 export * from './hooks/use-collect'
+export * from './hooks/use-comment'
 export * from './hooks/use-create-post'
 export * from './hooks/use-create-profile'
 export * from './hooks/use-follow'
