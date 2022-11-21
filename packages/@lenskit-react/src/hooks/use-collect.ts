@@ -2,14 +2,14 @@ import { useCreateCollectTypedDataMutation } from 'generated-gql'
 import { useCallback, useEffect, useState } from 'react'
 import { getAddressFromSigner, signedTypeData, splitSignature } from 'utils/ethers.service'
 import { getLensHub } from 'utils/lens-hub'
+import { useAuth } from './use-auth'
 import { useIndexedTx } from './use-indexed-tx'
-import { useLogin } from './use-login'
 
 export function useCollect() {
   const [error, setError] = useState<Error | null>(null)
   const [createCollectTypedDataMutation] = useCreateCollectTypedDataMutation()
 
-  const { login } = useLogin()
+  const { auth } = useAuth()
   const [txHash, setTxHash] = useState<string | null>(null)
   const { tx, error: indexError } = useIndexedTx(txHash)
   const [loading, setLoading] = useState(false)
@@ -18,7 +18,7 @@ export function useCollect() {
     setLoading(true)
     try {
       const address = await getAddressFromSigner()
-      await login(address)
+      await auth(address)
       const result = await createCollectTypedDataMutation({
         variables: {
           request: {

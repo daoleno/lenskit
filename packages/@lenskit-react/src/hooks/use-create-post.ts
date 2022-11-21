@@ -5,15 +5,15 @@ import { Metadata } from 'types/publication'
 import { getAddressFromSigner, signedTypeData, splitSignature } from 'utils/ethers.service'
 import { uploadIpfs } from 'utils/ipfs'
 import { getLensHub } from 'utils/lens-hub'
+import { useAuth } from './use-auth'
 import { useIndexedTx } from './use-indexed-tx'
-import { useLogin } from './use-login'
 
 export function useCreatePost() {
   const [publicationId, setPublicationId] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<Error | null>(null)
   const [createPostTypedDataMutation] = useCreatePostTypedDataMutation()
-  const { login } = useLogin()
+  const { auth: login } = useAuth()
   const [txHash, setTxHash] = useState<string | null>(null)
   const { tx, error: indexError } = useIndexedTx(txHash)
 

@@ -236,19 +236,19 @@ export type ClaimableHandles = {
 
 /** Condition that signifies if address or profile has collected a publication */
 export type CollectConditionInput = {
-  /** The collected publication id */
-  publicationId: Scalars['PublicationId'];
-  /** The collected publication id */
-  publisherId: Scalars['ProfileId'];
+  /** The publication id that has to be collected to unlock content */
+  publicationId?: InputMaybe<Scalars['ProfileId']>;
+  /** True if the content will be unlocked for this specific publication */
+  thisPublication?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Condition that signifies if address or profile has collected a publication */
 export type CollectConditionOutput = {
   __typename?: 'CollectConditionOutput';
-  /** The collected publication id */
-  publicationId: Scalars['PublicationId'];
-  /** The collected publication id */
-  publisherId: Scalars['ProfileId'];
+  /** The publication id that has to be collected to unlock content */
+  publicationId?: Maybe<Scalars['ProfileId']>;
+  /** True if the content will be unlocked for this specific publication */
+  thisPublication?: Maybe<Scalars['Boolean']>;
 };
 
 export type CollectModule = FeeCollectModuleSettings | FreeCollectModuleSettings | LimitedFeeCollectModuleSettings | LimitedTimedFeeCollectModuleSettings | RevertCollectModuleSettings | TimedFeeCollectModuleSettings | UnknownCollectModuleSettings;
@@ -351,6 +351,12 @@ export type CommentCanDecryptArgs = {
 /** The social comment */
 export type CommentCanMirrorArgs = {
   profileId?: InputMaybe<Scalars['ProfileId']>;
+};
+
+
+/** The social comment */
+export type CommentHasCollectedByMeArgs = {
+  isFinalisedOnChain?: InputMaybe<Scalars['Boolean']>;
 };
 
 
@@ -938,6 +944,7 @@ export enum DecryptFailReason {
   DoesNotOwnProfile = 'DOES_NOT_OWN_PROFILE',
   FollowNotFinalisedOnChain = 'FOLLOW_NOT_FINALISED_ON_CHAIN',
   HasNotCollectedPublication = 'HAS_NOT_COLLECTED_PUBLICATION',
+  MissingEncryptionParams = 'MISSING_ENCRYPTION_PARAMS',
   ProfileDoesNotExist = 'PROFILE_DOES_NOT_EXIST',
   UnauthorizedAddress = 'UNAUTHORIZED_ADDRESS',
   UnauthorizedBalance = 'UNAUTHORIZED_BALANCE'
@@ -1127,16 +1134,12 @@ export type EnsOnChainIdentity = {
 export type EoaOwnershipInput = {
   /** The address that will have access to the content */
   address: Scalars['EthereumAddress'];
-  /** The chain ID of the address */
-  chainID: Scalars['ChainId'];
 };
 
 export type EoaOwnershipOutput = {
   __typename?: 'EoaOwnershipOutput';
   /** The address that will have access to the content */
   address: Scalars['EthereumAddress'];
-  /** The chain ID of the address */
-  chainID: Scalars['ChainId'];
 };
 
 /** The erc20 type */
@@ -1786,6 +1789,12 @@ export type MirrorCanDecryptArgs = {
 /** The social mirror */
 export type MirrorCanMirrorArgs = {
   profileId?: InputMaybe<Scalars['ProfileId']>;
+};
+
+
+/** The social mirror */
+export type MirrorHasCollectedByMeArgs = {
+  isFinalisedOnChain?: InputMaybe<Scalars['Boolean']>;
 };
 
 
@@ -2450,6 +2459,12 @@ export type PostCanMirrorArgs = {
 
 
 /** The social post */
+export type PostHasCollectedByMeArgs = {
+  isFinalisedOnChain?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+/** The social post */
 export type PostMirrorsArgs = {
   by?: InputMaybe<Scalars['ProfileId']>;
 };
@@ -2497,6 +2512,12 @@ export type Profile = {
   picture?: Maybe<ProfileMedia>;
   /** Profile stats */
   stats: ProfileStats;
+};
+
+
+/** The Profile */
+export type ProfileIsFollowedByMeArgs = {
+  isFinalisedOnChain?: InputMaybe<Scalars['Boolean']>;
 };
 
 

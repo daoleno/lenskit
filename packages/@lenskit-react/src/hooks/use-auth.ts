@@ -3,17 +3,17 @@ import { useState } from 'react'
 import { signText } from 'utils/ethers.service'
 import { getAuthenticationToken, setAuthenticationToken } from 'utils/state'
 
-export const useLogin = () => {
-  const [authToken, setAuthToken] = useState<string>(getAuthenticationToken() || '')
-  const [error, setError] = useState<Error | null>(null)
+export const useAuth = () => {
+  const [token, setAuthToken] = useState<string>(getAuthenticationToken() || '')
   const [generateChallenge] = useChallengeLazyQuery()
   const [authenticate] = useAuthenticateMutation()
+  const [error, setError] = useState<Error | null>(null)
 
-  const login = async (address: string) => {
+  const auth = async (address: string): Promise<string | null> => {
     const token = getAuthenticationToken()
     if (token) {
       setAuthToken(token)
-      return
+      return token
     }
 
     try {
@@ -44,14 +44,17 @@ export const useLogin = () => {
 
       setAuthenticationToken(token)
       setAuthToken(token)
+      return token
     } catch (e: any) {
       setError(e)
     }
+
+    return null
   }
 
   return {
-    login,
-    authToken,
+    auth,
+    token,
     error,
   }
 }

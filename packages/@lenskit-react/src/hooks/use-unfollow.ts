@@ -8,13 +8,13 @@ import {
   signedTypeData,
   splitSignature,
 } from 'utils/ethers.service'
+import { useAuth } from './use-auth'
 import { useIndexedTx } from './use-indexed-tx'
-import { useLogin } from './use-login'
 
 export function useUnfollow() {
   const [error, setError] = useState<Error | null>(null)
   const [createUnfollowTypedDataMutation] = useCreateUnfollowTypedDataMutation()
-  const { login } = useLogin()
+  const { auth: login } = useAuth()
   const [txHash, setTxHash] = useState<string | null>(null)
   const { tx, error: indexError } = useIndexedTx(txHash)
   const [loading, setLoading] = useState(false)

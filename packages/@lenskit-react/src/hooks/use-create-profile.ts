@@ -2,14 +2,14 @@ import { BigNumber, utils } from 'ethers'
 import { useCreateProfileMutation } from 'generated-gql'
 import { useCallback, useEffect, useState } from 'react'
 import { getAddressFromSigner } from 'utils/ethers.service'
+import { useAuth } from './use-auth'
 import { useIndexedTx } from './use-indexed-tx'
-import { useLogin } from './use-login'
 
 export function useCreateProfile() {
   const [profileId, setProfileId] = useState<string | null>(null)
   const [error, setError] = useState<Error | null>(null)
   const [createProfileMutation] = useCreateProfileMutation()
-  const { login } = useLogin()
+  const { auth: login } = useAuth()
   const [txHash, setTxHash] = useState<string | null>(null)
   const { tx, error: indexError } = useIndexedTx(txHash)
   const [loading, setLoading] = useState(false)

@@ -4,12 +4,12 @@ import { ProfileMetadata } from 'types/profile-metadata'
 import { getAddressFromSigner, signedTypeData, splitSignature } from 'utils/ethers.service'
 import { uploadIpfs } from 'utils/ipfs'
 import { getLensPeriphery } from 'utils/lens-hub'
+import { useAuth } from './use-auth'
 import { useIndexedTx } from './use-indexed-tx'
-import { useLogin } from './use-login'
 
 export const useSetProfileMetadata = () => {
   const [error, setError] = useState(null)
-  const { login } = useLogin()
+  const { auth: login } = useAuth()
   const [txHash, setTxHash] = useState(null)
   const { tx, error: indexError } = useIndexedTx(txHash)
   const [createSetProfileMetadataTypedDataMutation] = useCreateSetProfileMetadataTypedDataMutation()
