@@ -3,7 +3,7 @@ import { Alert, Button, Card, Stack, TextInput, Title } from '@mantine/core'
 import { useForm } from '@mantine/form'
 
 export default function CreateMirror() {
-  const { createMirror, publicationId, loading, error } = useMirror()
+  const { mirror, publicationId, loading, error } = useMirror()
   const form = useForm({
     initialValues: {
       profileId: '0x530a',
@@ -12,9 +12,7 @@ export default function CreateMirror() {
   })
 
   return (
-    <form
-      onSubmit={form.onSubmit((values) => createMirror(values.profileId, values.publicationId))}
-    >
+    <form onSubmit={form.onSubmit((values) => mirror(values.profileId, values.publicationId))}>
       <Card withBorder>
         <Stack spacing="md">
           <Title order={2}>Create Mirror</Title>

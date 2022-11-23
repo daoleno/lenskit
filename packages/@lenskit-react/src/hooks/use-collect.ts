@@ -51,6 +51,7 @@ export function useCollect() {
       setTxHash(tx.hash)
     } catch (e: any) {
       setError(e)
+      setLoading(false)
     }
   }, [])
 

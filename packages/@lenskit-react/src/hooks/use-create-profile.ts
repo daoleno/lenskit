@@ -7,18 +7,18 @@ import { useIndexedTx } from './use-indexed-tx'
 
 export function useCreateProfile() {
   const [profileId, setProfileId] = useState<string | null>(null)
-  const [error, setError] = useState<Error | null>(null)
   const [createProfileMutation] = useCreateProfileMutation()
-  const { auth: login } = useAuth()
+  const { auth } = useAuth()
   const [txHash, setTxHash] = useState<string | null>(null)
   const { tx, error: indexError } = useIndexedTx(txHash)
+  const [error, setError] = useState<Error | null>(null)
   const [loading, setLoading] = useState(false)
 
   const createProfile = useCallback(async (handle: string) => {
     setLoading(true)
     try {
       const address = await getAddressFromSigner()
-      await login(address)
+      await auth(address)
       const createProfileResult = await createProfileMutation({
         variables: {
           request: {
@@ -34,8 +34,8 @@ export function useCreateProfile() {
         throw new Error(createProfileResult.data?.createProfile.reason)
       }
     } catch (e: any) {
-      setLoading(false)
       setError(e)
+      setLoading(false)
     }
   }, [])
 

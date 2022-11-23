@@ -1,5 +1,5 @@
 import { useCreateSetProfileMetadataTypedDataMutation } from 'generated-gql'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ProfileMetadata } from 'types/profile-metadata'
 import { getAddressFromSigner, signedTypeData, splitSignature } from 'utils/ethers.service'
 import { uploadIpfs } from 'utils/ipfs'
@@ -8,6 +8,7 @@ import { useAuth } from './use-auth'
 import { useIndexedTx } from './use-indexed-tx'
 
 export const useSetProfileMetadata = () => {
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const { auth: login } = useAuth()
   const [txHash, setTxHash] = useState(null)
@@ -16,6 +17,7 @@ export const useSetProfileMetadata = () => {
 
   const setProfileMetadata = async (profileId: string, metadata: ProfileMetadata) => {
     try {
+      setLoading(true)
       const address = await getAddressFromSigner()
       await login(address)
       const ipfsResult = await uploadIpfs<ProfileMetadata>(metadata)
@@ -52,8 +54,15 @@ export const useSetProfileMetadata = () => {
       setTxHash(tx.hash)
     } catch (e: any) {
       setError(e)
+      setLoading(false)
     }
   }
 
-  return { setProfileMetadata, tx, error: error || indexError }
+  useEffect(() => {
+    if (txHash && tx) {
+      setLoading(false)
+    }
+  }, [txHash, tx])
+
+  return { setProfileMetadata, tx, loading, error: error || indexError }
 }

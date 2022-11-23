@@ -8,7 +8,7 @@ import { getLensHub } from 'utils/lens-hub'
 import { useAuth } from './use-auth'
 import { useIndexedTx } from './use-indexed-tx'
 
-export function useCreatePost() {
+export function usePost() {
   const [publicationId, setPublicationId] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<Error | null>(null)
@@ -17,7 +17,7 @@ export function useCreatePost() {
   const [txHash, setTxHash] = useState<string | null>(null)
   const { tx, error: indexError } = useIndexedTx(txHash)
 
-  const createPost = async (profileId: string, metadata: Metadata) => {
+  const post = async (profileId: string, metadata: Metadata) => {
     try {
       const address = await getAddressFromSigner()
       await login(address)
@@ -80,6 +80,7 @@ export function useCreatePost() {
       setTxHash(tx.hash)
     } catch (e: any) {
       setError(e)
+      setLoading(false)
     }
   }
 
@@ -97,5 +98,5 @@ export function useCreatePost() {
     }
   }, [tx])
 
-  return { createPost, publicationId, loading, error: error || indexError }
+  return { post, publicationId, loading, error: error || indexError }
 }

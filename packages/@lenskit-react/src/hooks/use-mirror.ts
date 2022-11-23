@@ -15,7 +15,7 @@ export function useMirror() {
   const [txHash, setTxHash] = useState<string | null>(null)
   const { tx, error: indexError } = useIndexedTx(txHash)
 
-  const createMirror = async (profileId: string, publicationId: string) => {
+  const mirror = async (profileId: string, publicationId: string) => {
     setLoading(true)
     try {
       const address = await getAddressFromSigner()
@@ -71,5 +71,5 @@ export function useMirror() {
     }
   }, [tx])
 
-  return { createMirror, publicationId, loading, error: error || indexError }
+  return { mirror, publicationId, loading, error: error || indexError }
 }

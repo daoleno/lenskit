@@ -1,12 +1,10 @@
-import { PublicationMainFocus, useCreatePost } from '@lenskit/react'
+import { PublicationMainFocus, usePost } from '@lenskit/react'
 import { Alert, Button, Card, Stack, TextInput, Title } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 export default function CreatePost() {
-  const [loading, setLoading] = useState(false)
-  const { createPost, publicationId, loading: createPostLoading, error } = useCreatePost()
+  const { post, publicationId, loading, error } = usePost()
   const form = useForm({
     initialValues: {
       version: '2.0.0',
@@ -28,8 +26,7 @@ export default function CreatePost() {
   })
 
   const handleCreatePost = async (values: any) => {
-  setLoading(true)
-    const post = {
+    const content = {
       version: '2.0.0',
       mainContentFocus: PublicationMainFocus.TEXT_ONLY,
       metadata_id: uuidv4(),
@@ -50,8 +47,7 @@ export default function CreatePost() {
       tags: ['lenskit'],
       appId: 'lenskit-github',
     }
-    await createPost(values.profileId, post)
-    setLoading(false)
+    await post(values.profileId, content)
   }
 
   return (
