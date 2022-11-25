@@ -26,7 +26,7 @@ export function PublicationsCard() {
     <Card withBorder radius="md">
       <Stack>
         <Title order={3}>Publications</Title>
-        <Input placeholder="0x530a" onChange={(e) => setProfileId(e.currentTarget.value)} />
+        <Input placeholder="0x530a" onChange={(e: any) => setProfileId(e.currentTarget.value)} />
 
         {publications && publications.items.length > 0 ? (
           <Carousel>

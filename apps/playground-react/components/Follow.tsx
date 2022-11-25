@@ -10,7 +10,11 @@ export default function Follow(): JSX.Element {
     <Card p="lg" radius="md" withBorder>
       <Stack spacing="md">
         <Title order={2}>Follow Profile</Title>
-        <Input placeholder={'0x530a'} value={handle} onChange={(e) => setHandle(e.target.value)} />
+        <Input
+          placeholder={'0x530a'}
+          value={handle}
+          onChange={(e: any) => setHandle(e.target.value)}
+        />
         <Button color="blue" loading={loading} onClick={() => follow(handle)}>
           {tx && tx.transactionHash ? 'Followed' : 'Follow'}
         </Button>

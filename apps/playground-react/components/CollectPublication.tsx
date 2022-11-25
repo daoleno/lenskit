@@ -13,7 +13,7 @@ export default function CollectPublication(): JSX.Element {
         <Input
           placeholder={'0x530a-0x08'}
           value={publicationId}
-          onChange={(e) => setPublicationId(e.currentTarget.value)}
+          onChange={(e: any) => setPublicationId(e.currentTarget.value)}
         />
         <Button color="blue" loading={loading} onClick={() => collect(publicationId)}>
           Collect

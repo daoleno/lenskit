@@ -15,7 +15,7 @@ export default function CreateProfile(): JSX.Element {
         <Input
           placeholder={'Enter a handle'}
           value={handle}
-          onChange={(e) => setHandle(e.target.value)}
+          onChange={(e: any) => setHandle(e.target.value)}
         />
         <Button color="blue" loading={loading} onClick={() => createProfile(handle)}>
           Create

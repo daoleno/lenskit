@@ -17,7 +17,7 @@ export default function ProfileCard() {
         <TextInput
           value={profileId}
           placeholder="Profile ID"
-          onChange={(e) => setProfileId(e.currentTarget.value)}
+          onChange={(e: any) => setProfileId(e.currentTarget.value)}
         />
 
         {profile && (

@@ -9,6 +9,14 @@
                 "dist/**"
             ]
         },
+        "start": {
+            "dependsOn": [
+                "^build"
+            ],
+            "outputs": [
+                "dist/**"
+            ]
+        },
         "lint": {
             "outputs": []
         },

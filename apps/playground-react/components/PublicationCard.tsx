@@ -27,7 +27,7 @@ export function PublicationCard() {
         <Title order={3}>Publication Card</Title>
         <Input
           placeholder="0x530a-0x07"
-          onChange={(e) => setPublicationId(e.currentTarget.value)}
+          onChange={(e: any) => setPublicationId(e.currentTarget.value)}
         />
         {publication && (
           <Card withBorder radius="md">

@@ -10,7 +10,11 @@ export default function Unfollow(): JSX.Element {
     <Card p="lg" radius="md" withBorder>
       <Stack spacing="md">
         <Title order={2}>Unfollow Profile</Title>
-        <Input placeholder={'0x530a'} value={handle} onChange={(e) => setHandle(e.target.value)} />
+        <Input
+          placeholder={'0x530a'}
+          value={handle}
+          onChange={(e: any) => setHandle(e.target.value)}
+        />
         <Button color="blue" loading={loading} onClick={() => unfollow(handle)}>
           {tx && tx.transactionHash ? 'Unfollowed' : 'Unfollow'}
         </Button>
