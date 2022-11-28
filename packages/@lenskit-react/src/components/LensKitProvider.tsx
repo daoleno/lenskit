@@ -62,5 +62,6 @@ const client = new ApolloClient({
 })
 
 export function LensKitProvider({ children }: LensKitProviderProps) {
+  // useAccount()
   return <ApolloProvider client={client}>{children}</ApolloProvider>
 }
