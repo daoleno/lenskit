@@ -1,7 +1,15 @@
-import { ArchiveIcon, ChevronDownIcon, CopyIcon, PlusIcon, UpdateIcon } from '@radix-ui/react-icons'
+import { blackA, lime } from '@radix-ui/colors'
+import {
+  ArchiveIcon,
+  AvatarIcon,
+  CopyIcon,
+  PaperPlaneIcon,
+  PlusIcon,
+  UpdateIcon,
+} from '@radix-ui/react-icons'
 import * as Popover from '@radix-ui/react-popover'
-import { styled } from '@stitches/react'
-import '../tailwind.css'
+import { createStitches } from '@stitches/react'
+import { useAccount } from 'wagmi'
 
 // import { Collect } from './Collect'
 // import { CreateProfile } from './CreateProfile'
@@ -21,7 +29,7 @@ const modals = {
 }
 
 export function LensKitButton() {
-  // const { address } = useAccount()
+  const { address } = useAccount()
 
   // set multiple modal states
   //   const [isOpen, setIsOpen] = useState(false)
@@ -49,7 +57,7 @@ export function LensKitButton() {
     {
       name: 'Post',
       description: 'Post a new publication',
-      icon: ArchiveIcon,
+      icon: PaperPlaneIcon,
       onClick: () => handleModal(modals.post),
     },
   ]
@@ -58,13 +66,13 @@ export function LensKitButton() {
     {
       name: 'Follow',
       description: 'Follow your favorite creators.',
-      icon: PlusIcon,
+      icon: AvatarIcon,
       onClick: () => handleModal(modals.follow),
     },
     {
       name: 'Collect',
       description: 'Collect this post to your collection.',
-      icon: CollectionIcon,
+      icon: ArchiveIcon,
       onClick: () => handleModal(modals.collect),
     },
     {
@@ -75,21 +83,13 @@ export function LensKitButton() {
     },
   ]
 
-  // const shortAddress = address ? `${address.slice(0, 4)}...${address.slice(-4)}` : ''
+  const shortAddress = address ? `${address.slice(0, 4)}...${address.slice(-4)}` : ''
 
   return (
     <div className="w-full max-w-sm px-4">
-      <p className="text-xl font-bold text-red-800 underline">LensKit</p>
       <Popover.Root>
         <Popover.Trigger asChild>
-          <button className="bg-lime text-basil group inline-flex items-center gap-2 rounded-2xl px-6 py-2 font-normal hover:bg-opacity-80 focus:outline-none">
-            <Label htmlFor="width">Width</Label>
-
-            <p className="bg-lime text-basil group inline-flex items-center gap-2 rounded-2xl px-6 py-2 font-normal hover:bg-opacity-80 focus:outline-none">
-              LensKit
-            </p>
-            <p className="text-xl font-bold text-blue-800">LensKit</p>
-
+          <Button>
             <svg
               width="16"
               height="16"
@@ -102,97 +102,203 @@ export function LensKitButton() {
                 fill="#00501E"
               ></path>
             </svg>
-            {/* <span>{shortAddress || 'Lens'}</span> */}
-            <ChevronDownIcon
-              className="h-5 w-5 transition duration-150 ease-in-out group-hover:text-opacity-80"
-              aria-hidden="true"
-            />
-          </button>
+            <div
+              style={{
+                marginLeft: 8,
+              }}
+            >
+              {shortAddress || 'Connect Wallet'}
+            </div>
+          </Button>
         </Popover.Trigger>
 
-        <Popover.Portal className="absolute left-1/2 z-10 mt-3 w-screen max-w-sm -translate-x-1/2 transform px-4 sm:px-0 lg:max-w-3xl">
-          <Popover.Content>
-            <div className="bg-peas overflow-hidden rounded-lg shadow-lg">
-              <div className="relative grid gap-8 p-7 lg:grid-cols-2">
-                {adminActions.map((item) => (
-                  <button
-                    key={item.name}
-                    className="-m-3 flex cursor-pointer items-center rounded-lg p-2 transition duration-150 ease-in-out hover:ring-1 hover:ring-gray-500 hover:ring-offset-2"
-                    onClick={item.onClick}
-                  >
-                    <div className="text-basil flex h-10 w-10 shrink-0 items-center justify-center sm:h-12 sm:w-12">
-                      <item.icon aria-hidden="true" className="h-6 w-6" />
-                    </div>
-                    <div className="ml-4">
-                      <p className="text-basil text-sm font-medium">{item.name}</p>
-                      <p className="text-basil text-sm">{item.description}</p>
-                    </div>
-                  </button>
-                ))}
+        <Portal>
+          <Content>
+            <List>
+              {adminActions.map((item) => (
+                <ListItem icon={<item.icon width={24} height={24} />} title={item.name}>
+                  {item.description}
+                </ListItem>
+              ))}
 
-                <div className="bg-basil h-px" />
+              <Divider />
 
-                {actions.map((item) => (
-                  <button
-                    key={item.name}
-                    className="-m-3 flex cursor-pointer items-center rounded-lg p-2 transition duration-150 ease-in-out hover:ring-1 hover:ring-gray-500 hover:ring-offset-2"
-                    onClick={item.onClick}
-                  >
-                    <div className="text-basil flex h-10 w-10 shrink-0 items-center justify-center sm:h-12 sm:w-12">
-                      <item.icon aria-hidden="true" className="h-6 w-6" />
-                    </div>
-                    <div className="ml-4">
-                      <p className="text-basil text-sm font-medium">{item.name}</p>
-                      <p className="text-basil text-sm">{item.description}</p>
-                    </div>
-                  </button>
-                ))}
-              </div>
-              <div className="text-basil bg-opacity-50 p-4">
-                <a
-                  href="https://docs.lens.xyz/"
-                  target="_blank"
-                  className="flow-root rounded-md px-2 py-2 transition duration-150 ease-in-out hover:ring-1 focus:outline-none"
-                  rel="noreferrer"
-                >
-                  <span className="flex items-center">
-                    <span className="text-sm font-medium">Documentation</span>
-                  </span>
-                  <span className="block bg-opacity-50 text-sm">
-                    Start integrating lens protocol into your project
-                  </span>
-                </a>
-              </div>
-            </div>
-          </Popover.Content>
-        </Popover.Portal>
+              {actions.map((item) => (
+                <ListItem icon={<item.icon width={24} height={24} />} title={item.name}>
+                  {item.description}
+                </ListItem>
+              ))}
+            </List>
+            <Footer
+              title="Documentation"
+              description="Learn more about the project"
+              link="https://docs.lens.xyz"
+            />
+          </Content>
+        </Portal>
       </Popover.Root>
     </div>
   )
 }
 
-function CollectionIcon() {
-  return (
-    <svg
-      className="h-6 w-6"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-      ></path>
-    </svg>
-  )
-}
-
-const Label = styled('label', {
-  fontSize: 13,
-  // color: violet.violet11,
-  color: 'red',
-  width: 75,
+const { styled } = createStitches({
+  theme: {
+    colors: {
+      lime: '#ABFE2C',
+      basil: '#00501E',
+      peas: '#E5FFBE',
+    },
+  },
 })
+const Button = styled('button', {
+  all: 'unset',
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderRadius: 12,
+  padding: '0 15px',
+  fontSize: 15,
+  lineHeight: 1,
+  fontWeight: 500,
+  height: 35,
+  cursor: 'pointer',
+
+  variants: {
+    variant: {
+      lime: {
+        backgroundColor: '$lime',
+        color: '$basil',
+        boxShadow: `0 2px 10px ${blackA.blackA7}`,
+        '&:hover': { boxShadow: `0 2px 10px ${blackA.blackA8}` },
+      },
+    },
+  },
+
+  defaultVariants: {
+    variant: 'lime',
+  },
+})
+
+const Portal = styled(Popover.Portal, {
+  position: 'absolute',
+  left: '50%',
+  zIndex: 10,
+  marginTop: 3,
+  width: '100%',
+  maxWidth: 300,
+  transform: 'translateX(-50%)',
+  paddingX: 4,
+  '@sm': { paddingX: 0 },
+  '@lg': { maxWidth: 600 },
+})
+
+const Content = styled(Popover.Content, {
+  backgroundColor: '$peas',
+  overflow: 'hidden',
+  borderRadius: 12,
+  boxShadow: `0 2px 10px ${blackA.blackA7}`,
+})
+
+const List = styled('ul', {
+  display: 'grid',
+  padding: 22,
+  margin: 0,
+  columnGap: 10,
+  listStyle: 'none',
+  // variants: {
+  //   layout: {
+  // one: {
+  //   '@media only screen and (min-width: 600px)': {
+  //     width: 500,
+  //     gridTemplateColumns: '.75fr 1fr',
+  //   },
+  // },
+  // two: {
+  //   '@media only screen and (min-width: 600px)': {
+  //     width: 600,
+  //     gridAutoFlow: 'column',
+  //     gridTemplateRows: 'repeat(3, 1fr)',
+  //   },
+  // },
+  //   },
+  // },
+  // defaultVariants: {
+  //   layout: 'one',
+  // },
+})
+
+const Flex = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  borderRadius: 6,
+  padding: 12,
+  '&:hover': { boxShadow: `0 0 0 2px ${lime.lime6}` },
+})
+
+const ListItem = ({ children, icon, title, ...props }: any) => (
+  <li>
+    <Flex>
+      <ListItemIcon>{icon}</ListItemIcon>
+      <ListItemLink {...props}>
+        <ListItemHeading>{title}</ListItemHeading>
+        <ListItemText>{children}</ListItemText>
+      </ListItemLink>
+    </Flex>
+  </li>
+)
+
+const ListItemLink = styled('a', {
+  display: 'flex',
+  flexDirection: 'column',
+  flex: 1,
+  outline: 'none',
+  textDecoration: 'none',
+  userSelect: 'none',
+  padding: 12,
+  borderRadius: 6,
+  fontSize: 15,
+  lineHeight: 1,
+  // '&:hover': { boxShadow: `0 0 0 2px ${lime.lime6}` },
+})
+
+const ListItemIcon = styled('div', {
+  color: '$basil',
+  height: 40,
+  width: 60,
+  borderRadius: 12,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  // '@sm': { height: 48, width: 48 },
+})
+
+const ListItemHeading = styled('div', {
+  fontWeight: 500,
+  lineHeight: 1.2,
+  marginBottom: 5,
+  color: '$basil',
+})
+
+const ListItemText = styled('p', {
+  all: 'unset',
+  color: '$basil',
+  lineHeight: 1.4,
+  fontWeight: 'initial',
+})
+
+const Divider = styled('div', {
+  height: 1,
+  backgroundColor: '$basil',
+  opacity: 0.5,
+  margin: '10px 0',
+})
+
+const Footer = ({ title, description, link }: any) => (
+  <div style={{ padding: 12 }}>
+    <ListItemLink href={link} target="_blank" rel="noreferrer">
+      <span style={{ fontWeight: 500, color: '#00501E' }}>{title}</span>
+      <span style={{ color: '#00501E', marginTop: 5 }}>{description}</span>
+    </ListItemLink>
+  </div>
+)
