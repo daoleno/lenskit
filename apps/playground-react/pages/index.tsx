@@ -1,4 +1,3 @@
-import { LensKitButton } from '@lenskit/react'
 import { Flex, SimpleGrid } from '@mantine/core'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import CollectPublication from '../components/CollectPublication'
@@ -20,7 +19,7 @@ export default function Home() {
     <Flex direction="column" align="center" maw={800} mx="auto" mt="xl" gap="md">
       <span className="my-10 text-6xl font-bold">LensKit Playground</span>
       <ConnectButton />
-      <LensKitButton />
+      {/* <LensKitButton /> */}
 
       <SimpleGrid cols={3}>
         <CreateProfile />

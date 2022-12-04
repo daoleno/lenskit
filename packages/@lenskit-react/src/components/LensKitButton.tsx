@@ -8,8 +8,10 @@ import {
   UpdateIcon,
 } from '@radix-ui/react-icons'
 import * as Popover from '@radix-ui/react-popover'
-import { createStitches } from '@stitches/react'
+import { useState } from 'react'
+import styled from 'utils/styled'
 import { useAccount } from 'wagmi'
+import CreateProfileDialog from './CreateProfileDialog'
 
 // import { Collect } from './Collect'
 // import { CreateProfile } from './CreateProfile'
@@ -18,27 +20,22 @@ import { useAccount } from 'wagmi'
 // import { Post } from './Post'
 // import { UpdateProfile } from './UpdateProfile'
 
-const modals = {
-  create: 'Create Profile',
-  update: 'Update Profile',
-  post: 'Post',
-  follow: 'Follow',
-  collect: 'Collect',
-  mirror: 'Mirror',
-  none: 'none',
+const dislogOpenState = {
+  createProfile: false,
+  updateProfile: false,
+  follow: false,
+  mirror: false,
+  collect: false,
+  post: false,
 }
 
 export function LensKitButton() {
   const { address } = useAccount()
-
-  // set multiple modal states
-  //   const [isOpen, setIsOpen] = useState(false)
-  //   const [currentModal, setCurrentModal] = useState(modals.none)
-
-  const handleModal = (modal: string) => {
-    console.log('handleModal', modal)
-    // setCurrentModal(modal)
-    // setIsOpen(true)
+  const [dialogOpen, setDialogOpen] = useState(dislogOpenState)
+  const [popoverOpen, setPopoverOpen] = useState(false)
+  const handleOpenDialog = (dialog: keyof typeof dislogOpenState) => {
+    setDialogOpen({ ...dislogOpenState, [dialog]: true })
+    setPopoverOpen(false)
   }
 
   const adminActions = [
@@ -46,19 +43,19 @@ export function LensKitButton() {
       name: 'Create Profile',
       description: 'Create a new profile',
       icon: PlusIcon,
-      onClick: () => handleModal(modals.create),
+      onClick: () => handleOpenDialog('createProfile'),
     },
     {
       name: 'Update Profile',
       description: 'Update your profile',
       icon: UpdateIcon,
-      onClick: () => handleModal(modals.update),
+      onClick: () => setDialogOpen({ ...dislogOpenState, updateProfile: true }),
     },
     {
       name: 'Post',
       description: 'Post a new publication',
       icon: PaperPlaneIcon,
-      onClick: () => handleModal(modals.post),
+      onClick: () => setDialogOpen({ ...dislogOpenState, post: true }),
     },
   ]
 
@@ -67,19 +64,19 @@ export function LensKitButton() {
       name: 'Follow',
       description: 'Follow your favorite creators.',
       icon: AvatarIcon,
-      onClick: () => handleModal(modals.follow),
+      onClick: () => setDialogOpen({ ...dislogOpenState, follow: true }),
     },
     {
       name: 'Collect',
       description: 'Collect this post to your collection.',
       icon: ArchiveIcon,
-      onClick: () => handleModal(modals.collect),
+      onClick: () => setDialogOpen({ ...dislogOpenState, collect: true }),
     },
     {
       name: 'Mirror',
       description: 'Re-share this post to your followers.',
       icon: CopyIcon,
-      onClick: () => handleModal(modals.mirror),
+      onClick: () => setDialogOpen({ ...dislogOpenState, mirror: true }),
     },
   ]
 
@@ -87,7 +84,7 @@ export function LensKitButton() {
 
   return (
     <div className="w-full max-w-sm px-4">
-      <Popover.Root>
+      <Popover.Root open={popoverOpen} onOpenChange={setPopoverOpen}>
         <Popover.Trigger asChild>
           <Button>
             <svg
@@ -116,7 +113,12 @@ export function LensKitButton() {
           <Content>
             <List>
               {adminActions.map((item) => (
-                <ListItem icon={<item.icon width={24} height={24} />} title={item.name}>
+                <ListItem
+                  icon={<item.icon width={24} height={24} />}
+                  title={item.name}
+                  onClick={item.onClick}
+                  key={item.name}
+                >
                   {item.description}
                 </ListItem>
               ))}
@@ -137,19 +139,11 @@ export function LensKitButton() {
           </Content>
         </Portal>
       </Popover.Root>
+      <CreateProfileDialog open={dialogOpen.createProfile} />
     </div>
   )
 }
 
-const { styled } = createStitches({
-  theme: {
-    colors: {
-      lime: '#ABFE2C',
-      basil: '#00501E',
-      peas: '#E5FFBE',
-    },
-  },
-})
 const Button = styled('button', {
   all: 'unset',
   display: 'inline-flex',
