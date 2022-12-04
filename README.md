@@ -8,7 +8,8 @@ lenskit is a set of libraries for integrating lens protocol into your applicatio
 yarn add @lenskit/react
 ```
 
-Attention: This package is still in development and not ready for production.
+**Warning**
+This package is still in development and not ready for production.
 
 ## Hooks
 
