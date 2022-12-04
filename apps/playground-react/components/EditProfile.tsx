@@ -35,7 +35,9 @@ export default function EditProfile() {
     <form onSubmit={form.onSubmit(handleUpdateProfile)}>
       <Card withBorder>
         <Stack spacing="md">
-          <Title order={2}>Edit Lens Profile</Title>
+          <Title variant="gradient" gradient={{ from: 'lime', to: 'cyan', deg: 45 }} order={2}>
+            Edit Lens Profile
+          </Title>
           <TextInput
             label="Profile ID"
             placeholder="0x530a"
@@ -49,7 +51,13 @@ export default function EditProfile() {
             required
             {...form.getInputProps('bio')}
           />
-          <Button color={'white'} w="full" type="submit" loading={loading && !error}>
+          <Button
+            variant="gradient"
+            gradient={{ from: 'lime', to: 'cyan', deg: 45 }}
+            w="full"
+            type="submit"
+            loading={loading && !error}
+          >
             Submit
           </Button>
           {error && <Alert color="red">{error.message}</Alert>}

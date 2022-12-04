@@ -11,13 +11,20 @@ export default function CreateProfile(): JSX.Element {
   return (
     <Card p="lg" radius="md" withBorder>
       <Stack spacing="md">
-        <Title order={2}>Create Profile</Title>
+        <Title variant="gradient" gradient={{ from: 'lime', to: 'cyan', deg: 45 }} order={2}>
+          Create Profile
+        </Title>
         <Input
           placeholder={'Enter a handle'}
           value={handle}
           onChange={(e: any) => setHandle(e.target.value)}
         />
-        <Button color="blue" loading={loading} onClick={() => createProfile(handle)}>
+        <Button
+          variant="gradient"
+          gradient={{ from: 'lime', to: 'cyan', deg: 45 }}
+          loading={loading}
+          onClick={() => createProfile(handle)}
+        >
           Create
         </Button>
         {profileId && <Alert color="green">Profile created: {profileId}</Alert>}

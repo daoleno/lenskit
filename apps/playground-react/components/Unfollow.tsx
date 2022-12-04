@@ -9,13 +9,20 @@ export default function Unfollow(): JSX.Element {
   return (
     <Card p="lg" radius="md" withBorder>
       <Stack spacing="md">
-        <Title order={2}>Unfollow Profile</Title>
+        <Title variant="gradient" gradient={{ from: 'lime', to: 'cyan', deg: 45 }} order={2}>
+          Unfollow Profile
+        </Title>
         <Input
           placeholder={'0x530a'}
           value={handle}
           onChange={(e: any) => setHandle(e.target.value)}
         />
-        <Button color="blue" loading={loading} onClick={() => unfollow(handle)}>
+        <Button
+          variant="gradient"
+          gradient={{ from: 'lime', to: 'cyan', deg: 45 }}
+          loading={loading}
+          onClick={() => unfollow(handle)}
+        >
           {tx && tx.transactionHash ? 'Unfollowed' : 'Unfollow'}
         </Button>
         {error && <Alert color="red">{error.message}</Alert>}

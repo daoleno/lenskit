@@ -1,4 +1,4 @@
-# lenskit
+# 🌿 LensKit 🌿
 
 lenskit is a set of libraries for integrating lens protocol into your application.
 

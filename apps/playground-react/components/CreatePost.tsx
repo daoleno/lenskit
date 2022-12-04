@@ -54,7 +54,9 @@ export default function CreatePost() {
     <form onSubmit={form.onSubmit(handleCreatePost)}>
       <Card withBorder>
         <Stack spacing="md">
-          <Title order={2}>Create Post</Title>
+          <Title variant="gradient" gradient={{ from: 'lime', to: 'cyan', deg: 45 }} order={2}>
+            Create Post
+          </Title>
           <TextInput
             label="ProfileID"
             placeholder="0x530a"
@@ -79,7 +81,13 @@ export default function CreatePost() {
             placeholder="lenskit playground"
             {...form.getInputProps('external_url')}
           />
-          <Button color={'white'} w="full" type="submit" loading={loading && !error}>
+          <Button
+            variant="gradient"
+            gradient={{ from: 'lime', to: 'cyan', deg: 45 }}
+            w="full"
+            type="submit"
+            loading={loading && !error}
+          >
             Submit
           </Button>
           {error && <Alert color="red">{error.message}</Alert>}

@@ -24,7 +24,9 @@ export function PublicationCard() {
   return (
     <Card withBorder radius="md">
       <Stack>
-        <Title order={3}>Publication Card</Title>
+        <Title variant="gradient" gradient={{ from: 'lime', to: 'cyan', deg: 45 }} order={3}>
+          Publication Card
+        </Title>
         <Input
           placeholder="0x530a-0x07"
           onChange={(e: any) => setPublicationId(e.currentTarget.value)}

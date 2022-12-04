@@ -15,7 +15,9 @@ export default function CreateMirror() {
     <form onSubmit={form.onSubmit((values) => mirror(values.profileId, values.publicationId))}>
       <Card withBorder>
         <Stack spacing="md">
-          <Title order={2}>Create Mirror</Title>
+          <Title variant="gradient" gradient={{ from: 'lime', to: 'cyan', deg: 45 }} order={2}>
+            Create Mirror
+          </Title>
           <TextInput
             label="ProfileID"
             placeholder="0x530a"
@@ -28,7 +30,13 @@ export default function CreateMirror() {
             required
             {...form.getInputProps('publicationId')}
           />
-          <Button color={'white'} w="full" type="submit" loading={loading}>
+          <Button
+            variant="gradient"
+            gradient={{ from: 'lime', to: 'cyan', deg: 45 }}
+            w="full"
+            type="submit"
+            loading={loading}
+          >
             Create
           </Button>
           {error && <Alert color="red">{error.message}</Alert>}

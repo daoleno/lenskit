@@ -13,7 +13,9 @@ export default function ProfileCard() {
   return (
     <Card p="lg" radius="md" withBorder>
       <Stack>
-        <Title order={3}>Query Profile</Title>
+        <Title variant="gradient" gradient={{ from: 'lime', to: 'cyan', deg: 45 }} order={3}>
+          Query Profile
+        </Title>
         <TextInput
           value={profileId}
           placeholder="Profile ID"

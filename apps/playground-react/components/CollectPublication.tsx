@@ -9,13 +9,20 @@ export default function CollectPublication(): JSX.Element {
   return (
     <Card p="lg" radius="md" withBorder>
       <Stack spacing="md">
-        <Title order={2}>Collect Publication</Title>
+        <Title variant="gradient" gradient={{ from: 'lime', to: 'cyan', deg: 45 }} order={2}>
+          Collect Publication
+        </Title>
         <Input
           placeholder={'0x530a-0x08'}
           value={publicationId}
           onChange={(e: any) => setPublicationId(e.currentTarget.value)}
         />
-        <Button color="blue" loading={loading} onClick={() => collect(publicationId)}>
+        <Button
+          variant="gradient"
+          gradient={{ from: 'lime', to: 'cyan', deg: 45 }}
+          loading={loading}
+          onClick={() => collect(publicationId)}
+        >
           Collect
         </Button>
         {tx && <Alert color="green">Collect Success! Tx: {tx.transactionHash}</Alert>}

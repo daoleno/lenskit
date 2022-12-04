@@ -9,13 +9,20 @@ export default function Follow(): JSX.Element {
   return (
     <Card p="lg" radius="md" withBorder>
       <Stack spacing="md">
-        <Title order={2}>Follow Profile</Title>
+        <Title variant="gradient" gradient={{ from: 'lime', to: 'cyan', deg: 45 }} order={2}>
+          Follow Profile
+        </Title>
         <Input
           placeholder={'0x530a'}
           value={handle}
           onChange={(e: any) => setHandle(e.target.value)}
         />
-        <Button color="blue" loading={loading} onClick={() => follow(handle)}>
+        <Button
+          variant="gradient"
+          gradient={{ from: 'lime', to: 'cyan', deg: 45 }}
+          loading={loading}
+          onClick={() => follow(handle)}
+        >
           {tx && tx.transactionHash ? 'Followed' : 'Follow'}
         </Button>
         {error && <Alert color="red">{error.message}</Alert>}

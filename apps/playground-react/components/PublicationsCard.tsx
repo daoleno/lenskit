@@ -25,7 +25,9 @@ export function PublicationsCard() {
   return (
     <Card withBorder radius="md">
       <Stack>
-        <Title order={3}>Publications</Title>
+        <Title variant="gradient" gradient={{ from: 'lime', to: 'cyan', deg: 45 }} order={3}>
+          Publications
+        </Title>
         <Input placeholder="0x530a" onChange={(e: any) => setProfileId(e.currentTarget.value)} />
 
         {publications && publications.items.length > 0 ? (
