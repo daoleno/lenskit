@@ -9,6 +9,7 @@ yarn add @lenskit/react
 ```
 
 > **Warning**
+>
 > This package is still in development and not ready for production.
 
 ## Hooks

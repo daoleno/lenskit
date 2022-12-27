@@ -1,3 +1,4 @@
+import { LensKitButton } from '@lenskit/react'
 import {
   ActionIcon,
   Flex,
@@ -51,7 +52,7 @@ export default function Home() {
       </div>
 
       <ConnectButton />
-      {/* <LensKitButton /> */}
+      <LensKitButton />
 
       <SimpleGrid cols={3}>
         <CreateProfile />

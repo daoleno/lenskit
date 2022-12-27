@@ -126,7 +126,11 @@ export function LensKitButton() {
               <Divider />
 
               {actions.map((item) => (
-                <ListItem icon={<item.icon width={24} height={24} />} title={item.name}>
+                <ListItem
+                  icon={<item.icon width={24} height={24} />}
+                  title={item.name}
+                  key={item.name}
+                >
                   {item.description}
                 </ListItem>
               ))}

@@ -9,7 +9,7 @@ export interface LensKitDialogProps {
 }
 
 const CreateProfileDialog = (props: LensKitDialogProps) => (
-  <Dialog.Root open={true}>
+  <Dialog.Root open={props.open}>
     {/* <Dialog.Trigger asChild>
       <Button size="large">Edit profile</Button>
     </Dialog.Trigger> */}
