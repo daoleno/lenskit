@@ -18,7 +18,8 @@
     "build": "turbo run build",
     "start": "turbo run start",
     "lint": "turbo run lint",
-    "clean": "turbo run clean"
+    "clean": "turbo run clean",
+    "publish-packages": "changeset version && changeset publish"
   },
   "prettier": {
     "printWidth": 100,
