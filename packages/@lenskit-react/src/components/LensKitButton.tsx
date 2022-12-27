@@ -12,6 +12,7 @@ import { useState } from 'react'
 import styled from 'utils/styled'
 import { useAccount } from 'wagmi'
 import CreateProfileDialog from './CreateProfileDialog'
+import { List, ListItemLink } from './List'
 
 // import { Collect } from './Collect'
 // import { CreateProfile } from './CreateProfile'
@@ -40,19 +41,19 @@ export function LensKitButton() {
 
   const adminActions = [
     {
-      name: 'Create Profile',
+      title: 'Create Profile',
       description: 'Create a new profile',
       icon: PlusIcon,
-      onClick: () => handleOpenDialog('createProfile'),
+      // onClick: () => handleOpenDialog('createProfile'),
     },
     {
-      name: 'Update Profile',
+      title: 'Update Profile',
       description: 'Update your profile',
       icon: UpdateIcon,
       onClick: () => setDialogOpen({ ...dislogOpenState, updateProfile: true }),
     },
     {
-      name: 'Post',
+      title: 'Post',
       description: 'Post a new publication',
       icon: PaperPlaneIcon,
       onClick: () => setDialogOpen({ ...dislogOpenState, post: true }),
@@ -61,19 +62,19 @@ export function LensKitButton() {
 
   const actions = [
     {
-      name: 'Follow',
+      title: 'Follow',
       description: 'Follow your favorite creators.',
       icon: AvatarIcon,
       onClick: () => setDialogOpen({ ...dislogOpenState, follow: true }),
     },
     {
-      name: 'Collect',
+      title: 'Collect',
       description: 'Collect this post to your collection.',
       icon: ArchiveIcon,
       onClick: () => setDialogOpen({ ...dislogOpenState, collect: true }),
     },
     {
-      name: 'Mirror',
+      title: 'Mirror',
       description: 'Re-share this post to your followers.',
       icon: CopyIcon,
       onClick: () => setDialogOpen({ ...dislogOpenState, mirror: true }),
@@ -112,28 +113,8 @@ export function LensKitButton() {
         <Portal>
           <Content>
             <List>
-              {adminActions.map((item) => (
-                <ListItem
-                  icon={<item.icon width={24} height={24} />}
-                  title={item.name}
-                  onClick={item.onClick}
-                  key={item.name}
-                >
-                  {item.description}
-                </ListItem>
-              ))}
-
+              <CreateProfileDialog />
               <Divider />
-
-              {actions.map((item) => (
-                <ListItem
-                  icon={<item.icon width={24} height={24} />}
-                  title={item.name}
-                  key={item.name}
-                >
-                  {item.description}
-                </ListItem>
-              ))}
             </List>
             <Footer
               title="Documentation"
@@ -143,7 +124,6 @@ export function LensKitButton() {
           </Content>
         </Portal>
       </Popover.Root>
-      <CreateProfileDialog open={dialogOpen.createProfile} />
     </div>
   )
 }
@@ -197,92 +177,13 @@ const Content = styled(Popover.Content, {
   boxShadow: `0 2px 10px ${blackA.blackA7}`,
 })
 
-const List = styled('ul', {
-  display: 'grid',
-  padding: 22,
-  margin: 0,
-  columnGap: 10,
-  listStyle: 'none',
-  // variants: {
-  //   layout: {
-  // one: {
-  //   '@media only screen and (min-width: 600px)': {
-  //     width: 500,
-  //     gridTemplateColumns: '.75fr 1fr',
-  //   },
-  // },
-  // two: {
-  //   '@media only screen and (min-width: 600px)': {
-  //     width: 600,
-  //     gridAutoFlow: 'column',
-  //     gridTemplateRows: 'repeat(3, 1fr)',
-  //   },
-  // },
-  //   },
-  // },
-  // defaultVariants: {
-  //   layout: 'one',
-  // },
-})
-
-const Flex = styled('div', {
+export const Flex = styled('div', {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
   borderRadius: 6,
   padding: 12,
   '&:hover': { boxShadow: `0 0 0 2px ${lime.lime6}` },
-})
-
-const ListItem = ({ children, icon, title, ...props }: any) => (
-  <li>
-    <Flex>
-      <ListItemIcon>{icon}</ListItemIcon>
-      <ListItemLink {...props}>
-        <ListItemHeading>{title}</ListItemHeading>
-        <ListItemText>{children}</ListItemText>
-      </ListItemLink>
-    </Flex>
-  </li>
-)
-
-const ListItemLink = styled('a', {
-  display: 'flex',
-  flexDirection: 'column',
-  flex: 1,
-  outline: 'none',
-  textDecoration: 'none',
-  userSelect: 'none',
-  padding: 12,
-  borderRadius: 6,
-  fontSize: 15,
-  lineHeight: 1,
-  // '&:hover': { boxShadow: `0 0 0 2px ${lime.lime6}` },
-})
-
-const ListItemIcon = styled('div', {
-  color: '$basil',
-  height: 40,
-  width: 60,
-  borderRadius: 12,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  // '@sm': { height: 48, width: 48 },
-})
-
-const ListItemHeading = styled('div', {
-  fontWeight: 500,
-  lineHeight: 1.2,
-  marginBottom: 5,
-  color: '$basil',
-})
-
-const ListItemText = styled('p', {
-  all: 'unset',
-  color: '$basil',
-  lineHeight: 1.4,
-  fontWeight: 'initial',
 })
 
 const Divider = styled('div', {
