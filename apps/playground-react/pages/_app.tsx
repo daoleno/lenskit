@@ -1,10 +1,11 @@
 import { LensKitProvider } from '@lenskit/react'
+import '@lenskit/react/styles.css'
 import { ColorScheme, ColorSchemeProvider, MantineProvider } from '@mantine/core'
-import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit'
+import { RainbowKitProvider, getDefaultWallets } from '@rainbow-me/rainbowkit'
 import '@rainbow-me/rainbowkit/styles.css'
 import type { AppProps } from 'next/app'
 import { useState } from 'react'
-import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
+import { WagmiConfig, chain, configureChains, createClient } from 'wagmi'
 import { publicProvider } from 'wagmi/providers/public'
 import '../styles/globals.css'
 

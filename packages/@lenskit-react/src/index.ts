@@ -1,4 +1,5 @@
-// css
+import './tailwind.css'
+
 export * from './components/LensKitButton'
 export * from './components/LensKitProvider'
 export * from './hooks'
