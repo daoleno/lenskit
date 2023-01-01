@@ -1,7 +1,8 @@
-import { blackA, lime } from '@radix-ui/colors'
+import { lime } from '@radix-ui/colors'
 import {
   ArchiveIcon,
   AvatarIcon,
+  ChevronDownIcon,
   CopyIcon,
   PaperPlaneIcon,
   PlusIcon,
@@ -12,7 +13,7 @@ import { useState } from 'react'
 import styled from 'utils/styled'
 import { useAccount } from 'wagmi'
 import CreateProfileDialog from './CreateProfileDialog'
-import { List, ListItemLink } from './List'
+import { ListItemLink } from './List'
 
 // import { Collect } from './Collect'
 // import { CreateProfile } from './CreateProfile'
@@ -38,6 +39,7 @@ export function LensKitButton() {
     setDialogOpen({ ...dislogOpenState, [dialog]: true })
     setPopoverOpen(false)
   }
+  const [container, setContainer] = useState<any>(null)
 
   const adminActions = [
     {
@@ -87,7 +89,11 @@ export function LensKitButton() {
     <div className="w-full max-w-sm px-4">
       <Popover.Root open={popoverOpen} onOpenChange={setPopoverOpen}>
         <Popover.Trigger asChild>
-          <Button>
+          <button
+            className={`
+                ${popoverOpen ? '' : 'text-opacity-90'}
+                bg-lime text-basil group inline-flex items-center gap-2 rounded-2xl px-6 py-2 font-normal hover:bg-opacity-80 focus:outline-none`}
+          >
             <svg
               width="16"
               height="16"
@@ -100,19 +106,21 @@ export function LensKitButton() {
                 fill="#00501E"
               ></path>
             </svg>
-            <div
-              style={{
-                marginLeft: 8,
-              }}
-            >
-              {shortAddress || 'Connect Wallet'}
-            </div>
-          </Button>
+            <span>{shortAddress || 'Lens'}</span>
+            <ChevronDownIcon
+              className={`${popoverOpen ? '' : 'text-opacity-70'}
+                  h-5 w-5 transition duration-150 ease-in-out group-hover:text-opacity-80`}
+              aria-hidden="true"
+            />
+          </button>
         </Popover.Trigger>
-
-        <Portal>
-          <Content>
-            <List>
+        <Popover.Portal>
+          <Popover.Content
+            className="absolute left-1/2 w-screen max-w-sm -translate-x-1/2 transform px-4 sm:px-0 lg:max-w-3xl"
+            sideOffset={5}
+            hideWhenDetached
+          >
+            {/* <List>
               <CreateProfileDialog />
               <Divider />
             </List>
@@ -120,62 +128,68 @@ export function LensKitButton() {
               title="Documentation"
               description="Learn more about the project"
               link="https://docs.lens.xyz"
-            />
-          </Content>
-        </Portal>
+            /> */}
+            <button className="bg-peas overflow-hidden rounded-lg shadow-lg">
+              <div className="relative grid gap-8 p-7 lg:grid-cols-2">
+                {/* {adminActions.map((item) => (
+                  <button
+                    key={item.title}
+                    className="-m-3 flex cursor-pointer items-center rounded-lg p-2 transition duration-150 ease-in-out hover:ring-1 hover:ring-gray-500 hover:ring-offset-2"
+                    onClick={item.onClick}
+                  >
+                    <div className="text-basil flex h-10 w-10 shrink-0 items-center justify-center sm:h-12 sm:w-12">
+                      <item.icon aria-hidden="true" className="h-6 w-6" />
+                    </div>
+                    <div className="ml-4">
+                      <p className="text-basil text-sm font-medium">{item.title}</p>
+                      <p className="text-basil text-sm">{item.description}</p>
+                    </div>
+                  </button>
+                ))} */}
+                <CreateProfileDialog />
+
+                <div className="bg-basil h-px" />
+
+                {actions.map((item) => (
+                  <button
+                    key={item.title}
+                    className="-m-3 flex cursor-pointer items-center rounded-lg p-2 transition duration-150 ease-in-out hover:ring-1 hover:ring-gray-500 hover:ring-offset-2"
+                    onClick={item.onClick}
+                  >
+                    <div className="text-basil flex h-10 w-10 shrink-0 items-center justify-center sm:h-12 sm:w-12">
+                      <item.icon aria-hidden="true" className="h-6 w-6" />
+                    </div>
+                    <div className="ml-4">
+                      <p className="text-basil text-sm font-medium">{item.title}</p>
+                      <p className="text-basil text-sm">{item.description}</p>
+                    </div>
+                  </button>
+                ))}
+              </div>
+              <div className="text-basil bg-opacity-50 p-4">
+                <a
+                  href="https://docs.lens.xyz/"
+                  target="_blank"
+                  className="flow-root rounded-md px-2 py-2 transition duration-150 ease-in-out hover:ring-1 focus:outline-none"
+                  rel="noreferrer"
+                >
+                  <span className="flex items-center">
+                    <span className="text-sm font-medium">Documentation</span>
+                  </span>
+                  <span className="block bg-opacity-50 text-sm">
+                    Start integrating lens protocol into your project
+                  </span>
+                </a>
+              </div>
+            </button>
+            <Popover.Arrow className="fill-peas" />
+          </Popover.Content>
+        </Popover.Portal>
       </Popover.Root>
+      <div ref={setContainer} />
     </div>
   )
 }
-
-const Button = styled('button', {
-  all: 'unset',
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  borderRadius: 12,
-  padding: '0 15px',
-  fontSize: 15,
-  lineHeight: 1,
-  fontWeight: 500,
-  height: 35,
-  cursor: 'pointer',
-
-  variants: {
-    variant: {
-      lime: {
-        backgroundColor: '$lime',
-        color: '$basil',
-        boxShadow: `0 2px 10px ${blackA.blackA7}`,
-        '&:hover': { boxShadow: `0 2px 10px ${blackA.blackA8}` },
-      },
-    },
-  },
-
-  defaultVariants: {
-    variant: 'lime',
-  },
-})
-
-const Portal = styled(Popover.Portal, {
-  position: 'absolute',
-  left: '50%',
-  zIndex: 10,
-  marginTop: 3,
-  width: '100%',
-  maxWidth: 300,
-  transform: 'translateX(-50%)',
-  paddingX: 4,
-  '@sm': { paddingX: 0 },
-  '@lg': { maxWidth: 600 },
-})
-
-const Content = styled(Popover.Content, {
-  backgroundColor: '$peas',
-  overflow: 'hidden',
-  borderRadius: 12,
-  boxShadow: `0 2px 10px ${blackA.blackA7}`,
-})
 
 export const Flex = styled('div', {
   display: 'flex',
@@ -184,13 +198,6 @@ export const Flex = styled('div', {
   borderRadius: 6,
   padding: 12,
   '&:hover': { boxShadow: `0 0 0 2px ${lime.lime6}` },
-})
-
-const Divider = styled('div', {
-  height: 1,
-  backgroundColor: '$basil',
-  opacity: 0.5,
-  margin: '10px 0',
 })
 
 const Footer = ({ title, description, link }: any) => (
