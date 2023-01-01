@@ -9,10 +9,12 @@ import {
   UpdateIcon,
 } from '@radix-ui/react-icons'
 import * as Popover from '@radix-ui/react-popover'
+import { useProfiles } from 'hooks'
 import { useState } from 'react'
 import styled from 'utils/styled'
 import { useAccount } from 'wagmi'
 import CreateProfileDialog from './CreateProfileDialog'
+import FollowDialog from './FollowDialog'
 import { ListItemLink } from './List'
 
 // import { Collect } from './Collect'
@@ -40,6 +42,7 @@ export function LensKitButton() {
     setPopoverOpen(false)
   }
   const [container, setContainer] = useState<any>(null)
+  const { profiles, loading, error } = useProfiles({ ownedBy: [address], limit: 1 })
 
   const adminActions = [
     {
@@ -131,22 +134,8 @@ export function LensKitButton() {
             /> */}
             <button className="bg-peas overflow-hidden rounded-lg shadow-lg">
               <div className="relative grid gap-8 p-7 lg:grid-cols-2">
-                {/* {adminActions.map((item) => (
-                  <button
-                    key={item.title}
-                    className="-m-3 flex cursor-pointer items-center rounded-lg p-2 transition duration-150 ease-in-out hover:ring-1 hover:ring-gray-500 hover:ring-offset-2"
-                    onClick={item.onClick}
-                  >
-                    <div className="text-basil flex h-10 w-10 shrink-0 items-center justify-center sm:h-12 sm:w-12">
-                      <item.icon aria-hidden="true" className="h-6 w-6" />
-                    </div>
-                    <div className="ml-4">
-                      <p className="text-basil text-sm font-medium">{item.title}</p>
-                      <p className="text-basil text-sm">{item.description}</p>
-                    </div>
-                  </button>
-                ))} */}
                 <CreateProfileDialog />
+                <FollowDialog handle={profiles && profiles[0]?.handle} />
 
                 <div className="bg-basil h-px" />
 

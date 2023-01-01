@@ -1,9 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { Cross2Icon, PlusIcon } from '@radix-ui/react-icons'
-import { keyframes } from '@stitches/react'
 import { useCreateProfile } from 'hooks'
 import { useState } from 'react'
-import styled from 'utils/styled'
 import Alert from './Alert'
 
 const item = {
@@ -33,7 +31,7 @@ const CreateProfileDialog = () => {
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay />
-        <DialogContent>
+        <Dialog.Content className="bg-peas fixed top-1/2 left-1/2 w-full max-w-md -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl p-6 shadow-xl">
           <div className="flex w-full flex-row items-center justify-between">
             <Dialog.Title className="text-basil font-xl uppercase">{item.title}</Dialog.Title>
             <Dialog.Close>
@@ -349,38 +347,10 @@ const CreateProfileDialog = () => {
             )}
           </Dialog.Description>
           {error && <Alert color="red">{error.message}</Alert>}
-        </DialogContent>
+        </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
   )
-}
-
-const contentShow = keyframes({
-  '0%': { opacity: 0, transform: 'translate(-50%, -48%) scale(.96)' },
-  '100%': { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' },
-})
-
-const DialogContent = styled(Dialog.Content, {
-  backgroundColor: '$peas',
-  borderRadius: 6,
-  boxShadow: 'hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px',
-  position: 'fixed',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '90vw',
-  maxWidth: '450px',
-  maxHeight: '85vh',
-  padding: 25,
-  animation: `${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1)`,
-  '&:focus': { outline: 'none' },
-})
-
-interface ButtonProps {
-  isLoading?: boolean
-  variant?: 'violet' | 'basil' | 'green'
-  children: React.ReactNode
-  onClick?: () => void
 }
 
 export default CreateProfileDialog

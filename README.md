@@ -29,13 +29,13 @@ const { tx, error } = useIndexedTx(txHash)
 useProfile
 
 ```tsx
-const { profile, loading, error } = useProfile('profileId')
+const { profile, loading, error } = useProfile({ profileId })
 ```
 
 useProfiles
 
 ```tsx
-const { profiles, loading, error } = useProfiles(['profileId1', 'profileId2'])
+const { profiles, loading, error } = useProfiles({ ownedBy: [address], limit: 1 })
 ```
 
 useCreateProfile

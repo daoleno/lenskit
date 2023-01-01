@@ -1,11 +1,9 @@
-import { useProfileQuery } from 'generated-gql'
+import { SingleProfileQueryRequest, useProfileQuery } from 'generated-gql'
 
-export function useProfile(profileId: string) {
+export function useProfile(query: SingleProfileQueryRequest) {
   const { data, loading, error } = useProfileQuery({
     variables: {
-      request: {
-        profileId,
-      },
+      request: query,
     },
   })
 

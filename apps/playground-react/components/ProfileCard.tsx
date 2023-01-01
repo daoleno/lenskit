@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 export default function ProfileCard() {
   const [profileId, setProfileId] = useState('0x530a')
-  const { profile, loading, error } = useProfile(profileId)
+  const { profile, loading, error } = useProfile({ profileId })
 
   useEffect(() => {
     console.log('profile', profile)
