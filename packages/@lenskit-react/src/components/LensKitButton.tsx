@@ -1,90 +1,17 @@
-import { lime } from '@radix-ui/colors'
-import {
-  ArchiveIcon,
-  AvatarIcon,
-  ChevronDownIcon,
-  CopyIcon,
-  PaperPlaneIcon,
-  PlusIcon,
-  UpdateIcon,
-} from '@radix-ui/react-icons'
+import { ChevronDownIcon } from '@radix-ui/react-icons'
 import * as Popover from '@radix-ui/react-popover'
 import { useProfiles } from 'hooks'
 import { useState } from 'react'
-import styled from 'utils/styled'
 import { useAccount } from 'wagmi'
 import CreateProfileDialog from './CreateProfileDialog'
 import FollowDialog from './FollowDialog'
-import { ListItemLink } from './List'
-
-// import { Collect } from './Collect'
-// import { CreateProfile } from './CreateProfile'
-// import { Follow } from './Follow'
-// import { Mirror } from './Mirror'
-// import { Post } from './Post'
-// import { UpdateProfile } from './UpdateProfile'
-
-const dislogOpenState = {
-  createProfile: false,
-  updateProfile: false,
-  follow: false,
-  mirror: false,
-  collect: false,
-  post: false,
-}
 
 export function LensKitButton() {
   const { address } = useAccount()
-  const [dialogOpen, setDialogOpen] = useState(dislogOpenState)
   const [popoverOpen, setPopoverOpen] = useState(false)
-  const handleOpenDialog = (dialog: keyof typeof dislogOpenState) => {
-    setDialogOpen({ ...dislogOpenState, [dialog]: true })
-    setPopoverOpen(false)
-  }
-  const [container, setContainer] = useState<any>(null)
   const { profiles, loading, error } = useProfiles({ ownedBy: [address], limit: 1 })
 
-  const adminActions = [
-    {
-      title: 'Create Profile',
-      description: 'Create a new profile',
-      icon: PlusIcon,
-      // onClick: () => handleOpenDialog('createProfile'),
-    },
-    {
-      title: 'Update Profile',
-      description: 'Update your profile',
-      icon: UpdateIcon,
-      onClick: () => setDialogOpen({ ...dislogOpenState, updateProfile: true }),
-    },
-    {
-      title: 'Post',
-      description: 'Post a new publication',
-      icon: PaperPlaneIcon,
-      onClick: () => setDialogOpen({ ...dislogOpenState, post: true }),
-    },
-  ]
-
-  const actions = [
-    {
-      title: 'Follow',
-      description: 'Follow your favorite creators.',
-      icon: AvatarIcon,
-      onClick: () => setDialogOpen({ ...dislogOpenState, follow: true }),
-    },
-    {
-      title: 'Collect',
-      description: 'Collect this post to your collection.',
-      icon: ArchiveIcon,
-      onClick: () => setDialogOpen({ ...dislogOpenState, collect: true }),
-    },
-    {
-      title: 'Mirror',
-      description: 'Re-share this post to your followers.',
-      icon: CopyIcon,
-      onClick: () => setDialogOpen({ ...dislogOpenState, mirror: true }),
-    },
-  ]
+  if (loading || error) return null
 
   const shortAddress = address ? `${address.slice(0, 4)}...${address.slice(-4)}` : ''
 
@@ -123,37 +50,11 @@ export function LensKitButton() {
             sideOffset={5}
             hideWhenDetached
           >
-            {/* <List>
-              <CreateProfileDialog />
-              <Divider />
-            </List>
-            <Footer
-              title="Documentation"
-              description="Learn more about the project"
-              link="https://docs.lens.xyz"
-            /> */}
             <button className="bg-peas overflow-hidden rounded-lg shadow-lg">
               <div className="relative grid gap-8 p-7 lg:grid-cols-2">
                 <CreateProfileDialog />
-                <FollowDialog handle={profiles && profiles[0]?.handle} />
-
+                {profiles && <FollowDialog handle={profiles[0]?.handle} />}
                 <div className="bg-basil h-px" />
-
-                {actions.map((item) => (
-                  <button
-                    key={item.title}
-                    className="-m-3 flex cursor-pointer items-center rounded-lg p-2 transition duration-150 ease-in-out hover:ring-1 hover:ring-gray-500 hover:ring-offset-2"
-                    onClick={item.onClick}
-                  >
-                    <div className="text-basil flex h-10 w-10 shrink-0 items-center justify-center sm:h-12 sm:w-12">
-                      <item.icon aria-hidden="true" className="h-6 w-6" />
-                    </div>
-                    <div className="ml-4">
-                      <p className="text-basil text-sm font-medium">{item.title}</p>
-                      <p className="text-basil text-sm">{item.description}</p>
-                    </div>
-                  </button>
-                ))}
               </div>
               <div className="text-basil bg-opacity-50 p-4">
                 <a
@@ -175,25 +76,6 @@ export function LensKitButton() {
           </Popover.Content>
         </Popover.Portal>
       </Popover.Root>
-      <div ref={setContainer} />
     </div>
   )
 }
-
-export const Flex = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  borderRadius: 6,
-  padding: 12,
-  '&:hover': { boxShadow: `0 0 0 2px ${lime.lime6}` },
-})
-
-const Footer = ({ title, description, link }: any) => (
-  <div style={{ padding: 12 }}>
-    <ListItemLink href={link} target="_blank" rel="noreferrer">
-      <span style={{ fontWeight: 500, color: '#00501E' }}>{title}</span>
-      <span style={{ color: '#00501E', marginTop: 5 }}>{description}</span>
-    </ListItemLink>
-  </div>
-)
