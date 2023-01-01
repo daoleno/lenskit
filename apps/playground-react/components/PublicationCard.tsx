@@ -16,7 +16,7 @@ import { useEffect, useState } from 'react'
 
 export function PublicationCard() {
   const [publicationId, setPublicationId] = useState('0x530a-0x07')
-  const { publication, loading, error } = usePublication(publicationId)
+  const { publication, loading, error } = usePublication({ publicationId })
   useEffect(() => {
     console.log('publication', publication)
   }, [publication])

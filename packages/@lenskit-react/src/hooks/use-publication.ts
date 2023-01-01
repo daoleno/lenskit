@@ -1,11 +1,9 @@
-import { usePublicationQuery } from 'generated-gql'
+import { PublicationQueryRequest, usePublicationQuery } from 'generated-gql'
 
-export function usePublication(publicationId: string) {
+export function usePublication(query: PublicationQueryRequest) {
   const { data, loading, error } = usePublicationQuery({
     variables: {
-      request: {
-        publicationId,
-      },
+      request: query,
     },
   })
 

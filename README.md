@@ -89,13 +89,16 @@ const { unfollow, tx, loading, error } = useUnfollow()
 usePublication
 
 ```tsx
-const { publication, loading, error } = usePublication(publicationId)
+const { publication, loading, error } = usePublication({ publicationId })
 ```
 
 usePublications
 
 ```tsx
-const { publications, loading, error } = usePublications(profileId, [PublicationTypes.Post])
+const { publications, loading, error } = usePublications({
+  profileId: profileId,
+  publicationTypes: [PublicationTypes.Post],
+})
 ```
 
 ## License

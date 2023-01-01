@@ -17,7 +17,10 @@ import { useEffect, useState } from 'react'
 
 export function PublicationsCard() {
   const [profileId, setProfileId] = useState('0x530a')
-  const { publications, loading, error } = usePublications(profileId, [PublicationTypes.Post])
+  const { publications, loading, error } = usePublications({
+    profileId: profileId,
+    publicationTypes: [PublicationTypes.Post],
+  })
   useEffect(() => {
     console.log('publications', publications)
   }, [publications])
