@@ -11,6 +11,7 @@ import { onError } from '@apollo/client/link/error'
 import { getAuthenticationToken } from 'utils/state'
 
 export interface LensKitProviderProps {
+  apiEndpoint: string
   children: React.ReactNode
 }
 
@@ -24,10 +25,6 @@ const defaultOptions: DefaultOptions = {
     errorPolicy: 'all',
   },
 }
-const httpLink = new HttpLink({
-  uri: 'https://api-mumbai.lens.dev',
-  fetch,
-})
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
@@ -54,13 +51,15 @@ const authLink = new ApolloLink((operation, forward) => {
   return forward(operation)
 })
 
-const client = new ApolloClient({
-  uri: 'https://api-mumbai.lens.dev',
-  link: from([errorLink, authLink, httpLink]),
-  cache: new InMemoryCache(),
-  defaultOptions: defaultOptions,
-})
-
-export function LensKitProvider({ children }: LensKitProviderProps) {
+export function LensKitProvider({ apiEndpoint, children }: LensKitProviderProps) {
+  const httpLink = new HttpLink({
+    uri: apiEndpoint,
+    fetch,
+  })
+  const client = new ApolloClient({
+    link: from([errorLink, authLink, httpLink]),
+    cache: new InMemoryCache(),
+    defaultOptions: defaultOptions,
+  })
   return <ApolloProvider client={client}>{children}</ApolloProvider>
 }
