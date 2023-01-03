@@ -3,6 +3,9 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  images: {
+    domains: ['lens.infura-ipfs.io'],
+  },
 }
 
 module.exports = nextConfig
