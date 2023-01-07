@@ -2,11 +2,17 @@
 
 import { LensKitProvider } from '@lenskit/react'
 import '@lenskit/react/styles.css'
+import { VT323 } from '@next/font/google'
 import { RainbowKitProvider, getDefaultWallets } from '@rainbow-me/rainbowkit'
 import '@rainbow-me/rainbowkit/styles.css'
 import { WagmiConfig, chain, configureChains, createClient } from 'wagmi'
 import { publicProvider } from 'wagmi/providers/public'
+
 import './globals.css'
+const vt333 = VT323({
+  weight: '400',
+  subsets: ['latin'],
+})
 
 const { chains, provider, webSocketProvider } = configureChains(
   [chain.polygon, chain.polygonMumbai],
