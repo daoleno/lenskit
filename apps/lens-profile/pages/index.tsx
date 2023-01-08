@@ -49,7 +49,7 @@ export default function Home() {
             lenster.lens
           </Link>
         </div>
-        <div className="mx-auto flex max-w-screen-xl space-x-3 px-4 pb-12 text-center">
+        <div className="mx-auto flex max-w-screen-xl space-x-3 px-4 pb-12 text-center sm:flex-col md:flex-row">
           <Image
             className="rounded-lg"
             src="/profile1.png"
