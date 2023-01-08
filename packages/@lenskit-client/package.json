@@ -1,0 +1,44 @@
+{
+    "name": "@lenskit/client",
+    "version": "0.0.1",
+    "description": "A lenskit client for using lens protocol api in server side",
+    "main": "./dist/index.js",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": "./dist/index.js",
+        "./styles.css": "./dist/index.css"
+    },
+    "license": "MIT",
+    "files": [
+        "README.md",
+        "dist"
+    ],
+    "type": "module",
+    "sideEffects": false,
+    "engines": {
+        "node": ">=10"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/daoleno/lenskit.git",
+        "directory": "packages/@lenskit-client"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "scripts": {
+        "prepublishOnly": "npm run build",
+        "build": "tsup src/index.ts --format esm,cjs --dts",
+        "dev": "tsup src/index.ts --format esm,cjs --watch --dts",
+        "lint": "TIMING=1 eslint \"src/**/*.ts*\"",
+        "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+    },
+    "devDependencies": {
+        "esbuild": "^0.15.12",
+        "tsup": "^6.3.0"
+    },
+    "dependencies": {
+        "@apollo/client": "^3.7.0"
+    }
+}
