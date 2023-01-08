@@ -1,0 +1,6 @@
+name = "lenskit-profile"
+main = "cloudflare/src/index.js"
+compatibility_date = "2023-01-08"
+kv_namespaces = [
+    { binding = "LENSKIT_DATAPOINTS", id = "ca359c7128db4fd59cf0ce4de5c1b9b2" }
+]

@@ -10,7 +10,7 @@ import {
 } from '@heroicons/react/24/solid'
 import { useProfiles } from '@lenskit/react'
 import Image from 'next/image'
-import Loading from './Loading'
+import Placeholder from './Placeholder'
 
 interface ProfileStatsProps {
   handle?: string
@@ -44,24 +44,13 @@ const ProfileStats: React.FC<ProfileStatsProps> = ({ handle, profileId, ownedBy 
 
   const { profiles, loading, error } = useProfiles(queryOptions)
   const profile = profiles?.[0]
-  if (loading) {
-    return (
-      <div className="fixed flex items-center justify-center">
-        <Loading />
-      </div>
-    )
-  }
 
-  if (!profile) {
-    return (
-      <div className="text-center text-gray-600">
-        <p>Profile not found</p>
-      </div>
-    )
+  if (loading || !profile) {
+    return <Placeholder message="loading ..." />
   }
 
   return (
-    <div className="mx-auto mt-10 grid w-full max-w-2xl grid-cols-1 gap-4 rounded-2xl bg-gradient-to-br from-lime-50 to-teal-100  p-7 shadow-md">
+    <div className="mx-auto grid w-full max-w-2xl grid-cols-1 gap-4 rounded-2xl bg-gradient-to-br from-lime-50 to-teal-100  p-7 shadow-md">
       <div className="col-span-1">
         <div className="flex items-center justify-between space-x-3">
           <div className="flex items-center space-x-5">
@@ -69,7 +58,8 @@ const ProfileStats: React.FC<ProfileStatsProps> = ({ handle, profileId, ownedBy 
               <div className="relative">
                 <Image
                   className="rounded-full"
-                  src={getIPFSURL(profile?.picture.original.url) || 'profile.png'}
+                  // @ts-ignore
+                  src={getIPFSURL(profile?.picture?.original.url) || 'profile.png'}
                   alt=""
                   width={64}
                   height={64}
@@ -81,7 +71,7 @@ const ProfileStats: React.FC<ProfileStatsProps> = ({ handle, profileId, ownedBy 
             </div>
             <div>
               <h1 className="text-2xl font-bold text-gray-900">{profile.name}</h1>
-              <p className="text-sm font-medium text-gray-900">{profile.bio}</p>
+              <p className="text-sm font-medium text-gray-700">{profile.bio}</p>
             </div>
           </div>
           <div className="bg-basil text-peas rounded-md px-2 py-1 text-2xl">{profile.handle}</div>
@@ -102,13 +92,14 @@ const ProfileStats: React.FC<ProfileStatsProps> = ({ handle, profileId, ownedBy 
                     </div>
                   </div>
                   <span className="ml-3 font-semibold text-teal-700">
+                    {/* @ts-ignore */}
                     {formatNumber(profile.stats[stat])}
                   </span>
                 </div>
               ))}
           </div>
           <div className="mx-auto mt-3">
-            <CircleProgressBar level="A++" />
+            <CircleProgressBar level={publicationsCountToLevel(profile.stats.totalPublications)} />
           </div>
         </div>
       </div>
@@ -198,6 +189,22 @@ function levelToProgress(level: string) {
     default:
       return 0
   }
+}
+
+function publicationsCountToLevel(count: number) {
+  if (count >= 1000) {
+    return 'S+'
+  }
+  if (count >= 500) {
+    return 'S'
+  }
+  if (count >= 100) {
+    return 'A++'
+  }
+  if (count >= 50) {
+    return 'A+'
+  }
+  return 'B+'
 }
 
 export default ProfileStats
