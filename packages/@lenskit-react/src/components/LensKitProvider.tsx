@@ -11,8 +11,8 @@ import { onError } from '@apollo/client/link/error'
 import { getAuthenticationToken } from 'utils/state'
 
 export interface LensKitProviderProps {
-  apiEndpoint: string
   children: React.ReactNode
+  apiEndpoint: string
 }
 
 const defaultOptions: DefaultOptions = {
@@ -56,7 +56,9 @@ export function LensKitProvider({ apiEndpoint, children }: LensKitProviderProps)
     uri: apiEndpoint,
     fetch,
   })
+
   const client = new ApolloClient({
+    uri: apiEndpoint,
     link: from([errorLink, authLink, httpLink]),
     cache: new InMemoryCache(),
     defaultOptions: defaultOptions,
