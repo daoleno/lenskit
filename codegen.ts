@@ -8,6 +8,9 @@ const config: CodegenConfig = {
     'packages/@lenskit-react/src/generated-gql.ts': {
       plugins: ['typescript', 'typescript-operations', 'typescript-react-apollo'],
     },
+    'packages/@lenskit-client/src/generated-gql.ts': {
+      plugins: ['typescript', 'typescript-operations', 'typescript-react-apollo'],
+    },
   },
 }
 
