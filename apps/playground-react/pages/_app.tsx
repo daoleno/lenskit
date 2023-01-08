@@ -36,7 +36,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
         <WagmiConfig client={wagmiClient}>
           <RainbowKitProvider chains={chains}>
-            <LensKitProvider>
+            <LensKitProvider apiEndpoint="https://api-mumbai.lens.dev">
               <Component {...pageProps} />
             </LensKitProvider>
           </RainbowKitProvider>
