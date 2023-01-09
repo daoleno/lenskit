@@ -9,8 +9,10 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
 export default function Profile() {
   const router = useRouter()
-  const { handle } = router.query
-  const { profiles, loading, error } = useProfiles({ handles: [handle] })
+  const handle = router.query.handle?.toString()
+  const realhandle =
+    handle == 'lensprotocol' ? handle : handle?.endsWith('.lens') ? handle : handle + '.lens'
+  const { profiles, loading, error } = useProfiles({ handles: [realhandle] })
   const profileId = profiles && profiles.length > 0 && profiles[0].id
   const { data: data2022 } = useSWR(
     profileId && `/api/datapoints?profileId=${profileId}&year=2022`,
@@ -21,27 +23,27 @@ export default function Profile() {
     fetcher
   )
 
-  if (loading) {
+  if (loading || !data2022 || !data2023) {
     return <Placeholder message="loading ..." />
   }
 
   if (!profiles || profiles.length == 0) {
     return (
-      <div className={'h-full pb-24 ' + randomGradient()}>
+      <div className={'h-full pb-24'}>
         <Placeholder message="404 | not found" />
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="mx-auto my-12 mt-12 max-w-screen-xl">
       <div
         className={
-          `mx-12 flex h-full flex-col items-center justify-center space-y-10 py-32 md:mx-auto ` +
+          `mx-auto flex h-3/5 w-full flex-col items-center justify-center space-y-10 rounded-2xl px-12 py-12 shadow-2xl md:w-3/5 md:px-3 ` +
           randomGradient()
         }
       >
-        <ProfileStats handle={handle as string} />
+        <ProfileStats handle={realhandle} />
         {data2023 && <LensCalendar profileId={profileId} year={2023} datapoints={data2023} />}
         {data2022 && <LensCalendar profileId={profileId} year={2022} datapoints={data2022} />}
       </div>

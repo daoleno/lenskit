@@ -55,7 +55,7 @@ const LensCalendar: FunctionComponent<Props> = ({
       })
       setAllPublications(pubs)
     }
-    if (dataPoints == undefined) {
+    if (dataPoints === undefined) {
       fetchData()
     }
   }, [dataPoints])

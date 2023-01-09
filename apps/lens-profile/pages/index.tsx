@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <>
       <section className="mt-32 flex flex-col space-y-6">
-        <div className="mx-auto max-w-screen-xl px-4 pb-12 text-center ">
+        <div className="mx-auto max-w-screen-xl px-4 pb-12 text-center">
           <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl">Lens Profile </h1>
           <h2 className="mt-4 text-gray-700">Explore Lens Protocol Profiles and Publications</h2>
           <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-gray-500">
@@ -49,7 +49,7 @@ export default function Home() {
             lenster.lens
           </Link>
         </div>
-        <div className="mx-auto flex max-w-screen-xl space-x-3 px-4 pb-12 text-center sm:flex-col md:flex-row">
+        <div className="mx-auto flex max-w-screen-xl flex-col space-x-3 px-4 pb-12 text-center md:flex-row">
           <Image
             className="rounded-lg"
             src="/profile1.png"
