@@ -59,14 +59,14 @@ const ProfileStats: React.FC<ProfileStatsProps> = ({ handle, profileId, ownedBy 
                 <Image
                   className="rounded-full"
                   // @ts-ignore
-                  src={getIPFSURL(profile?.picture?.original.url) || 'profile.png'}
+                  src={getIPFSURL(profile?.picture?.original?.url) || '/profile.png'}
                   alt=""
                   width={64}
                   height={64}
                   placeholder="blur"
-                  blurDataURL="profile.png"
+                  blurDataURL="/profile.png"
                 />
-                <span className="absolute inset-0 rounded-full shadow-inner" aria-hidden="true" />
+                <span className="absolute inset-0 rounded-full" aria-hidden="true" />
               </div>
             </div>
             <div>
@@ -156,7 +156,7 @@ export const CircleProgressBar: React.FC<CircleProgressBarProps> = (props) => {
 
 // url: ipfs://bafybeiewog3iscltj6uvus6iut5kerbbkyxovjhvnikrc4luy5sap6w3zu
 function getIPFSURL(url: string) {
-  if (url.startsWith('ipfs://')) {
+  if (url && url.startsWith('ipfs://')) {
     const cid = url.replace('ipfs://', '')
     return `${ipfsGateway}/ipfs/${cid}`
   }

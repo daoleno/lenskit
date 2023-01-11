@@ -23,6 +23,7 @@ export default async function handler(
   if (datapoints.ok) {
     const points = await datapoints.json()
     if (points.length > 0) {
+      console.log('fetched from cache')
       res.status(200).json(points)
       return
     }
@@ -38,6 +39,7 @@ export default async function handler(
   )
   // construct datepoints from profile
   const points = generateDataPoints(publications, year)
+  console.log('fetched from lens api')
 
   // call cloudflare worker to cache datapoints
   await fetch(cfwork, {
