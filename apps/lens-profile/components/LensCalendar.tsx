@@ -6,7 +6,7 @@ import Calendar, {
   type CalendarData,
   type Props as CalendarProps,
 } from 'react-activity-calendar'
-import generateDatePoints from '../lib/datapoints'
+import { generateDataPoints } from '../lib/datapoints'
 
 export type Year = number | 'last'
 
@@ -63,7 +63,7 @@ const LensCalendar: FunctionComponent<Props> = ({
   useEffect(() => {
     console.log('allPublications', allPublications)
     if (allPublications && allPublications.length > 0) {
-      const dataPoints = generateDatePoints(allPublications, year)
+      const dataPoints = generateDataPoints(allPublications, year)
       console.log('datePoints', dataPoints)
       setDataPoints(dataPoints)
     }
