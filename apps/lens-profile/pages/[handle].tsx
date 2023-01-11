@@ -4,8 +4,7 @@ import useSWR from 'swr'
 import LensCalendar from '../components/LensCalendar'
 import Placeholder from '../components/Placeholder'
 import ProfileStats from '../components/ProfileStats'
-
-const fetcher = (url: string) => fetch(url).then((res) => res.json())
+import { fetchDataPoints } from '../lib/datapoints'
 
 export default function Profile() {
   const router = useRouter()
@@ -14,17 +13,17 @@ export default function Profile() {
     handle == 'lensprotocol' ? handle : handle?.endsWith('.lens') ? handle : handle + '.lens'
   const { profiles, loading, error } = useProfiles({ handles: [realhandle] })
   const profileId = profiles && profiles.length > 0 && profiles[0].id
-  const { data: data2022 } = useSWR(
-    profileId && `/api/datapoints?profileId=${profileId}&year=2022`,
-    fetcher
+
+  const { data: data2022 } = useSWR(profileId ? [profileId, 2022] : null, ([profileId, year]) =>
+    fetchDataPoints(profileId, year)
   )
-  const { data: data2023 } = useSWR(
-    profileId && `/api/datapoints?profileId=${profileId}&year=2023`,
-    fetcher
+
+  const { data: data2023 } = useSWR(profileId ? [profileId, 2023] : null, ([profileId, year]) =>
+    fetchDataPoints(profileId, year)
   )
 
   if (loading || !data2022 || !data2023) {
-    return <Placeholder message="loading ..." />
+    return <Placeholder message="loading ..." description="first time loading may take a while" />
   }
 
   if (!profiles || profiles.length == 0) {

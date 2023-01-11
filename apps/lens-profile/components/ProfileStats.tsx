@@ -46,7 +46,7 @@ const ProfileStats: React.FC<ProfileStatsProps> = ({ handle, profileId, ownedBy 
   const profile = profiles?.[0]
 
   if (loading || !profile) {
-    return <Placeholder message="loading ..." />
+    return <Placeholder message="loading ... - first time loading may take a while" />
   }
 
   return (

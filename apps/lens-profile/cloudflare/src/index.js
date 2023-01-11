@@ -2,6 +2,14 @@ addEventListener('fetch', (event) => {
   event.respondWith(handleRequest(event.request))
 })
 
+const headers = {
+  'Content-Type': 'application/json',
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+  'Access-Control-Max-Age': 86400,
+}
+
 async function handleRequest(request) {
   if (request.method === 'POST') {
     // parse the request body as JSON
@@ -36,7 +44,9 @@ async function handleRequest(request) {
     }
 
     // return a response indicating success
-    return new Response('Data stored successfully')
+    return new Response(JSON.stringify({ success: true }), {
+      headers: headers,
+    })
   } else if (request.method === 'GET') {
     const { searchParams } = new URL(request.url)
 
@@ -61,7 +71,7 @@ async function handleRequest(request) {
 
     // return the data as a JSON response
     return new Response(JSON.stringify(data), {
-      headers: { 'Content-Type': 'application/json' },
+      headers: headers,
     })
   }
 }

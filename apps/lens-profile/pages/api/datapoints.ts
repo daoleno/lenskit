@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { type CalendarData } from 'react-activity-calendar'
-import generateDataPoints from '../../lib/datapoints'
+import { generateDataPoints } from '../../lib/datapoints'
 import lensClient from '../../lib/lens-client'
 
 const cfwork = 'https://lenskit-profile.daoleno.workers.dev/'
