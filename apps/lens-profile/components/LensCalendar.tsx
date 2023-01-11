@@ -80,7 +80,9 @@ const LensCalendar: FunctionComponent<Props> = ({
         <Skeleton {...props} loading />
       ) : (
         <Calendar
-          data={dataPoints}
+          data={dataPoints.sort((a, b) => {
+            return new Date(a.date).getTime() - new Date(b.date).getTime()
+          })}
           theme={DEFAULT_THEME}
           blockRadius={5}
           labels={defaultLabels}

@@ -37,6 +37,12 @@ const generateDataPoints = (publications: Array<any>, year: any) => {
         level: pubData[key] ? pubData[key].level : 0,
       }
     })
+
+  // sort yearDate by date
+  yearData.sort((a, b) => {
+    return new Date(a.date).getTime() - new Date(b.date).getTime()
+  })
+
   return yearData
 }
 
