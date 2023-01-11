@@ -22,16 +22,12 @@ export default function Profile() {
     fetchDataPoints(profileId, year)
   )
 
-  if (loading || !data2022 || !data2023) {
+  if (loading) {
     return <Placeholder message="loading ..." description="first time loading may take a while" />
-  }
-
-  if (!profiles || profiles.length == 0) {
-    return (
-      <div className={'h-full pb-24'}>
-        <Placeholder message="404 | not found" />
-      </div>
-    )
+  } else if (!profiles || profiles.length == 0) {
+    return <Placeholder message="404 | not found" />
+  } else if (!data2022 || !data2023) {
+    return <Placeholder message="loading ..." description="first time loading may take a while" />
   }
 
   return (

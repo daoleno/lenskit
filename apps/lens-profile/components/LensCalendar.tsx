@@ -61,7 +61,6 @@ const LensCalendar: FunctionComponent<Props> = ({
   }, [dataPoints])
 
   useEffect(() => {
-    console.log('allPublications', allPublications)
     if (allPublications && allPublications.length > 0) {
       const dataPoints = generateDataPoints(allPublications, year)
       console.log('datePoints', dataPoints)

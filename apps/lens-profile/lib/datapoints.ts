@@ -55,6 +55,7 @@ async function fetchDataPoints(profileId: string, year: number) {
   if (datapoints.ok) {
     const points = await datapoints.json()
     if (points.length > 0) {
+      console.log('fetched from cache')
       return points
     }
   }
@@ -69,6 +70,7 @@ async function fetchDataPoints(profileId: string, year: number) {
   )
   // construct datepoints from profile
   const points = generateDataPoints(publications, year)
+  console.log('fetched from lens api')
 
   // call cloudflare worker to cache datapoints
   await fetch(cfwork, {
