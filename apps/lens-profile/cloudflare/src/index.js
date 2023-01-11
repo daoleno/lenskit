@@ -34,9 +34,9 @@ async function handleRequest(request) {
     // store the data in the Cloudflare KV store by year
     for (const year in dataByYear) {
       const dataString = JSON.stringify(dataByYear[year])
-      let expirationTtl = 86400 // 1 month
+      let expirationTtl = 2592000 // 1 month
       if (year === '2023') {
-        expirationTtl = 3600 // 1 hour
+        expirationTtl = 86400 // 1 day
       }
       await LENSKIT_DATAPOINTS.put(`${profileId}-${year}`, dataString, {
         expirationTtl,
