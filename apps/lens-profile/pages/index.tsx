@@ -12,14 +12,13 @@ export default function Home() {
   return (
     <>
       <section className="mt-32 flex flex-col space-y-6">
-        <div className="mx-auto max-w-screen-xl px-4 pb-12 text-center">
+        <div className="mx-auto max-w-screen-xl px-4 pb-6 text-center">
           <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl">Lens Profile </h1>
           <h2 className="mt-4 text-gray-700">Explore Lens Protocol Profiles and Publications</h2>
-          <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-gray-500">
-            Lens Protocol is a composable and decentralized social graph, ready for you to build on
-            so you can focus on creating a great experience, not scaling your users. Lens Profile
-            let you explore and share your lens profile eaisly.
-          </p>
+          <div className="mx-auto mt-4 grid max-w-lg text-sm leading-relaxed text-gray-500">
+            Available ranks are S+ (&gt; 1000), S (&gt; 500), A++ (&gt; 100), A+ (&gt; 50), and B+
+            (everyone). The values are calculated by using the total publications.
+          </div>
         </div>
         <form className="mx-auto mb-0 flex" onSubmit={handleSumbit}>
           <div className="relative">
