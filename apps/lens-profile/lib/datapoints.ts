@@ -49,39 +49,44 @@ const generateDataPoints = (publications: Array<any>, year: any) => {
 const cfwork = 'https://lenskit-profile.daoleno.workers.dev/'
 
 async function fetchDataPoints(profileId: string, year: number) {
-  // get datapoints from cloudflare worker, use query params
-  let datapoints = await fetch(`${cfwork}?profileId=${profileId}&year=${year}`)
-  // if datapoints are cached(ok && not empty array), return them, otherwise continue
-  if (datapoints.ok) {
-    const points = await datapoints.json()
-    if (points.length > 0) {
-      console.log('fetched from cache')
-      return points
+  try {
+    // get datapoints from cloudflare worker, use query params
+    let datapoints = await fetch(`${cfwork}?profileId=${profileId}&year=${year}`)
+    // if datapoints are cached(ok && not empty array), return them, otherwise continue
+    if (datapoints.ok) {
+      const points = await datapoints.json()
+      if (points.length > 0) {
+        console.log('fetched from cache')
+        return points
+      }
     }
+
+    // get publications through lens-client
+    const publications = await lensClient.getAllPublications(
+      {
+        profileId,
+        limit: 50,
+      },
+      new Date(`${year}-01-01`)
+    )
+    // construct datepoints from profile
+    const points = generateDataPoints(publications, year)
+    console.log('fetched from lens api')
+
+    // call cloudflare worker to cache datapoints
+    await fetch(cfwork, {
+      method: 'POST',
+      body: JSON.stringify({
+        profileId,
+        datapoints: points,
+      }),
+    })
+
+    return points
+  } catch (error) {
+    console.log('error fetching datapoints', error)
+    return { error: 'error fetching datapoints' }
   }
-
-  // get publications through lens-client
-  const publications = await lensClient.getAllPublications(
-    {
-      profileId,
-      limit: 50,
-    },
-    new Date(`${year}-01-01`)
-  )
-  // construct datepoints from profile
-  const points = generateDataPoints(publications, year)
-  console.log('fetched from lens api')
-
-  // call cloudflare worker to cache datapoints
-  await fetch(cfwork, {
-    method: 'POST',
-    body: JSON.stringify({
-      profileId,
-      datapoints: points,
-    }),
-  })
-
-  return points
 }
 
 export { fetchDataPoints, generateDataPoints }

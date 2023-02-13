@@ -30,6 +30,17 @@ export default function Profile() {
     return <Placeholder message="loading ..." description="first time loading may take a while" />
   }
 
+  if (data2022?.error || data2023.error) {
+    return (
+      <Placeholder
+        message="error | cloudflare free tier is over"
+        description="please try another day. 
+        Thanks for your patience, 
+        will fix this soon."
+      />
+    )
+  }
+
   return (
     <div className="mx-auto my-12 mt-12 max-w-screen-xl">
       <div

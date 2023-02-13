@@ -42,13 +42,17 @@ export default async function handler(
   console.log('fetched from lens api')
 
   // call cloudflare worker to cache datapoints
-  await fetch(cfwork, {
+  const resp = await fetch(cfwork, {
     method: 'POST',
     body: JSON.stringify({
       profileId,
       datapoints: points,
     }),
   })
+  if (!resp.ok) {
+    console.log('error caching datapoints')
+    return { error: 'error caching datapoints' }
+  }
 
   // return datepoints
   res.status(200).json(points)
