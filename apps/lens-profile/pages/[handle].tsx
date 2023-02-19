@@ -4,7 +4,15 @@ import useSWR from 'swr'
 import LensCalendar from '../components/LensCalendar'
 import Placeholder from '../components/Placeholder'
 import ProfileStats from '../components/ProfileStats'
-import { fetchDataPoints } from '../lib/datapoints'
+
+const fetcher = (url: string) => fetch(url).then((r) => r.json())
+const getPublicationsSummaryAPIURL = (profileIdHex: string, year: number) => {
+  // convert hex profileId to decimal
+  const profileId = parseInt(profileIdHex, 16)
+  const startDate = `${year}-01-01`
+  const endDate = `${year}-12-31`
+  return `${process.env.NEXT_PUBLIC_POSTGREST_URL}/rpc/get_publications_summary?profile_id=${profileId}&start_date=${startDate}&end_date=${endDate}`
+}
 
 export default function Profile() {
   const router = useRouter()
@@ -14,26 +22,26 @@ export default function Profile() {
   const { profiles, loading, error } = useProfiles({ handles: [realhandle] })
   const profileId = profiles && profiles.length > 0 && profiles[0].id
 
-  const { data: data2022 } = useSWR(profileId ? [profileId, 2022] : null, ([profileId, year]) =>
-    fetchDataPoints(profileId, year)
+  const { data: data2022, error: data2022Error } = useSWR(
+    profileId ? getPublicationsSummaryAPIURL(profileId, 2022) : null,
+    fetcher
   )
 
-  const { data: data2023 } = useSWR(profileId ? [profileId, 2023] : null, ([profileId, year]) =>
-    fetchDataPoints(profileId, year)
+  const { data: data2023, error: data2023Error } = useSWR(
+    profileId ? getPublicationsSummaryAPIURL(profileId, 2023) : null,
+    fetcher
   )
 
   if (loading) {
     return <Placeholder message="loading ..." description="first time loading may take a while" />
-  } else if (!profiles || profiles.length == 0) {
+  } else if (!profileId) {
     return <Placeholder message="404 | not found" />
-  } else if (!data2022 || !data2023) {
-    return <Placeholder message="loading ..." description="first time loading may take a while" />
   }
 
-  if (data2022?.error || data2023.error) {
+  if (data2022Error || data2023Error) {
     return (
       <Placeholder
-        message="error | cloudflare free tier is over"
+        message="error | something went wrong"
         description="please try another day. 
         Thanks for your patience, 
         will fix this soon."
@@ -49,9 +57,9 @@ export default function Profile() {
           randomGradient()
         }
       >
-        <ProfileStats handle={realhandle} />
-        {data2023 && <LensCalendar profileId={profileId} year={2023} datapoints={data2023} />}
-        {data2022 && <LensCalendar profileId={profileId} year={2022} datapoints={data2022} />}
+        <ProfileStats handle={handle} />
+        {<LensCalendar datapoints={data2023} />}
+        {<LensCalendar datapoints={data2022} />}
       </div>
     </div>
   )

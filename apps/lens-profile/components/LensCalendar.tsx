@@ -1,20 +1,14 @@
-import { PublicationTypes, useLazyPublications } from '@lenskit/react'
-import { FunctionComponent, useEffect, useState } from 'react'
+import { FunctionComponent } from 'react'
 import Calendar, {
+  Day,
   Skeleton,
   Theme,
   type CalendarData,
   type Props as CalendarProps,
 } from 'react-activity-calendar'
-import { generateDataPoints } from '../lib/datapoints'
-
-export type Year = number | 'last'
 
 export interface Props extends Omit<CalendarProps, 'data'> {
-  profileId: string
-  year?: Year
-  transformTotalCount?: boolean
-  datapoints?: CalendarData
+  datapoints: CalendarData
 }
 
 export const DEFAULT_THEME: Theme = {
@@ -25,63 +19,42 @@ export const DEFAULT_THEME: Theme = {
   level0: '#ebedf0',
 }
 
-const LensCalendar: FunctionComponent<Props> = ({
-  profileId,
-  year,
-  transformTotalCount = true,
-  datapoints,
-
-  ...props
-}) => {
-  const [dataPoints, setDataPoints] = useState<CalendarData | undefined>(datapoints || undefined)
-  const [allPublications, setAllPublications] = useState<any>([])
-  const { getAllPublications, publications, loading, error } = useLazyPublications()
-
+const LensCalendar: FunctionComponent<Props> = ({ datapoints, ...props }) => {
   const defaultLabels = {
-    totalCount: `{{count}} publications in ${year === 'last' ? 'the last year' : '{{year}}'}`,
+    totalCount: '{{count}} publications in {{year}}',
     tooltip: '<strong>{{count}} publications</strong> on {{date}}',
   }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const pubs = await getAllPublications({
-        profileId: profileId,
-        publicationTypes: [
-          PublicationTypes.Post,
-          PublicationTypes.Comment,
-          PublicationTypes.Mirror,
-        ],
-        limit: 50,
+  // datapoints may only include some days of the year, so we need to fill in the rest
+  const daysInYear = (year: number) => {
+    const isLeapYear = year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)
+    return isLeapYear ? 366 : 365
+  }
+
+  const fillInMissingDays = (datapoints: CalendarData, startingDay: number): CalendarData => {
+    const year = new Date(datapoints[0].date).getFullYear()
+    const filledInDatapoints = Array(daysInYear(year))
+      .fill(null)
+      .map((_, i) => {
+        const date = new Date(year, 0, i + 1 + startingDay)
+        const dateString = date.toISOString().split('T')[0]
+        const datapoint = datapoints.find((datapoint) => datapoint.date === dateString)
+        return datapoint || ({ date: dateString, count: 0, level: 0 } as Day)
       })
-      setAllPublications(pubs)
-    }
-    if (dataPoints === undefined) {
-      fetchData()
-    }
-  }, [dataPoints])
+    return filledInDatapoints
+  }
 
-  useEffect(() => {
-    if (allPublications && allPublications.length > 0) {
-      const dataPoints = generateDataPoints(allPublications, year)
-      console.log('datePoints', dataPoints)
-      setDataPoints(dataPoints)
-    }
-  }, [allPublications, year])
-
-  if (error) {
-    return <p>Error: {error.message} </p>
+  if (datapoints) {
+    datapoints = fillInMissingDays(datapoints, 1)
   }
 
   return (
     <div className="mx-auto mt-10 grid  max-w-2xl grid-cols-1 gap-4 rounded-2xl bg-gradient-to-br from-lime-50 to-teal-100 p-7 shadow-md">
-      {/* <div className="text-center text-2xl font-bold">Lens Publications in {year}</div> */}
-      {loading || !dataPoints ? (
+      {!datapoints ? (
         <Skeleton {...props} loading />
       ) : (
         <Calendar
-          data={dataPoints.sort((a, b) => {
-            return new Date(a.date).getTime() - new Date(b.date).getTime()
-          })}
+          data={datapoints}
           theme={DEFAULT_THEME}
           blockRadius={5}
           labels={defaultLabels}

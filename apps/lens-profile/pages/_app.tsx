@@ -5,22 +5,20 @@ import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import Script from 'next/script'
 import { useEffect } from 'react'
-import { WagmiConfig, chain, configureChains, createClient } from 'wagmi'
+import { WagmiConfig, configureChains, createClient } from 'wagmi'
+import { polygon, polygonMumbai } from 'wagmi/chains'
+
 import { publicProvider } from 'wagmi/providers/public'
 
 import './globals.css'
-// const vt333 = Public_Sans({
-//   weight: '400',
-//   subsets: ['latin'],
-// })
 
 const { chains, provider, webSocketProvider } = configureChains(
-  [chain.polygon, chain.polygonMumbai],
+  [polygon, polygonMumbai],
   [publicProvider()]
 )
 
 const { connectors } = getDefaultWallets({
-  appName: 'LensKit demo',
+  appName: 'LensKit Profile',
   chains,
 })
 
