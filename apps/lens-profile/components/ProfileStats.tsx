@@ -65,6 +65,7 @@ const ProfileStats: React.FC<ProfileStatsProps> = ({ handle, profileId, ownedBy 
                   height={64}
                   placeholder="blur"
                   blurDataURL="/profile.png"
+                  unoptimized
                 />
                 <span className="absolute inset-0 rounded-full" aria-hidden="true" />
               </div>
