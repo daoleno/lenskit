@@ -74,7 +74,16 @@ const ProfileStats: React.FC<ProfileStatsProps> = ({ handle, profileId, ownedBy 
               <p className="text-sm font-medium text-gray-700">{profile.bio}</p>
             </div>
           </div>
-          <div className="bg-basil text-peas rounded-md px-2 py-1 text-2xl">{profile.handle}</div>
+          <div className="bg-basil text-peas rounded-md px-2 py-1 text-2xl">
+            <a
+              href={`https://lenster.xyz/u/${profile.name}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline"
+            >
+              {profile.handle}
+            </a>
+          </div>
         </div>
 
         <div className="ml-12 flex flex-col items-center sm:flex-row">

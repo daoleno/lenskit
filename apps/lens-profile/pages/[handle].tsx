@@ -1,6 +1,8 @@
 import { useProfiles } from '@lenskit/react'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 import useSWR from 'swr'
+import ColorPalette from '../components/ColorPalette'
 import LensCalendar from '../components/LensCalendar'
 import Placeholder from '../components/Placeholder'
 import ProfileStats from '../components/ProfileStats'
@@ -21,6 +23,9 @@ export default function Profile() {
     handle == 'lensprotocol' ? handle : handle?.endsWith('.lens') ? handle : handle + '.lens'
   const { profiles, loading, error } = useProfiles({ handles: [realhandle] })
   const profileId = profiles && profiles.length > 0 && profiles[0].id
+  const [currentColor, setCurrentColor] = useState(
+    'bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100'
+  )
 
   const { data: data2022, error: data2022Error } = useSWR(
     profileId ? getPublicationsSummaryAPIURL(profileId, 2022) : null,
@@ -50,11 +55,15 @@ export default function Profile() {
   }
 
   return (
-    <div className="mx-auto my-12 mt-12 max-w-screen-xl">
+    <div className="mx-auto my-12 mt-12 flex max-w-screen-xl justify-center space-x-12">
+      <div className="my-auto rounded-2xl bg-gray-50 py-4 px-3 shadow-md">
+        <ColorPalette currentColor={currentColor} onColorSelect={setCurrentColor} />
+      </div>
+
       <div
         className={
           `mx-auto flex h-3/5 w-full flex-col items-center justify-center space-y-10 rounded-2xl px-12 py-12 shadow-2xl md:w-3/5 md:px-3 ` +
-          randomGradient()
+          currentColor
         }
       >
         <ProfileStats handle={realhandle} />
