@@ -38,7 +38,7 @@ export default function Profile() {
     return <Placeholder message="404 | not found" />
   }
 
-  if (data2022Error || data2023Error) {
+  if (data2022Error || data2023Error || error) {
     return (
       <Placeholder
         message="error | something went wrong"
@@ -57,7 +57,7 @@ export default function Profile() {
           randomGradient()
         }
       >
-        <ProfileStats handle={handle} />
+        <ProfileStats handle={realhandle} />
         {<LensCalendar datapoints={data2023} />}
         {<LensCalendar datapoints={data2022} />}
       </div>

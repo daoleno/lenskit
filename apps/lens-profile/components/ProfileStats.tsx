@@ -10,7 +10,6 @@ import {
 } from '@heroicons/react/24/solid'
 import { useProfiles } from '@lenskit/react'
 import Image from 'next/image'
-import Placeholder from './Placeholder'
 
 interface ProfileStatsProps {
   handle?: string
@@ -46,7 +45,7 @@ const ProfileStats: React.FC<ProfileStatsProps> = ({ handle, profileId, ownedBy 
   const profile = profiles?.[0]
 
   if (loading || !profile) {
-    return <Placeholder message="loading ... - first time loading may take a while" />
+    return <></>
   }
 
   return (
