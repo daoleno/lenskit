@@ -8,6 +8,7 @@ import Calendar, {
 } from 'react-activity-calendar'
 
 export interface Props extends Omit<CalendarProps, 'data'> {
+  year: number
   datapoints: CalendarData
 }
 
@@ -19,7 +20,7 @@ export const DEFAULT_THEME: Theme = {
   level0: '#ebedf0',
 }
 
-const LensCalendar: FunctionComponent<Props> = ({ datapoints, ...props }) => {
+const LensCalendar: FunctionComponent<Props> = ({ year, datapoints, ...props }) => {
   const defaultLabels = {
     totalCount: '{{count}} publications in {{year}}',
     tooltip: '<strong>{{count}} publications</strong> on {{date}}',
@@ -31,8 +32,11 @@ const LensCalendar: FunctionComponent<Props> = ({ datapoints, ...props }) => {
     return isLeapYear ? 366 : 365
   }
 
-  const fillInMissingDays = (datapoints: CalendarData, startingDay: number): CalendarData => {
-    const year = new Date(datapoints[0].date).getFullYear()
+  const fillInMissingDays = (
+    datapoints: CalendarData,
+    year: number,
+    startingDay: number
+  ): CalendarData => {
     const filledInDatapoints = Array(daysInYear(year))
       .fill(null)
       .map((_, i) => {
@@ -45,7 +49,7 @@ const LensCalendar: FunctionComponent<Props> = ({ datapoints, ...props }) => {
   }
 
   if (datapoints) {
-    datapoints = fillInMissingDays(datapoints, 1)
+    datapoints = fillInMissingDays(datapoints, year, 1)
   }
 
   return (

@@ -58,8 +58,8 @@ export default function Profile() {
         }
       >
         <ProfileStats handle={realhandle} />
-        {<LensCalendar datapoints={data2023} />}
-        {<LensCalendar datapoints={data2022} />}
+        {<LensCalendar year={2023} datapoints={data2023} />}
+        {<LensCalendar year={2022} datapoints={data2022} />}
       </div>
     </div>
   )
