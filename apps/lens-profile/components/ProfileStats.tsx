@@ -58,8 +58,8 @@ const ProfileStats: React.FC<ProfileStatsProps> = ({ handle, profileId, ownedBy 
                 <Image
                   className="rounded-full"
                   // @ts-ignore
-                  src={getIPFSURL(profile?.picture?.original?.url) || '/profile.png'}
-                  alt=""
+                  src={getIPFSURL(profile?.picture) || '/profile.png'}
+                  alt="profile"
                   width={64}
                   height={64}
                   placeholder="blur"
@@ -164,7 +164,18 @@ export const CircleProgressBar: React.FC<CircleProgressBarProps> = (props) => {
 }
 
 // url: ipfs://bafybeiewog3iscltj6uvus6iut5kerbbkyxovjhvnikrc4luy5sap6w3zu
-function getIPFSURL(url: string) {
+function getIPFSURL(picture: any) {
+  let url = ''
+  if (!picture) {
+    return url
+  }
+  if (picture.__typename === 'MediaSet') {
+    url = picture.original.url
+  }
+  if (picture.__typename === 'NftImage') {
+    url = picture.uri
+  }
+
   if (url && url.startsWith('ipfs://')) {
     const cid = url.replace('ipfs://', '')
     return `${ipfsGateway}/ipfs/${cid}`

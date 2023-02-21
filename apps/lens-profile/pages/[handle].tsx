@@ -73,15 +73,3 @@ export default function Profile() {
     </div>
   )
 }
-
-const gradients = [
-  'bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500',
-  'bg-gradient-to-r from-green-300 via-blue-500 to-purple-600',
-  'bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400',
-  'bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100',
-  'bg-gradient-to-r from-green-200 via-green-300 to-blue-500',
-]
-
-function randomGradient() {
-  return gradients[Math.floor(Math.random() * gradients.length)]
-}
