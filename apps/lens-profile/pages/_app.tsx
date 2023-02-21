@@ -2,6 +2,7 @@ import { LensKitProvider } from '@lenskit/react'
 import '@lenskit/react/styles.css'
 import { getDefaultWallets } from '@rainbow-me/rainbowkit'
 import type { AppProps } from 'next/app'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import Script from 'next/script'
 import { useEffect } from 'react'
@@ -55,6 +56,10 @@ export default function App({ Component, pageProps }: AppProps) {
         src="//gc.zgo.at/count.js"
         strategy="afterInteractive"
       />
+
+      <Head>
+        <meta name="viewport" content="viewport-fit=cover" />
+      </Head>
 
       <WagmiConfig client={wagmiClient}>
         <LensKitProvider apiEndpoint="https://api.lens.dev">
