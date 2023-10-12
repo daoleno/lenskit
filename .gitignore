@@ -48,3 +48,10 @@ yarn-error.log*
 build/**
 dist/**
 .next/**
+
+# next.js
+.next/
+out/
+build
+
+.contentlayer
