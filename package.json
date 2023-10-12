@@ -11,9 +11,6 @@
     "packages/*"
   ],
   "scripts": {
-    "generate": "graphql-codegen",
-    "predev": "yarn generate",
-    "prebuild": "yarn generate",
     "dev": "turbo run dev",
     "build": "turbo run build",
     "start": "turbo run start",
@@ -28,11 +25,6 @@
     "trailingComma": "es5"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "2.13.5",
-    "@graphql-codegen/client-preset": "1.0.5",
-    "@graphql-codegen/typescript": "^2.7.3",
-    "@graphql-codegen/typescript-operations": "^2.5.3",
-    "@graphql-codegen/typescript-react-apollo": "^3.3.3",
     "@swc/core": "1.2.131",
     "esbuild": "^0.15.10",
     "fast-glob": "^3.2.12",
