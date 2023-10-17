@@ -17,12 +17,6 @@
     "clean": "turbo run clean",
     "publish-packages": "changeset version && changeset publish"
   },
-  "prettier": {
-    "printWidth": 100,
-    "semi": false,
-    "singleQuote": true,
-    "trailingComma": "es5"
-  },
   "packageManager": "pnpm@8.9.0",
   "devDependencies": {
     "@swc/core": "1.2.131",
@@ -41,6 +35,7 @@
   },
   "dependencies": {
     "@changesets/cli": "^2.26.0",
+    "@ianvs/prettier-plugin-sort-imports": "^4.1.1",
     "tailwindcss": "^3.3.3",
     "tailwindcss-animate": "^1.0.7"
   }

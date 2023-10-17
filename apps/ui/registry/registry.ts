@@ -368,10 +368,10 @@ const example: Registry = [
     files: ["example/card-demo.tsx"],
   },
   {
-    name: "card-with-form",
+    name: "profile-card",
     type: "components:example",
     registryDependencies: ["button", "card", "input", "label", "select"],
-    files: ["example/card-with-form.tsx"],
+    files: ["example/profile-card.tsx"],
   },
   {
     name: "checkbox-demo",

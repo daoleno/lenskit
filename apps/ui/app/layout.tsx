@@ -1,7 +1,14 @@
-import "@/styles/globals.css"
-import { Metadata } from "next"
+"use client"
 
-import { siteConfig } from "@/config/site"
+import "@/styles/globals.css"
+
+import { development, LensConfig, LensProvider } from "@lens-protocol/react-web"
+import { bindings as wagmiBindings } from "@lens-protocol/wagmi"
+import { configureChains, createConfig, WagmiConfig } from "wagmi"
+import { polygonMumbai } from "wagmi/chains"
+import { InjectedConnector } from "wagmi/connectors/injected"
+import { publicProvider } from "wagmi/providers/public"
+
 import { fontSans } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
 import { Analytics } from "@/components/analytics"
@@ -12,59 +19,27 @@ import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { Toaster as DefaultToaster } from "@/registry/default/ui/toaster"
 import { Toaster as NewYorkToaster } from "@/registry/new-york/ui/toaster"
 
-export const metadata: Metadata = {
-  title: {
-    default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
-  keywords: [
-    "Next.js",
-    "React",
-    "Tailwind CSS",
-    "Server Components",
-    "Radix UI",
-  ],
-  authors: [
-    {
-      name: "shadcn",
-      url: "https://shadcn.com",
-    },
-  ],
-  creator: "shadcn",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: siteConfig.url,
-    title: siteConfig.name,
-    description: siteConfig.description,
-    siteName: siteConfig.name,
-    images: [
-      {
-        url: siteConfig.ogImage,
-        width: 1200,
-        height: 630,
-        alt: siteConfig.name,
+const { publicClient, webSocketPublicClient } = configureChains(
+  [polygonMumbai],
+  [publicProvider()]
+)
+
+const config = createConfig({
+  autoConnect: true,
+  publicClient,
+  webSocketPublicClient,
+  connectors: [
+    new InjectedConnector({
+      options: {
+        shimDisconnect: false, // see https://github.com/wagmi-dev/wagmi/issues/2511
       },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteConfig.name,
-    description: siteConfig.description,
-    images: [siteConfig.ogImage],
-    creator: "@shadcn",
-  },
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
-  },
-  manifest: `${siteConfig.url}/site.webmanifest`,
+    }),
+  ],
+})
+
+const lensConfig: LensConfig = {
+  bindings: wagmiBindings(),
+  environment: development,
 }
 
 interface RootLayoutProps {
@@ -90,11 +65,16 @@ export default function RootLayout({ children }: RootLayoutProps) {
           >
             <div className="relative flex min-h-screen flex-col">
               <SiteHeader />
-              <div className="flex-1">{children}</div>
+              <WagmiConfig config={config}>
+                <LensProvider config={lensConfig}>
+                  <div className="flex-1">{children}</div>
+                </LensProvider>
+              </WagmiConfig>
               <SiteFooter />
             </div>
             <TailwindIndicator />
           </ThemeProvider>
+
           <Analytics />
           <NewYorkToaster />
           <DefaultToaster />
