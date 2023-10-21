@@ -13,7 +13,6 @@ import {
 } from "@/components/page-header"
 import { buttonVariants } from "@/registry/new-york/ui/button"
 import { Separator } from "@/registry/new-york/ui/separator"
-import DashboardPage from "@/app/examples/dashboard/page"
 
 export default function IndexPage() {
   return (
@@ -67,11 +66,11 @@ export default function IndexPage() {
           className="hidden dark:block"
         />
       </section>
-      <section className="hidden md:block">
+      {/* <section className="hidden md:block">
         <div className="overflow-hidden rounded-lg border bg-background shadow">
           <DashboardPage />
         </div>
-      </section>
+      </section> */}
     </div>
   )
 }

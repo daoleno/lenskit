@@ -18,7 +18,7 @@
   "dependencies": {
     "@faker-js/faker": "^7.6.0",
     "@hookform/resolvers": "^3.1.0",
-    "@lens-protocol/react-web": "2.0.0-alpha.8",
+    "@lens-protocol/react-web": "2.0.0-alpha.12",
     "@lens-protocol/wagmi": "3.0.0-alpha.5",
     "@radix-ui/react-accessible-icon": "^1.0.3",
     "@radix-ui/react-accordion": "^1.1.2",

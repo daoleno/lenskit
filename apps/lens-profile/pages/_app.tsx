@@ -1,17 +1,18 @@
-import { LensKitProvider } from '@lenskit/react'
-import '@lenskit/react/styles.css'
-import { getDefaultWallets } from '@rainbow-me/rainbowkit'
-import type { AppProps } from 'next/app'
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import Script from 'next/script'
-import { useEffect } from 'react'
-import { WagmiConfig, configureChains, createClient } from 'wagmi'
-import { polygon, polygonMumbai } from 'wagmi/chains'
+import { LensKitProvider } from "@lenskit/react"
 
-import { publicProvider } from 'wagmi/providers/public'
+import "@lenskit/react/styles.css"
 
-import './globals.css'
+import { useEffect } from "react"
+import type { AppProps } from "next/app"
+import Head from "next/head"
+import { useRouter } from "next/router"
+import Script from "next/script"
+import { getDefaultWallets } from "@rainbow-me/rainbowkit"
+import { configureChains, createClient, WagmiConfig } from "wagmi"
+import { polygon, polygonMumbai } from "wagmi/chains"
+import { publicProvider } from "wagmi/providers/public"
+
+import "./globals.css"
 
 const { chains, provider, webSocketProvider } = configureChains(
   [polygon, polygonMumbai],
@@ -19,7 +20,7 @@ const { chains, provider, webSocketProvider } = configureChains(
 )
 
 const { connectors } = getDefaultWallets({
-  appName: 'LensKit Profile',
+  appName: "LensKit Profile",
   chains,
 })
 
@@ -40,9 +41,9 @@ export default function App({ Component, pageProps }: AppProps) {
           path,
         })
       }
-      router.events.on('routeChangeComplete', handleRouteChange)
+      router.events.on("routeChangeComplete", handleRouteChange)
       return () => {
-        router.events.off('routeChangeComplete', handleRouteChange)
+        router.events.off("routeChangeComplete", handleRouteChange)
       }
     },
     [router.events]
@@ -62,7 +63,7 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
 
       <WagmiConfig client={wagmiClient}>
-        <LensKitProvider apiEndpoint="https://api.lens.dev">
+        <LensKitProvider apiEndpoint="https://api-v2-mumbai.lens.dev/">
           <Component {...pageProps} />
         </LensKitProvider>
       </WagmiConfig>
