@@ -15,4 +15,15 @@ export const Index: Record<string, any> = {
       files: ["registry/default/example/profile-card.tsx"],
     },
   },
+  "new-york": {
+    "profile-card": {
+      name: "profile-card",
+      type: "components:example",
+      // registryDependencies: ["button", "card", "input", "label", "select"],
+      component: React.lazy(
+        () => import("@/registry/new-york/example/profile-card")
+      ),
+      files: ["registry/new-york/example/profile-card.tsx"],
+    },
+  },
 }

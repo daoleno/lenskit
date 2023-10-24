@@ -12,12 +12,13 @@ component: true
 
 <TabsList>
   <TabsTrigger value="cli">CLI</TabsTrigger>
-  <TabsTrigger value="manual">Manual</TabsTrigger>
+  {/* <TabsTrigger value="manual">Manual</TabsTrigger> */}
 </TabsList>
 <TabsContent value="cli">
 
 ```bash
 npx shadcn-ui@latest add card button avatar
+# TODO: npx lenskit-ui@latest add profile-card
 ```
 
 </TabsContent>
@@ -41,31 +42,9 @@ npx shadcn-ui@latest add card button avatar
 ## Usage
 
 ```tsx
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import ProfileCard from "@components/lens/profile-card"
 ```
 
 ```tsx
-<Card>
-  <CardHeader>
-    <CardTitle>Card Title</CardTitle>
-    <CardDescription>Card Description</CardDescription>
-  </CardHeader>
-  <CardContent>
-    <p>Card Content</p>
-  </CardContent>
-  <CardFooter>
-    <p>Card Footer</p>
-  </CardFooter>
-</Card>
+<ProfileCard profileId="0xf8" />
 ```
-
-## Examples
-
-<ComponentPreview name="card-demo" />

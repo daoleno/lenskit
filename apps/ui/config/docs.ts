@@ -1,4 +1,4 @@
-import { MainNavItem, SidebarNavItem } from 'types/nav'
+import { MainNavItem, SidebarNavItem } from "types/nav"
 
 interface DocsConfig {
   mainNav: MainNavItem[]
@@ -8,153 +8,153 @@ interface DocsConfig {
 export const docsConfig: DocsConfig = {
   mainNav: [
     {
-      title: 'Documentation',
-      href: '/docs',
+      title: "Documentation",
+      href: "/docs",
     },
     {
-      title: 'Components',
-      href: '/docs/components/accordion',
+      title: "Components",
+      href: "/docs/components/accordion",
     },
     {
-      title: 'Themes',
-      href: '/themes',
+      title: "Themes",
+      href: "/themes",
     },
     {
-      title: 'Examples',
-      href: '/examples',
+      title: "Examples",
+      href: "/examples",
     },
     {
-      title: 'Figma',
-      href: '/docs/figma',
+      title: "Figma",
+      href: "/docs/figma",
     },
     {
-      title: 'GitHub',
-      href: 'https://github.com/shadcn/ui',
+      title: "GitHub",
+      href: "https://github.com/shadcn/ui",
       external: true,
     },
     {
-      title: 'Twitter',
-      href: 'https://twitter.com/shadcn',
+      title: "Twitter",
+      href: "https://twitter.com/shadcn",
       external: true,
     },
   ],
   sidebarNav: [
     {
-      title: 'Getting Started',
+      title: "Getting Started",
       items: [
         {
-          title: 'Introduction',
-          href: '/docs',
+          title: "Introduction",
+          href: "/docs",
           items: [],
         },
         {
-          title: 'Installation',
-          href: '/docs/installation',
+          title: "Installation",
+          href: "/docs/installation",
           items: [],
         },
         {
-          title: 'components.json',
-          href: '/docs/components-json',
+          title: "components.json",
+          href: "/docs/components-json",
           items: [],
         },
         {
-          title: 'Theming',
-          href: '/docs/theming',
+          title: "Theming",
+          href: "/docs/theming",
           items: [],
         },
         {
-          title: 'Dark mode',
-          href: '/docs/dark-mode',
+          title: "Dark mode",
+          href: "/docs/dark-mode",
           items: [],
         },
         {
-          title: 'CLI',
-          href: '/docs/cli',
+          title: "CLI",
+          href: "/docs/cli",
           items: [],
         },
         {
-          title: 'Typography',
-          href: '/docs/components/typography',
+          title: "Typography",
+          href: "/docs/components/typography",
           items: [],
         },
         {
-          title: 'Figma',
-          href: '/docs/figma',
+          title: "Figma",
+          href: "/docs/figma",
           items: [],
         },
         {
-          title: 'Changelog',
-          href: '/docs/changelog',
+          title: "Changelog",
+          href: "/docs/changelog",
           items: [],
         },
         {
-          title: 'About',
-          href: '/docs/about',
+          title: "About",
+          href: "/docs/about",
           items: [],
         },
       ],
     },
     {
-      title: 'Installation',
+      title: "Installation",
       items: [
         {
-          title: 'Next.js',
-          href: '/docs/installation/next',
+          title: "Next.js",
+          href: "/docs/installation/next",
           items: [],
         },
         {
-          title: 'Vite',
-          href: '/docs/installation/vite',
+          title: "Vite",
+          href: "/docs/installation/vite",
           items: [],
         },
         {
-          title: 'Remix',
-          href: '/docs/installation/remix',
+          title: "Remix",
+          href: "/docs/installation/remix",
           items: [],
         },
         {
-          title: 'Gatsby',
-          href: '/docs/installation/gatsby',
+          title: "Gatsby",
+          href: "/docs/installation/gatsby",
           items: [],
         },
         {
-          title: 'Astro',
-          href: '/docs/installation/astro',
+          title: "Astro",
+          href: "/docs/installation/astro",
           items: [],
         },
         {
-          title: 'Laravel',
-          href: '/docs/installation/laravel',
+          title: "Laravel",
+          href: "/docs/installation/laravel",
           items: [],
         },
         {
-          title: 'Manual',
-          href: '/docs/installation/manual',
+          title: "Manual",
+          href: "/docs/installation/manual",
           items: [],
         },
       ],
     },
     {
-      title: 'Dark Mode',
+      title: "Dark Mode",
       items: [
         {
-          title: 'Next.js',
-          href: '/docs/dark-mode/next',
+          title: "Next.js",
+          href: "/docs/dark-mode/next",
           items: [],
         },
         {
-          title: 'Vite',
-          href: '/docs/dark-mode/vite',
+          title: "Vite",
+          href: "/docs/dark-mode/vite",
           items: [],
         },
       ],
     },
     {
-      title: 'Components',
+      title: "Components",
       items: [
         {
-          title: 'Card',
-          href: '/docs/components/card',
+          title: "Profile Card",
+          href: "/docs/components/profile-card",
           items: [],
         },
       ],
