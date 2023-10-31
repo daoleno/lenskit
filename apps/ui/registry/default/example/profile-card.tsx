@@ -3,9 +3,8 @@
 import { useState } from "react"
 import Image from "next/image"
 import { profileId as forProfileId, useProfile } from "@lens-protocol/react-web"
-import { AvatarImage } from "@radix-ui/react-avatar"
 
-import { Avatar, AvatarFallback } from "../ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 import { Button } from "../ui/button"
 import { Card } from "../ui/card"
 

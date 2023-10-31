@@ -157,6 +157,11 @@ export const docsConfig: DocsConfig = {
           href: "/docs/components/profile-card",
           items: [],
         },
+        {
+          title: "Publication Card",
+          href: "/docs/components/publication-card",
+          items: [],
+        },
       ],
     },
   ],
