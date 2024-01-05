@@ -1,0 +1,50 @@
+---
+title: Create Post Box
+description: Create a post
+component: true
+---
+
+<ComponentPreview name="create-post-box" />
+
+## Installation
+
+<Tabs defaultValue="cli">
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  {/* <TabsTrigger value="manual">Manual</TabsTrigger> */}
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn-ui@latest add card button avatar
+# TODO: npx lenskit-ui@latest add profile-card
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="card" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</Tabs>
+
+## Usage
+
+```tsx
+import Post from "@components/lens/post"
+```
+
+```tsx
+<Post profileId="0xf8" />
+```

@@ -162,6 +162,11 @@ export const docsConfig: DocsConfig = {
           href: "/docs/components/publication-card",
           items: [],
         },
+        {
+          title: "Create Post Box",
+          href: "/docs/components/create-post-box",
+          items: [],
+        },
       ],
     },
   ],

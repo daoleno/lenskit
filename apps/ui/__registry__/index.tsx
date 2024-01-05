@@ -23,6 +23,15 @@ export const Index: Record<string, any> = {
       ),
       files: ["registry/default/example/publication-card.tsx"],
     },
+    "create-post-box": {
+      name: "create-post-box",
+      type: "components:example",
+      // registryDependencies: ["button", "card", "input", "label", "select"],
+      component: React.lazy(
+        () => import("@/registry/default/example/create-post-box")
+      ),
+      files: ["registry/default/example/create-post-box.tsx"],
+    },
   },
   "new-york": {
     "profile-card": {
